@@ -1,0 +1,86 @@
+﻿@using ChatBotWithSignalR.Areas.Admin.Models;
+@model ApplicationUserViewModel
+@{
+    ViewData["Title"] = "Create Or Edit User";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">User</h3>
+    </div>
+    <div class="card-body">
+        <form method="post" asp-action="OnPostCreateOrEdit" enctype="multipart/form-data">
+            <input type="hidden" asp-for="Id" />
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">First Name:</label>
+                        <input asp-for="FirstName" class="form-control" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Last Name:</label>
+                        <input asp-for="LastName" class="form-control" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Username:</label>
+                        <input asp-for="UserName" class="form-control" />
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Email:</label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-label">Phone Number:</label>
+                        <input asp-for="PhoneNumber" class="form-control" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+                </div>
+                @if (Model is null)
+                {
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Password:</label>
+                            <input asp-for="Password" class="form-control" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <input type="hidden" asp-for="Password" />
+                }
+            </div>
+            <div class="row p-3">
+                <button type="submit" class="btn alert-primary">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script>
+        $(document).ready(() => {
+            let id = $('#Id').val();
+            if(id){
+                $('#Username').attr('disabled', 'true');
+            }
+        });
+    </script>
+
+}

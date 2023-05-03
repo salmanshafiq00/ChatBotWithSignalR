@@ -1,0 +1,16 @@
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
+
+namespace ChatBotWithSignalR.Entity
+{
+    public class ApplicationUser : IdentityUser
+    {
+        [StringLength(100)]
+        public string FirstName { get; set; } = string.Empty;
+        [StringLength(100)]
+        public string LastName { get; set; } = string.Empty;
+        [StringLength(200)]
+        public string? ProfilePhotoUrl { get; set; }
+        public bool IsChatUser { get; set; }
+    }
+}
