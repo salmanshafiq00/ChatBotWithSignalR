@@ -3,6 +3,7 @@
 #nullable disable
 
 using System.ComponentModel.DataAnnotations;
+using ChatBotWithSignalR.Interface;
 using ChatBotWithSignalR.Service;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -17,11 +18,13 @@ namespace ChatBotWithSignalR.Areas.Identity.Pages.Account
     {
         private readonly CustomSignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly IToastNotification _toast;
 
-        public LoginModel(CustomSignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(CustomSignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger, IToastNotification toast)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _toast = toast;
         }
 
         /// <summary>
@@ -112,6 +115,7 @@ namespace ChatBotWithSignalR.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+                    await _toast.ToastSuccess("Welcome to SignalR ChatBot!");
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)

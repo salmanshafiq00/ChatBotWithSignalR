@@ -113,6 +113,7 @@ namespace ChatBotWithSignalR.Areas.Admin.Controllers
                     user.PhoneNumber = model.PhoneNumber.Trim();
                     user.IsChatUser = model.IsChatUser;
                     user.EmailConfirmed = true;
+                    await _userManager.AddPasswordAsync(user, model.Password);
                     var result = await _userManager.CreateAsync(user, model.Password);
                     if (result.Succeeded)
                     {
@@ -144,6 +145,32 @@ namespace ChatBotWithSignalR.Areas.Admin.Controllers
                     await _toast.ToastError($"{result.Errors}");
                     return RedirectToAction(nameof(Index));
                 }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> OnPostUserDelete(string userId)
+        {
+            try
+            {
+                var user = await _userManager.FindByIdAsync(userId);
+                if (user == null)
+                {
+                    await _toast.ToastError("User Not Found");
+                    return RedirectToAction(nameof(Index));
+                }
+                var result = await _userManager.DeleteAsync(user);
+                if (result.Succeeded)
+                {
+                    await _toast.ToastSuccess($"{user.UserName} Deleted Successfully");
+                    return RedirectToAction(nameof(Index));
+                }
+                await _toast.ToastError($"{result.Errors}");
+                return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {

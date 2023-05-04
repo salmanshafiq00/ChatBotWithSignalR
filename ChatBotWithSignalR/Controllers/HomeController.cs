@@ -18,7 +18,6 @@ namespace ChatBotWithSignalR.Controllers
 
         public async Task<IActionResult> Index()
         {
-            await _toast.ToastSuccess("Welcome to SignalR ChatBot!");
             return View();
         }
 
