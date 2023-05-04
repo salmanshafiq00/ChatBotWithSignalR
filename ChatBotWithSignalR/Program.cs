@@ -1,5 +1,4 @@
 global using ChatBotWithSignalR.Entity;
-using ChatBotWithSignalR.Constant;
 using ChatBotWithSignalR.Data;
 using ChatBotWithSignalR.Interface;
 using ChatBotWithSignalR.Permission;
@@ -19,13 +18,17 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultUI();
+    .AddDefaultUI()
+    .AddDefaultTokenProviders()
+    .AddSignInManager<CustomSignInManager<ApplicationUser>>();
 
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
 builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
 
+
+// When manully create policy for every permission.
 //builder.Services.AddAuthorization(options =>
 //{
 //    options.AddPolicy(Permissions.ApplicationUsers.Delete, builder =>

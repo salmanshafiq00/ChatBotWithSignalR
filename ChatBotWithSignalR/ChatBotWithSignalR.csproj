@@ -16,4 +16,12 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.13" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Chat\Controllers\" />
+    <Folder Include="Areas\Chat\Data\" />
+    <Folder Include="Areas\Chat\Models\" />
+    <Folder Include="Areas\Chat\Views\" />
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+
 </Project>
