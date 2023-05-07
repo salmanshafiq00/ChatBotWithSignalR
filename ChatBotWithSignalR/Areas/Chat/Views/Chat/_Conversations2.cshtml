@@ -1,0 +1,454 @@
+﻿@using ChatBotWithSignalR.Areas.Chat.Models;
+@using System.Security.Claims;
+@inject UserManager<ApplicationUser> userMangager;
+@model ConversationViewModel
+@{
+}
+<style>
+    .ownMessage {
+        background-color: #007bff;
+        padding: 10px 0px;
+        color: wheat;
+        margin-top: 5px;
+        border-radius: 8px;
+        min-width: 57%;
+        max-width: 75%;
+        display: inline-block;
+        float: right;
+        vertical-align: top;
+    }
+
+        .ownMessage pre {
+            color: #fff;
+            border-radius: 10px;
+            font-size: 14px;
+            margin: 0;
+            padding-left: 5px;
+            padding-right: 5px;
+            width: 100%;
+        }
+
+    .time {
+        font-size: 10px;
+        font-weight: 600;
+        color: silver;
+        float: right;
+        margin-right: 8px;
+    }
+
+    .otherMessage {
+        background-color: #f9f6f6;
+        padding: 10px 0px;
+        color: black;
+        margin-top: 5px;
+        margin-left: 5px;
+        border-radius: 8px;
+        min-width: 50%;
+        max-width: 75%;
+        float: left;
+    }
+
+        .otherMessage pre {
+            color: #232324;
+            border-radius: 10px;
+            font-size: 14px;
+            margin: 0;
+            padding-left: 5px;
+            padding-right: 5px;
+            width: 100%;
+        }
+
+    #toUserContainer {
+        height: 50px;
+        padding: 10px 0;
+        margin-left: 0px;
+        margin-right: 0px;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    #conversationContainer {
+        max-height: 400px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        margin-right: 0px;
+    }
+
+        #conversationContainer::-webkit-scrollbar {
+            width: 11px;
+        }
+
+    #conversationContainer {
+        scrollbar-width: thin;
+        scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+    }
+
+        #conversationContainer::-webkit-scrollbar-track {
+            background: var(--scrollbarBG);
+        }
+
+        #conversationContainer::-webkit-scrollbar-thumb {
+            background-color: var(--thumbBG);
+            border-radius: 6px;
+            border: 3px solid var(--scrollbarBG);
+        }
+</style>
+
+@*<div id="toUserContainer" class="row col-md-12 bg-white border-bottom-2">
+    <div>
+        @if (!string.IsNullOrEmpty(Model.ToUserName))
+        {
+            <span style="margin-right: 5px"><i class="fas fa-user" style="font-size: 20px"></i> </span>
+            <h3 id="conUserTitle" style="display: inline">@Model.ToUserName</h3>
+        }
+        else if (!string.IsNullOrEmpty(Model.GroupName))
+        {
+            <span style="margin-right: 5px"><i class="fas fa-users" style="font-size: 20px"></i> </span>
+            <h3 id="conGroupTitle" style="display: inline">@Model.GroupName</h3>
+            <button style="padding: 0;border: none;background: none; margin-left: 20px" onclick="getCreateOrUpdateGroupModal(@Model.GroupId, `Edit Group Name`)">
+                <i class="fa fa-pencil" aria-hidden="true" style="font-size:12px;"></i>
+            </button>
+            if (Model.GroupAuthorId.Equals(Model.LoginUserId))
+            {
+                <button style="padding: 0;border: none;background: none; margin-left: 10px" onclick="deleteGroup(@Model.GroupId)">
+                    <i class="fa fa-trash" aria-hidden="true" style="font-size:12px;"></i>
+                </button>
+            }
+        }
+    </div>
+</div>*@
+<div class="row" id="conversationContainer">
+
+    <div class="selected-user">
+        <span>To: <span class="name">Emily Russell</span></span>
+    </div>
+    <div class="chat-container">
+        <ul class="chat-box chatContainerScroll">
+
+            @if (Model.Conversations.Any())
+            {
+                @foreach (var conversation in Model.Conversations)
+                {
+                    if (conversation.FromUserId != Model.LoginUserId)
+                    {
+
+                        <li class="chat-left">
+                            <div class="chat-avatar">
+                                @*<img src="@(Model.ToUserProfilePhotoUrl ?? "/images/no-image.png")" alt="Retail Admin">*@
+                                <div class="chat-name">@conversation.ToUserName</div>
+                            </div>
+                            <div class="chat-text">
+                                <pre>@conversation.TextMessage.Replace("<br/>",Environment.NewLine)</pre>
+                            </div>
+                            <div class="chat-hour">@conversation.SendDate.ToShortTimeString() <span class="fa fa-check-circle"></span></div>
+                        </li>
+
+                    }
+                    else
+                    {
+                        <li class="chat-right">
+                            <div class="chat-hour">@conversation.SendDate.ToShortTimeString() <span class="fa fa-check-circle"></span></div>
+                            <div class="chat-text">
+                                <pre>@conversation.TextMessage.Replace("<br/>",Environment.NewLine)</pre>
+                            </div>
+                            <div class="chat-avatar">
+                                @*<img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">*@
+                                <div class="chat-name">@conversation.ToUserName</div>
+                            </div>
+                        </li>
+                    }
+
+                }
+            }
+           @* <li class="chat-left">
+                <div class="chat-avatar">
+                    <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
+                    <div class="chat-name">Russell</div>
+                </div>
+                <div class="chat-text">
+                    Hello, I'm Russell.
+                    <br>How can I help you today?
+                </div>
+                <div class="chat-hour">08:55 <span class="fa fa-check-circle"></span></div>
+            </li>
+            <li class="chat-right">
+                <div class="chat-hour">08:56 <span class="fa fa-check-circle"></span></div>
+                <div class="chat-text">
+                    Hi, Russell
+                    <br> I need more information about Developer Plan.
+                </div>
+                <div class="chat-avatar">
+                    <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
+                    <div class="chat-name">Sam</div>
+                </div>
+            </li>
+            <li class="chat-left">
+                <div class="chat-avatar">
+                    <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
+                    <div class="chat-name">Russell</div>
+                </div>
+                <div class="chat-text">
+                    Are we meeting today?
+                    <br>Project has been already finished and I have results to show you.
+                </div>
+                <div class="chat-hour">08:57 <span class="fa fa-check-circle"></span></div>
+            </li>
+            <li class="chat-right">
+                <div class="chat-hour">08:59 <span class="fa fa-check-circle"></span></div>
+                <div class="chat-text">
+                    Well I am not sure.
+                    <br>I have results to show you.
+                </div>
+                <div class="chat-avatar">
+                    <img src="https://www.bootdey.com/img/Content/avatar/avatar5.png" alt="Retail Admin">
+                    <div class="chat-name">Joyse</div>
+                </div>
+            </li>
+            <li class="chat-left">
+                <div class="chat-avatar">
+                    <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
+                    <div class="chat-name">Russell</div>
+                </div>
+                <div class="chat-text">
+                    The rest of the team is not here yet.
+                    <br>Maybe in an hour or so?
+                </div>
+                <div class="chat-hour">08:57 <span class="fa fa-check-circle"></span></div>
+            </li>
+            <li class="chat-right">
+                <div class="chat-hour">08:59 <span class="fa fa-check-circle"></span></div>
+                <div class="chat-text">Have you faced any problems at the last phase of the project?</div>
+                <div class="chat-avatar">
+                    <img src="https://www.bootdey.com/img/Content/avatar/avatar4.png" alt="Retail Admin">
+                    <div class="chat-name">Jin</div>
+                </div>
+            </li>
+            <li class="chat-left">
+                <div class="chat-avatar">
+                    <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
+                    <div class="chat-name">Russell</div>
+                </div>
+                <div class="chat-text">
+                    Actually everything was fine.
+                    <br>I'm very excited to show this to our team.
+                </div>
+                <div class="chat-hour">07:00 <span class="fa fa-check-circle"></span></div>
+            </li>
+            <li class="chat-left">
+                <div class="chat-avatar">
+                    <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
+                    <div class="chat-name">Russell</div>
+                </div>
+                <div class="chat-text">
+                    Hello, I'm Russell.
+                    <br>How can I help you today?
+                </div>
+                <div class="chat-hour">08:55 <span class="fa fa-check-circle"></span></div>
+            </li>
+            <li class="chat-right">
+                <div class="chat-hour">08:56 <span class="fa fa-check-circle"></span></div>
+                <div class="chat-text">
+                    Hi, Russell
+                    <br> I need more information about Developer Plan.
+                </div>
+                <div class="chat-avatar">
+                    <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
+                    <div class="chat-name">Sam</div>
+                </div>
+            </li>
+            <li class="chat-left">
+                <div class="chat-avatar">
+                    <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
+                    <div class="chat-name">Russell</div>
+                </div>
+                <div class="chat-text">
+                    Are we meeting today?
+                    <br>Project has been already finished and I have results to show you.
+                </div>
+                <div class="chat-hour">08:57 <span class="fa fa-check-circle"></span></div>
+            </li>
+            <li class="chat-right">
+                <div class="chat-hour">08:59 <span class="fa fa-check-circle"></span></div>
+                <div class="chat-text">
+                    Well I am not sure.
+                    <br>I have results to show you.
+                </div>
+                <div class="chat-avatar">
+                    <img src="https://www.bootdey.com/img/Content/avatar/avatar5.png" alt="Retail Admin">
+                    <div class="chat-name">Joyse</div>
+                </div>
+            </li>
+            <li class="chat-left">
+                <div class="chat-avatar">
+                    <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
+                    <div class="chat-name">Russell</div>
+                </div>
+                <div class="chat-text">
+                    The rest of the team is not here yet.
+                    <br>Maybe in an hour or so?
+                </div>
+                <div class="chat-hour">08:57 <span class="fa fa-check-circle"></span></div>
+            </li>
+            <li class="chat-right">
+                <div class="chat-hour">08:59 <span class="fa fa-check-circle"></span></div>
+                <div class="chat-text">Have you faced any problems at the last phase of the project?</div>
+                <div class="chat-avatar">
+                    <img src="https://www.bootdey.com/img/Content/avatar/avatar4.png" alt="Retail Admin">
+                    <div class="chat-name">Jin</div>
+                </div>
+            </li>
+            <li class="chat-left">
+                <div class="chat-avatar">
+                    <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
+                    <div class="chat-name">Russell</div>
+                </div>
+                <div class="chat-text">
+                    Actually everything was fine.
+                    <br>I'm very excited to show this to our team.
+                </div>
+                <div class="chat-hour">07:00 <span class="fa fa-check-circle"></span></div>
+            </li>
+            <li class="chat-left">
+                <div class="chat-avatar">
+                    <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
+                    <div class="chat-name">Russell</div>
+                </div>
+                <div class="chat-text">
+                    Hello, I'm Russell.
+                    <br>How can I help you today?
+                </div>
+                <div class="chat-hour">08:55 <span class="fa fa-check-circle"></span></div>
+            </li>
+            <li class="chat-right">
+                <div class="chat-hour">08:56 <span class="fa fa-check-circle"></span></div>
+                <div class="chat-text">
+                    Hi, Russell
+                    <br> I need more information about Developer Plan.
+                </div>
+                <div class="chat-avatar">
+                    <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
+                    <div class="chat-name">Sam</div>
+                </div>
+            </li>
+            <li class="chat-left">
+                <div class="chat-avatar">
+                    <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
+                    <div class="chat-name">Russell</div>
+                </div>
+                <div class="chat-text">
+                    Are we meeting today?
+                    <br>Project has been already finished and I have results to show you.
+                </div>
+                <div class="chat-hour">08:57 <span class="fa fa-check-circle"></span></div>
+            </li>
+            <li class="chat-right">
+                <div class="chat-hour">08:59 <span class="fa fa-check-circle"></span></div>
+                <div class="chat-text">
+                    Well I am not sure.
+                    <br>I have results to show you.
+                </div>
+                <div class="chat-avatar">
+                    <img src="https://www.bootdey.com/img/Content/avatar/avatar5.png" alt="Retail Admin">
+                    <div class="chat-name">Joyse</div>
+                </div>
+            </li>
+            <li class="chat-left">
+                <div class="chat-avatar">
+                    <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
+                    <div class="chat-name">Russell</div>
+                </div>
+                <div class="chat-text">
+                    The rest of the team is not here yet.
+                    <br>Maybe in an hour or so?
+                </div>
+                <div class="chat-hour">08:57 <span class="fa fa-check-circle"></span></div>
+            </li>
+            <li class="chat-right">
+                <div class="chat-hour">08:59 <span class="fa fa-check-circle"></span></div>
+                <div class="chat-text">Have you faced any problems at the last phase of the project?</div>
+                <div class="chat-avatar">
+                    <img src="https://www.bootdey.com/img/Content/avatar/avatar4.png" alt="Retail Admin">
+                    <div class="chat-name">Jin</div>
+                </div>
+            </li>
+            <li class="chat-left">
+                <div class="chat-avatar">
+                    <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
+                    <div class="chat-name">Russell</div>
+                </div>
+                <div class="chat-text">
+                    Actually everything was fine.
+                    <br>I'm very excited to show this to our team.
+                </div>
+                <div class="chat-hour">07:00 <span class="fa fa-check-circle"></span></div>
+            </li>
+            <li class="chat-left">
+                <div class="chat-avatar">
+                    <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
+                    <div class="chat-name">Russell</div>
+                </div>
+                <div class="chat-text">
+                    Are we meeting today?
+                    <br>Project has been already finished and I have results to show you.
+                </div>
+                <div class="chat-hour">08:57 <span class="fa fa-check-circle"></span></div>
+            </li>
+            <li class="chat-right">
+                <div class="chat-hour">08:59 <span class="fa fa-check-circle"></span></div>
+                <div class="chat-text">
+                    Well I am not sure.
+                    <br>I have results to show you.
+                </div>
+                <div class="chat-avatar">
+                    <img src="https://www.bootdey.com/img/Content/avatar/avatar5.png" alt="Retail Admin">
+                    <div class="chat-name">Joyse</div>
+                </div>
+            </li>
+            <li class="chat-left">
+                <div class="chat-avatar">
+                    <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
+                    <div class="chat-name">Russell</div>
+                </div>
+                <div class="chat-text">
+                    The rest of the team is not here yet.
+                    <br>Maybe in an hour or so?
+                </div>
+                <div class="chat-hour">08:57 <span class="fa fa-check-circle"></span></div>
+            </li>
+            <li class="chat-right">
+                <div class="chat-hour">08:59 <span class="fa fa-check-circle"></span></div>
+                <div class="chat-text">Have you faced any problems at the last phase of the project?</div>
+                <div class="chat-avatar">
+                    <img src="https://www.bootdey.com/img/Content/avatar/avatar4.png" alt="Retail Admin">
+                    <div class="chat-name">Jin</div>
+                </div>
+            </li>
+            <li class="chat-left">
+                <div class="chat-avatar">
+                    <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
+                    <div class="chat-name">Russell</div>
+                </div>
+                <div class="chat-text">
+                    Actually everything was fine.
+                    <br>I'm very excited to show this to our team.
+                </div>
+                <div class="chat-hour">07:00 <span class="fa fa-check-circle"></span></div>
+            </li>*@
+        </ul>
+        <div class="input-group mt-3 mb-2" style="position:fixed; bottom: 20%">
+            <textarea class="form-control" id="msgContent" style="max-height: 100px; resize: none;" rows="1" data-min-rows='3' placeholder="Type a message" autofocus></textarea>
+            <button type="submit" class="btn btn-outline-secondary" id="sendBtn" onclick="sendMessage('@Model.LoginUserId')">
+                <i class="fa fa-paper-plane" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts{
+    <script>
+        //$(document).ready(() => {
+        //    scrollToBottom();
+        //});
+    </script>
+}
+

@@ -25,7 +25,7 @@
                     @foreach (var user in Model)
                     {
                         <tr>
-                            <td>@user.ProfilePhotoUrl</td>
+                            <td><img src="@(user.ProfilePhotoUrl ?? "/images/no-image.png")" class="img-thumbnail" width="50" height="50" style="vertical-align: central" asp-append-version="true" /></td>
                             <td>@user.FirstName</td>
                             <td>@user.LastName</td>
                             <td>@user.UserName</td>

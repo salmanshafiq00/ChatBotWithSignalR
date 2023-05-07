@@ -40,6 +40,26 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVXNlclxfVmlld0FsbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Programming/Projects/ChatBotWithSignalR/ChatBotWithSignalR/Areas/Chat/Views/Chat/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ2hhdFxWaWV3c1xDaGF0XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Programming/Projects/ChatBotWithSignalR/ChatBotWithSignalR/Areas/Chat/Views/Chat/Index2.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ2hhdFxWaWV3c1xDaGF0XEluZGV4Mi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Programming/Projects/ChatBotWithSignalR/ChatBotWithSignalR/Areas/Chat/Views/Chat/Index3.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ2hhdFxWaWV3c1xDaGF0XEluZGV4My5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Programming/Projects/ChatBotWithSignalR/ChatBotWithSignalR/Areas/Chat/Views/Chat/_Conversations.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ2hhdFxWaWV3c1xDaGF0XF9Db252ZXJzYXRpb25zLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Programming/Projects/ChatBotWithSignalR/ChatBotWithSignalR/Areas/Chat/Views/Chat/_Conversations2.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ2hhdFxWaWV3c1xDaGF0XF9Db252ZXJzYXRpb25zMi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Programming/Projects/ChatBotWithSignalR/ChatBotWithSignalR/Areas/Identity/Pages/Account/AccessDenied.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxBY2Nlc3NEZW5pZWQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

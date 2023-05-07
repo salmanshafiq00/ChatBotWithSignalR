@@ -11,7 +11,10 @@ namespace ChatBotWithSignalR.Data
             : base(options)
         {
         }
-
+        public DbSet<Conversation> Conversations { get; set; }
+        public DbSet<ChatGroup> ChatGroups { get; set; }
+        public DbSet<UserGroup> UserGroups { get; set; }
+        public DbSet<ConversationFile> ConversationFiles { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

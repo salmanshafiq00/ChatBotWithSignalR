@@ -1,0 +1,98 @@
+﻿@using ChatBotWithSignalR.Areas.Chat.Models;
+@model ChatUserGroupViewModel
+<link href="~/css/chat.css" rel="stylesheet" />
+<a asp-action="Index2">index2</a>
+<div class="container">
+
+    <!-- Page header end -->
+    <!-- Content wrapper start -->
+    <div class="content-wrapper">
+
+        <!-- Row start -->
+        <div class="row gutters">
+
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+                <div class="card m-0">
+
+                    <!-- Row start -->
+                    <div class="row no-gutters">
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-3 col-3">
+                            <div class="users-container">
+                                <div class="chat-search-box">
+                                    <div class="input-group">
+                                        <input class="form-control" placeholder="Search">
+                                        <div class="input-group-btn">
+                                            <button type="button" class="btn btn-info">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <ul class="users">
+                                    @if (Model.ChatUsers.FirstOrDefault(p => p.Id == Model.LoginUserId) is not null)
+                                    {
+                                        var me =  Model.ChatUsers.FirstOrDefault(p => p.Id == Model.LoginUserId);
+                                        <li class="person">
+                                            <a href="javascript:void(0)" onclick="loadConversions('@Model.LoginUserId')">
+                                                <div class="user">
+                                                    <img src="@(Model.ChatUsers.FirstOrDefault(p => p.Id == Model.LoginUserId).ProfilePhotoUrl ?? "/images/no-image.png")" alt="Retail Admin">
+                                                    <span class="status busy"></span>
+                                                </div>
+                                                <p class="name-time">
+                                                    <span class="name">@Model.ChatUsers.FirstOrDefault(p => p.Id == Model.LoginUserId).FullName</span>
+                                                    @*<span class="time">15/02/2019</span>*@
+                                                </p>
+                                            </a>
+
+                                        </li>
+                                    }
+                                    @foreach (var user in Model.ChatUsers.Where(p => p.Id != Model.LoginUserId))
+                                    {
+
+                                        <li class="person">
+                                            <a href="javascript:void(0)" onclick="loadConversions('@user.Id')">
+                                                <div class="user">
+                                                    <img src="@(user.ProfilePhotoUrl ?? "/images/no-image.png")" alt="Retail Admin">
+                                                    <span class="status busy"></span>
+                                                </div>
+                                                <p class="name-time">
+                                                    <span class="name">@user.FullName</span>
+                                                    @*<span class="time">15/02/2019</span>*@
+                                                </p>
+                                            </a>
+                                            <span class="badge bg-danger ml-2" id="notify_@user.Id">@(user.UnreadMessageNo == 0 ? "" : user.UnreadMessageNo.ToString())</span>
+                                        </li>
+
+                                    }
+
+                                    <li class="person" data-chat="person5">
+                                        <a href="#">
+
+                                            <div class="user">
+                                                <img src="https://www.bootdey.com/img/Content/avatar/avatar5.png" alt="Retail Admin">
+                                                <span class="status away"></span>
+                                            </div>
+                                            <p class="name-time">
+                                                <span class="name">Michael Jordan</span>
+                                                <span class="time">05/02/2019</span>
+                                            </p>
+                                        </a>
+      
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-9 col-9" id="loadConversions">
+                        </div>
+                    </div>
+                    <!-- Row end -->
+                </div>
+            </div>
+        </div>
+        <!-- Row end -->
+    </div>
+    <!-- Content wrapper end -->
+</div>
+

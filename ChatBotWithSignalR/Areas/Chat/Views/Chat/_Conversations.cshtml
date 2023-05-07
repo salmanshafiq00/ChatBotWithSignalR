@@ -1,0 +1,169 @@
+﻿@using ChatBotWithSignalR.Areas.Chat.Models;
+@using System.Security.Claims;
+@inject UserManager<ApplicationUser> userMangager;
+@model ConversationViewModel
+@{
+}
+<style>
+    .ownMessage {
+        background-color: #007bff;
+        padding: 3px 0px;
+        color: wheat;
+        margin-top: 5px;
+        border-radius: 8px;
+        min-width: 57%;
+        max-width: 75%;
+        display: inline-block;
+        float: right;
+        vertical-align: top;
+    }
+
+        .ownMessage pre {
+            color: #fff;
+            border-radius: 10px;
+            font-size: 14px;
+            margin: 0;
+            padding-left: 5px;
+            padding-right: 5px;
+            width: 100%;
+        }
+
+    .time {
+        font-size: 10px;
+        font-weight: 600;
+        color: silver;
+        float: right;
+        margin-right: 8px;
+    }
+
+    .otherMessage {
+        background-color: #f9f6f6;
+        padding: 5px 0px;
+        color: black;
+        margin-left: 5px;
+        margin-top: 5px;
+        border-radius: 8px;
+        min-width: 50%;
+        max-width: 75%;
+        float: left;
+
+    }
+
+        .otherMessage pre {
+            color: #232324;
+            border-radius: 10px;
+            font-size: 14px;
+            margin: 0;
+            padding-left: 5px;
+            padding-right: 5px;
+            width: 100%;
+        }
+
+    #toUserContainer {
+        height: 50px;
+        padding: 10px 0;
+        margin-left: 0px;
+        margin-right: 0px;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    #conversationContainer {
+        max-height: 400px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        margin-right: 0px;
+    }
+
+        #conversationContainer::-webkit-scrollbar {
+            width: 11px;
+        }
+
+    #conversationContainer {
+        scrollbar-width: thin;
+        scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+    }
+
+        #conversationContainer::-webkit-scrollbar-track {
+            background: var(--scrollbarBG);
+        }
+
+        #conversationContainer::-webkit-scrollbar-thumb {
+            background-color: var(--thumbBG);
+            border-radius: 6px;
+            border: 3px solid var(--scrollbarBG);
+        }
+
+    #toUserHeader{
+        margin: 0px 0px 0px 5px;
+        font-size: 10px;
+        font-weight: 600;
+        color: dodgerblue;
+    }
+</style>
+
+<div id="toUserContainer" class="row col-md-12 bg-white border-bottom-2">
+    <div>
+        @if (!string.IsNullOrEmpty(Model.ToUserName))
+        {
+            @*<span style="margin-right: 5px"><i class="fas fa-user" style="font-size: 20px"></i> </span>*@
+            <img src="@(Model.ToUserProfilePhotoUrl ?? "/images/no-images.png")" alt="avatar" style="width: 35px; border-radius: 50%; margin-top: -11px">
+            <h3 id="conUserTitle" style="display: inline">@Model.ToUserName</h3>
+            <span id="toUserIdFromHeader" class="d-none">@Model.ToUserId</span>
+        }
+        else if (!string.IsNullOrEmpty(Model.GroupName))
+        {
+            <span style="margin-right: 5px"><i class="fas fa-users" style="font-size: 20px"></i> </span>
+            <h3 id="conGroupTitle" style="display: inline">@Model.GroupName</h3>
+            <button style="padding: 0;border: none;background: none; margin-left: 20px" onclick="getCreateOrUpdateGroupModal(@Model.GroupId, `Edit Group Name`)">
+                <i class="fa fa-pencil" aria-hidden="true" style="font-size:12px;"></i>
+            </button>
+            if (Model.GroupAuthorId.Equals(Model.LoginUserId))
+            {
+                <button style="padding: 0;border: none;background: none; margin-left: 10px" onclick="deleteGroup(@Model.GroupId)">
+                    <i class="fa fa-trash" aria-hidden="true" style="font-size:12px;"></i>
+                </button>
+            }
+            <span id="toGroupIdFromHeader" class="d-none">@Model.GroupId</span>
+        }
+    </div>
+</div>
+<div class="row" id="conversationContainer">
+
+    <div id="messageList">
+        @if (Model.Conversations.Any())
+        {
+            @foreach (var conversation in Model.Conversations)
+            {
+                if (conversation.FromUserId == Model.LoginUserId)
+                {
+                    <div class="ownMessage">
+                        <pre>@conversation.TextMessage.Replace("<br/>",Environment.NewLine)</pre>
+                        <span class="time">@conversation.SendDate.ToShortTimeString()</span>
+                    </div>
+                }
+                else
+                {
+                    <div class="otherMessage">
+                        <p id="toUserHeader">@conversation.FromUserName</p>
+                        <pre>@conversation.TextMessage.Replace("<br/>",Environment.NewLine)</pre>
+                        <span class="time">@conversation.SendDate.ToShortTimeString()</span>
+                    </div>
+                }
+            }
+        }
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(() => {
+            scrollToBottom();
+            $('#ToUserName').val('@Model.ToUserName');
+        });
+    </script>
+}
+<script>
+    $('#ToUserName').val('@Model.ToUserName');
+</script>
+
+

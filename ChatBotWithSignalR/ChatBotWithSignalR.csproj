@@ -14,14 +14,15 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.16" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.16" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.13" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.0.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Chat\Controllers\" />
     <Folder Include="Areas\Chat\Data\" />
-    <Folder Include="Areas\Chat\Models\" />
-    <Folder Include="Areas\Chat\Views\" />
     <Folder Include="Extensions\" />
+    <Folder Include="wwwroot\images\groups\" />
+    <Folder Include="wwwroot\images\users\" />
+    <Folder Include="wwwroot\conversation\" />
   </ItemGroup>
 
 </Project>

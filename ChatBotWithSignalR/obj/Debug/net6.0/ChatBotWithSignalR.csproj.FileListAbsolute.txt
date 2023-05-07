@@ -278,3 +278,4 @@ D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\obj\Debug\net6.0\r
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\obj\Debug\net6.0\ChatBotWithSignalR.pdb
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\obj\Debug\net6.0\ChatBotWithSignalR.genruntimeconfig.cache
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\obj\Debug\net6.0\ref\ChatBotWithSignalR.dll
+D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\SixLabors.ImageSharp.dll

@@ -1,5 +1,6 @@
 global using ChatBotWithSignalR.Entity;
 using ChatBotWithSignalR.Data;
+using ChatBotWithSignalR.Hubs;
 using ChatBotWithSignalR.Interface;
 using ChatBotWithSignalR.Permission;
 using ChatBotWithSignalR.Service;
@@ -43,7 +44,7 @@ builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProv
 //});
 
 builder.Services.AddTransient<IToastNotification, ToastNotification>();
-
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -75,5 +76,6 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
+app.MapHub<ChatHub>("/Chat");
 
 app.Run();
