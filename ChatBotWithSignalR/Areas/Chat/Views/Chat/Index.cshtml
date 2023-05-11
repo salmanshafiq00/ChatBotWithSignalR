@@ -144,6 +144,11 @@
         font-size: 13px
     }
 
+    .groupPhoto{
+        width: 45px;
+        border-radius: 50%
+    }
+
     .online {
         color: #86c541
     }
@@ -237,12 +242,27 @@
                             <i class="fa fa-plus" aria-hidden="true" style="font-size: 20px"></i>
                         </button>
                     </h4>
-                    <div id="GroupListContainer">
-                        <ul id="groupContainer">
+                    <div id="GroupListContainer" class="people-list">
+                        <ul id="groupContainer" class="list-unstyled chat-list mt-2 mb-0">
                             @foreach (var group in Model.ChatGroupsList)
                             {
-                                <li id="user_@group.Id" class="grouplistclass">
+                                @*<li id="user_@group.Id" class="grouplistclass">
                                     <a href="javascript:void(0)" onclick="loadConversionsByGroupId('@group.Id')">@group.Name</a>
+                                    <button type="button" class="btn btn-outline-primary" style="padding: 0px 5px" onclick="getCreateOrUpdateUserGroupModal(@group.Id)">
+                                        <i class="fa fa-users" aria-hidden="true" style="font-size: 12px"></i>
+                                    </button>
+                                </li>*@
+
+                                <li class="clearfix grouplistclass" id="user_@group.Id">
+                                    <a href="javascript:void(0)" class="text-dark" onclick="loadConversionsByGroupId('@group.Id')">
+                                        <img src="@(group.GroupPhotoUrl ?? "/images/no-images.png")" alt="Group Photo Url" class="groupPhoto">
+                                        <div class="about">
+                                            <div class="name">@group.Name</div>
+                                           @* <div class="status">
+                                                <span class="badge bg-danger ml-3" id="notify_@group.Id">@(group.UnreadMessageNo == 0 ? "" : group.UnreadMessageNo.ToString())</span>
+                                            </div>*@
+                                        </div>
+                                    </a>
                                     <button type="button" class="btn btn-outline-primary" style="padding: 0px 5px" onclick="getCreateOrUpdateUserGroupModal(@group.Id)">
                                         <i class="fa fa-users" aria-hidden="true" style="font-size: 12px"></i>
                                     </button>
@@ -259,7 +279,7 @@
             </div>
         </div>
     </div>
-    <div class="footer">
+    <div class="footer d-none" >
         <div class="row mt-2 m-0">
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-3 col-3">
             </div>
@@ -270,17 +290,6 @@
                     <input type="hidden" name="ToUserId" id="ToUserId" value="" />
                     <input type="hidden" name="ToUserName" id="ToUserName" value="" />
                     <input type="hidden" name="GroupId" id="GroupId" value="0" />
-
-                   @* <label for="Files" style="display: inline">
-                        <i class="fa fa-paperclip" aria-hidden="true"></i>
-                        <input type="file" id="Files" name="Files" style="display: none" accept="image/gif,image/jpeg,image/jpg,image/png" multiple="" data-original-title="upload photos">
-                    </label>
-                    <div class="input-group mb-2">
-                        <textarea class="form-control" id="msgContent" name="TextMessage" style="max-height: 100px; resize: none;" rows="1" data-min-rows='3' placeholder="Type a message" autofocus></textarea>
-                        <button type="submit" class="btn btn-outline-secondary" id="sendBtn">
-                            <i class="fa fa-paper-plane" aria-hidden="true"></i>
-                        </button>
-                    </div>*@
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
@@ -318,7 +327,7 @@
     </div>
     @*Modal for create a user group*@
 
-    <audio id="notification-sound" class="d-none" src="~/audio/mixkit-confirmation-tone-2867.wav"></audio>
+    <audio id="notification-sound" class="d-none" src="~/audio/mixkit-retro-confirmation-tone-2860.wav"></audio>
 
 
 </div>

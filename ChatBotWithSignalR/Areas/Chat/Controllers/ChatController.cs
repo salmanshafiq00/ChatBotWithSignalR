@@ -1,18 +1,17 @@
 ﻿using ChatBotWithSignalR.Areas.Chat.Models;
 using ChatBotWithSignalR.Data;
+using ChatBotWithSignalR.Entity;
 using ChatBotWithSignalR.Hubs;
 using ChatBotWithSignalR.Interface;
-using Humanizer.Localisation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
-using System.Drawing.Imaging;
-using System.Drawing;
 using System.Net.WebSockets;
 using System.Security.Claims;
-using System.Text.RegularExpressions;
+using Image = SixLabors.ImageSharp.Image;
+using Size = SixLabors.ImageSharp.Size;
 
 namespace ChatBotWithSignalR.Areas.Chat.Controllers
 {
@@ -88,8 +87,11 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
                 conversationViewModel.ToUserProfilePhotoUrl = toUser.ProfilePhotoUrl;
                 conversationViewModel.LoginUserId = loginUser.Id;
 
-                var conversations = await _context.Conversations.Where(c => (c.FromUserId == loginUser.Id || c.FromUserId == toUserId) && (c.ToUserId == loginUser.Id || c.ToUserId == toUserId) && c.GroupId == 0).ToListAsync();
+                var conversations = await _context.Conversations.Where(c => (c.FromUserId == loginUser.Id || c.FromUserId == toUserId) && (c.ToUserId == loginUser.Id || c.ToUserId == toUserId) && c.GroupId == 0).Include(conv => conv.ConversationFiles).ToListAsync();
                 conversationViewModel.Conversations = conversations;
+
+
+
                 return PartialView("_Conversations", conversationViewModel);
             }
             catch (Exception ex)
@@ -104,9 +106,12 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
             using var transection = await _context.Database.BeginTransactionAsync();
             try
             {
-                if (ModelState.IsValid && conversation is not null)
+                var loginUserId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (conversation is not null)
                 {
-                    if (conversation?.Files?.Count > 0)
+                    conversation.SendDate = DateTime.Now;
+                    int affectedRow = 0;
+                    if (conversation is not null && conversation?.Files?.Count > 0)
                     {
                         foreach (IFormFile item in conversation.Files)
                         {
@@ -118,34 +123,30 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
                                 FileName = item.FileName,
                                 FileSize = fileSize,
                                 FileType = item.ContentType,
-                                FileUrl = fileUrl
+                                FileUrl = fileUrl,
                             });
                         }
                     }
+
                     var entity = await _context.Conversations.AddAsync(conversation);
-                    var affectedRow = await _context.SaveChangesAsync();
+                    affectedRow = await _context.SaveChangesAsync();
+
+                    //}
                     await transection.CommitAsync(new CancellationToken());
 
                     // Send conversation to user/group using signalr
                     conversation.ToShortTime = conversation.SendDate.ToShortTimeString();
+
                     if (affectedRow > 0)
                     {
                         // Send conversation to user using signalr
-                        if (conversation.GroupId == 0)
-                        {
-                            await _chatHubContext.Clients.User(conversation.ToUserId).SendAsync("ReceiveMessages", conversation);
-                        }
-                        else  // Send conversation to group using signalr
-                        {
-                            var result = await _context.UserGroups.Where(p => p.GroupId == conversation.GroupId).ToListAsync();
-                            result.RemoveAt(result.FindIndex(p => p.UserId == HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)));
-                            foreach (var group in result)
-                            {
-                                await _chatHubContext.Clients.User(group.UserId).SendAsync("ReceiveGroupMessages", conversation);
-                            }
-                        }
+                        if (!string.IsNullOrEmpty(conversation.ToUserId) && !IsLoginUserToUser(loginUserId, conversation.ToUserId))
+                            await SendMessageToUserAsync(conversation);
+                        else if (conversation.GroupId > 0)
+                            await SendMessageToGroupAsync(conversation);
+
                     }
-                    return new JsonResult(new { IsSuccess = true, Msg = entity.Entity.TextMessage, Time = entity.Entity.SendDate, ToUserId = conversation.ToUserId, GroupId = conversation.GroupId });
+                    return new JsonResult(new { IsSuccess = true, Msg = conversation.TextMessage, Time = conversation.SendDate.ToShortTimeString(), ToUserId = conversation.ToUserId, conversation.ToUserName, GroupId = conversation.GroupId });
                 }
                 else
                 {
@@ -155,6 +156,7 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
                         break;
                     }
                     return new JsonResult(new { IsSuccess = false });
+                    //return View();
 
                 }
             }
@@ -242,13 +244,14 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
                     chatGroup.AuthorId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
                     chatGroup.CreatedDate = DateTime.Now;
                     chatGroup.IsDeleted = false;
+                    chatGroup.GroupPhotoUrl = await SaveGroupImageAsync(chatGroup.GroupPhoto, chatGroup.Name, 200, 200);
                     var result = await _context.ChatGroups.AddAsync(chatGroup);
                     var affectedRow = await _context.SaveChangesAsync();
                     if (affectedRow > 0)
                     {
                         await _context.UserGroups.AddAsync(new UserGroup { Id = 0, GroupId = result.Entity.Id, UserId = chatGroup.AuthorId });
                         await _context.SaveChangesAsync();
-                        return new JsonResult(new { IsValid = true, Id = result.Entity.Id, Name = result.Entity.Name });
+                        return new JsonResult(new { IsValid = true, Id = result.Entity.Id, Name = result.Entity.Name, GroupPhotoUrl = chatGroup.GroupPhotoUrl });
                     }
                 }
                 else
@@ -263,9 +266,10 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
                         result.UpdatedDate = DateTime.Now;
                         result.Name = chatGroup.Name;
                         result.Description = chatGroup.Description;
+                        result.GroupPhotoUrl = await SaveGroupImageAsync(chatGroup.GroupPhoto, chatGroup.Name, 200, 200, chatGroup.GroupPhotoUrl);
                         _context.ChatGroups.Update(result);
                         await _context.SaveChangesAsync();
-                        return new JsonResult(new { IsValid = true, Id = chatGroup.Id, Name = chatGroup.Name });
+                        return new JsonResult(new { IsValid = true, Id = chatGroup.Id, Name = chatGroup.Name, GroupPhotoUrl = chatGroup.GroupPhotoUrl });
                     }
                 }
                 return new JsonResult(new { IsValid = false });
@@ -276,6 +280,8 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
             }
         }
 
+
+        // Get All users in a particular group
         [HttpGet]
         public async Task<IActionResult> OnGetCreateOrEdit(int groupId)
         {
@@ -306,6 +312,7 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
             }
         }
 
+        // Assign or remove user/users from a particular group
         [HttpPost]
         public async Task<IActionResult> OnPostCreateOrEdit(List<UserGroup> userGroups)
         {
@@ -367,8 +374,9 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
                 conversationViewModel.GroupId = group.Id;
                 conversationViewModel.GroupAuthorId = group.AuthorId;
                 conversationViewModel.LoginUserId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                conversationViewModel.GroupPhotoUrl = group.GroupPhotoUrl;
 
-                var grpConversations = await _context.Conversations.Where(c => c.GroupId == groupId).ToListAsync();
+                var grpConversations = await _context.Conversations.Where(c => c.GroupId == groupId).Include(x => x.ConversationFiles).ToListAsync();
                 if (!grpConversations.Any())
                 {
                     conversationViewModel.EmptyMessage = "Not Conversation Yet";
@@ -426,7 +434,18 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
                 group.IsDeleted = true;
                 group.UpdatedDate = DateTime.Now;
                 _context.ChatGroups.Update(group);
-                await _context.SaveChangesAsync();
+                var affectionRow = await _context.SaveChangesAsync();
+                if (affectionRow > 0)
+                {
+                    if (!string.IsNullOrEmpty(group.GroupPhotoUrl))
+                    {
+                        string existPath = _webHost.WebRootPath + group.GroupPhotoUrl.Replace('/', '\\');
+                        if (System.IO.File.Exists(existPath))
+                        {
+                            System.IO.File.Delete(Path.Combine(existPath));
+                        }
+                    }
+                }
                 return new JsonResult(new { IsSuccess = true, GroupName = group.Name });
             }
             catch (Exception)
@@ -440,25 +459,39 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
         [HttpGet]
         public async Task<List<ApplicationUser>> GetIdentityUsers() => await _userManager.Users.ToListAsync();
 
-        private async Task<(string, string)> SaveImageAsync(IFormFile file, string fromUserId)
+        private async Task<(string, string)> SaveImageAsync(IFormFile file, string fromUserId, int maxWidth = 300, int maxHeight = 300)
         {
             try
             {
                 if (file is not null && file.Length > 0)                        // during create/changes file
                 {
                     var fileSize = BytesToString(file.Length);
-                    string uploadFolder = Path.Combine(_webHost.WebRootPath, "images", "users");
+                    string uploadFolder = Path.Combine(_webHost.WebRootPath, "images", "conversation");
                     string extension = Path.GetExtension(file.FileName);
-                    string fileName = $"{fromUserId}_{DateTime.Now.Millisecond.ToString()}{extension}";
+                    string fileName = $"{fromUserId}_{DateTime.Now.ToString("yyyyMMdd")}_{DateTime.Now.Millisecond}{extension}";
                     string path = Path.Combine(uploadFolder, fileName);
 
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await file.CopyToAsync(memoryStream);
+                        memoryStream.Seek(0, SeekOrigin.Begin);
+                        var image = Image.Load(memoryStream);
+
+                        // Resize the image to the desired dimensions
+                        image.Mutate(x => x.Resize(new ResizeOptions
+                        {
+                            Size = new Size(maxWidth, maxHeight),
+                            Mode = ResizeMode.Max
+                        }));
+
+                        using FileStream fileStream = new(path, FileMode.Create);
+                        await file.CopyToAsync(fileStream);
+                        fileStream.Position = 0;
+                    }
 
 
-                    using FileStream fileStream = new(path, FileMode.Create);
-                    await file.CopyToAsync(fileStream);
-                    fileStream.Position = 0;
 
-                    return ($"/images/users/{fileName}", fileSize);
+                    return ($"/images/conversation/{fileName}", fileSize);
                 }
                 return (string.Empty, string.Empty);
             }
@@ -478,5 +511,85 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
             double num = Math.Round(bytes / Math.Pow(1024, place), 1);
             return (Math.Sign(byteCount) * num).ToString() + suf[place];
         }
+
+        private async Task<string> SaveGroupImageAsync(IFormFile file, string groupName, int maxWidth = 300, int maxHeight = 300, string? fileUrl = null)
+        {
+            try
+            {
+                if (file is null && String.IsNullOrEmpty(fileUrl))                   // during create when no file uploaded
+                {
+                    return string.Empty;
+                }
+                else if (!string.IsNullOrEmpty(fileUrl) && file is null)             // during edit while file was created and no changes
+                {
+                    return fileUrl;
+                }
+
+                if (file is not null && file.Length > 0)                        // during create/changes file
+                {
+                    if (!string.IsNullOrEmpty(fileUrl))
+                    {
+                        string existPath = _webHost.WebRootPath + fileUrl.Replace('/', '\\');
+                        if (System.IO.File.Exists(existPath))
+                        {
+                            System.IO.File.Delete(Path.Combine(existPath));
+                        }
+                    }
+                    string uploadFolder = Path.Combine(_webHost.WebRootPath, "images", "groups");
+                    string extension = Path.GetExtension(file.FileName);
+                    string fileName = $"{groupName}_{DateTime.Now.ToString("yyyyMMdd")}{extension}";
+                    string path = Path.Combine(uploadFolder, fileName);
+
+                    using (var stream = new MemoryStream())
+                    {
+                        // Load the image from the IFormFile into an Image object
+                        await file.CopyToAsync(stream);
+                        stream.Seek(0, SeekOrigin.Begin);
+                        var image = Image.Load(stream);
+
+                        // Resize the image to the desired dimensions
+                        image.Mutate(x => x.Resize(new ResizeOptions
+                        {
+                            Size = new Size(maxWidth, maxHeight),
+                            Mode = ResizeMode.Max  // it maintain orignal aspect ratio
+                            //Mode = ResizeMode.Stretch // it changes  orignal aspect ratio to meet the size
+                        }));
+
+                        // Save the resized image to a file in the wwwroot folder
+                        using FileStream fileStream = new(path, FileMode.Create);
+                        await image.SaveAsPngAsync(fileStream);
+                        //await file.CopyToAsync(fileStream);
+                        fileStream.Position = 0;
+                    }
+                    return $"/images/groups/{fileName}";
+                }
+                return string.Empty;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
+
+        private async Task SendMessageToUserAsync(Conversation conversation)
+        {
+            await _chatHubContext.Clients.User(conversation.ToUserId).SendAsync("ReceiveMessages", conversation);
+        }
+        private async Task SendMessageToGroupAsync(Conversation conversation)
+        {
+            var result = await _context.UserGroups.Where(p => p.GroupId == conversation.GroupId).ToListAsync();
+            result.RemoveAt(result.FindIndex(p => p.UserId == HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier)));
+            foreach (var group in result)
+            {
+                await _chatHubContext.Clients.User(group.UserId).SendAsync("ReceiveGroupMessages", conversation);
+            }
+        }
+        private async Task SendMessageToCallerAsync(Conversation conversation)
+        {
+            await _chatHubContext.Clients.User(conversation.ToUserId).SendAsync("ReceiveMessages", conversation);
+        }
+
+        private bool IsLoginUserToUser(string loginUserId, string toUserId) => loginUserId == toUserId;
     }
 }

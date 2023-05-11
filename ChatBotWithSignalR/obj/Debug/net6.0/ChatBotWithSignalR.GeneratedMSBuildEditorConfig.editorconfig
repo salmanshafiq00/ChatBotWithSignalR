@@ -60,6 +60,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ2hhdFxWaWV3c1xDaGF0XF9Db252ZXJzYXRpb25zMi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Programming/Projects/ChatBotWithSignalR/ChatBotWithSignalR/Areas/Chat/Views/Chat/_CreateOrEditGroup.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ2hhdFxWaWV3c1xDaGF0XF9DcmVhdGVPckVkaXRHcm91cC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Programming/Projects/ChatBotWithSignalR/ChatBotWithSignalR/Areas/Chat/Views/Chat/_CreateOrEditGroupUsers.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ2hhdFxWaWV3c1xDaGF0XF9DcmVhdGVPckVkaXRHcm91cFVzZXJzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Programming/Projects/ChatBotWithSignalR/ChatBotWithSignalR/Areas/Identity/Pages/Account/AccessDenied.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxBY2Nlc3NEZW5pZWQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

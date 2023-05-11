@@ -6,9 +6,9 @@ namespace ChatBotWithSignalR.Views.Shared.Components.Users
 {
     public class UsersViewComponent : ViewComponent
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public UsersViewComponent(UserManager<IdentityUser> userManager)
+        public UsersViewComponent(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
         }

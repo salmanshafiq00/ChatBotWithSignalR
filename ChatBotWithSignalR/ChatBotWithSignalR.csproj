@@ -22,7 +22,6 @@
     <Folder Include="Extensions\" />
     <Folder Include="wwwroot\images\groups\" />
     <Folder Include="wwwroot\images\users\" />
-    <Folder Include="wwwroot\conversation\" />
   </ItemGroup>
 
 </Project>

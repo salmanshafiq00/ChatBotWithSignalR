@@ -1,0 +1,119 @@
+﻿@using ChatBotWithSignalR.Models;
+@model ChatGroup
+
+<form id="createform" asp-area="Chat" asp-controller="Chat" asp-action="CreateOrEditGroup" onsubmit="return saveGroup(this)">
+    <div class="mb-3">
+        <input type="hidden" class="form-control" asp-for="Id"  />
+        <input type="hidden" class="form-control" asp-for="CreatedDate"  />
+        <input type="hidden" class="form-control" asp-for="AuthorId"  />
+        <label for="Name" class="col-form-label">Name:</label>
+        <input type="text" class="form-control" asp-for="Name" required />
+    </div>
+    <div class="mb-3">
+        <label for="Description" class="col-form-label">Description:</label>
+        <textarea class="form-control" asp-for="Description"></textarea>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                @if (Model is not null && Model.Id > 0)
+                {
+                    <input type="hidden" asp-for="GroupPhotoUrl" class="form-control" />
+                }
+                <label class="form-label requiredLabel">Upload Profile Photo (2MB) :</label>
+                <div class="custom-file">
+                    <input type="file" class="form-control" asp-for="GroupPhoto" accept="image/*" />
+                    <span asp-validation-for="GroupPhoto" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div id="photoPreview" style="padding-top: 10px; padding-right: 10px">
+                @if (Model is not null && !string.IsNullOrEmpty(Model.GroupPhotoUrl))
+                {
+                    <img src="@Model.GroupPhotoUrl" class="img-fluid img-thumbnail" width="200" height="200" title="" asp-append-version="true" />
+                }
+            </div>
+        </div>
+    </div>
+    <div class="mb-3">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" id="saveBtn">Save Group</button>
+    </div>
+</form>
+
+<script>
+    saveGroup = form => {
+        try {
+            $.ajax({
+                type: 'POST',
+                url: form.action,
+                data: new FormData(form),
+                contentType: false,
+                processData: false,
+                success: function (result) {
+                    debugger;
+                    if (result.isValid) {
+                        let innerAnchorTag = $(`#user_${result.id}`).find('a');
+                        if (innerAnchorTag.length > 0) {
+                            $(innerAnchorTag).text(result.name);
+                        }
+                        else{
+                            $(`#groupContainer`).append(`<li class="clearfix grouplistclass" id="user_'${id}'">
+                                            <a href="javascript:void(0)" class="text-dark" onclick="loadConversionsByGroupId('${id}')">
+                                                <img src="${GroupPhotoUrl}" alt="Group Photo Url" class="groupPhoto">
+                                                <div class="about">
+                                                    <div class="name">${name}</div>
+                                                </div>
+                                            </a>
+                                            <button type="button" class="btn btn-outline-primary" style="padding: 0px 5px" onclick="getCreateOrUpdateUserGroupModal(${id})">
+                                                <i class="fa fa-users" aria-hidden="true" style="font-size: 12px"></i>
+                                            </button>
+                                        </li>`
+                            );
+                        }
+                        $('#formModal').modal('hide');
+                        toastr.success(`New Group Created`, 'success');
+                    }
+                    else {
+                        toastr.error(`Something went wrong`, 'error');
+                    }
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+            })
+            return false;
+        } catch (ex) {
+            console.log(ex)
+        }
+    }
+
+    $("#GroupPhoto").change(function () {
+        $("#photoPreview").html("");
+        if (typeof (FileReader) != "undefined") {
+            $("#photoPreview").show();
+            var reader = new FileReader();
+            if (($(this)[0].files[0].size / 1000) <= 2000) {
+                reader.onload = function (e) {
+                    var image = new Image();
+                    image.src = e.target.result;
+                    image.onload = function () {
+                        $("#photoPreview").append("<img class='img-thumbnail' />");
+                        $("#photoPreview img").attr("src", e.target.result);
+                        $("#photoPreview img").attr("title", 'Profile Photo');
+                        $("#photoPreview img").attr("style", "height:150px;width: 150px; float: right");
+                    };
+                }
+            }
+            else {
+                $('#photoPreview').append(`<span class="text-danger">file size not more than 2MB</span>`);
+                $("#GroupPhoto").val('');
+            }
+            reader.readAsDataURL($(this)[0].files[0]);
+        } else {
+            alert("This browser does not support FileReader.");
+        }
+    });
+
+</script>

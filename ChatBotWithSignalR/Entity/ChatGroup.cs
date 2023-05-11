@@ -19,6 +19,9 @@ namespace ChatBotWithSignalR.Entity
         public bool IsDeleted { get; set; }
         [StringLength(200)]
         public string? GroupPhotoUrl { get; set; }
+
+        [NotMapped]
+        public IFormFile? GroupPhoto { get; set; }
         [NotMapped]
         public virtual List<ChatUserViewModel> ChatUsers { get; set; } = new();
     }

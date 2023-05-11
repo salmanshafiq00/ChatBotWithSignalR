@@ -15,6 +15,7 @@ let loadConversions = (el, userId) => {
     $(el).closest('li').siblings('li').removeClass('active');
     $(el).closest('li').addClass('active');
     $(`#loadConversions`).load(`/Chat/Chat/LoadConversationByUserId?toUserId=${userId}`, (response, status) => {
+        $('.footer').removeClass('d-none');
         $('#ToUserId').val(userId);
         scrollToBottom();
         $(`#notify_${toUserId}`).text('');
@@ -31,6 +32,7 @@ let loadConversions = (el, userId) => {
 let loadConversionsByGroupId = (groupId) => {
     selectedGroupId = groupId;
     $(`#loadConversions`).load(`/Chat/Chat/LoadConversionsByGroupId?groupId=${groupId}`, (response, status) => {
+        $('.footer').removeClass('d-none');
         $('#GroupId').val(groupId);
         scrollToBottom();
         //$(`#notify_${toUserId}`).text('');
@@ -46,11 +48,7 @@ let loadConversionsByGroupId = (groupId) => {
 let sendMessage = form => {
     try {
         let msgContent = $(`#msgContent`).val();
-        if (!msgContent) {
-            toastr.error(`Please write something`, `warning`);
-            $(`#msgContent`).focus();
-            return;
-        }
+        let files = $('#Files').get(0);
         $.ajax({
             type: 'POST',
             url: form.action,
@@ -59,10 +57,26 @@ let sendMessage = form => {
             processData: false,
             success: function (result) {
                 if (result.isSuccess) {
-                    $(`#messageList`).append(`<div class="ownMessage">
+                    if (msgContent) {
+                        $(`#messageList`).append(`<div class="ownMessage">
                                                     <pre class="text-white">${msgContent.replace(/\n\r?/g, '<br />')}</pre>
                                                     <span class="time">${result.time}</span>
                                                   </div>`);
+
+                    }
+                    if (files.files.length > 0) {
+                        for (var i = 0; i < files.files.length; i++) {
+                            let imgSrc = URL.createObjectURL(files.files[i])
+
+                            $(`#messageList`).append(` <div class="ownMessageImg">
+                                <a onclick="showImageToModal('${imgSrc}')">
+                                    <img src="${imgSrc}" alt="file" class="img-fluid img-thumbnail ml-0 mr-0 coversationImg">
+                                </a>
+                                <span class="time">${result.time}</span>
+                            </div>`);
+                        }
+                    }
+
                     $(`#msgContent`).val('').trigger('input');
                     $(`#msgContent`).focus();
                     scrollToBottom();
@@ -90,14 +104,9 @@ function addMessageToConversation(conversation) {
     if (document.getElementById('loadConversions').contains(document.getElementById('messageList'))) {
         let toUserIdFromHeader = $('#toUserIdFromHeader').text();
         let toGroupIdFromHeader = $('#toGroupIdFromHeader').text();
-        console.log(toUserIdFromHeader);
-        //console.log(toGroupIdFromHeader);
-        console.log(conversation.fromUserId);
+
         if (conversation.fromUserId == toUserIdFromHeader) {
-            $(`#messageList`).append(`<div class="otherMessage">
-                                        <pre>${conversation.textMessage}</pre>
-                                        <span class="time">${conversation.toShortTime}</span>
-                                     </div>`);
+            setConversationToChatBox(conversation)
             scrollToBottom();
 
             // Unread message update
@@ -105,10 +114,7 @@ function addMessageToConversation(conversation) {
             });
         }
         else if (conversation.groupId > 0 && conversation.groupId == toGroupIdFromHeader) {
-            $(`#messageList`).append(`<div class="otherMessage">
-                                        <pre>${conversation.textMessage}</pre>
-                                        <span class="time">${conversation.toShortTime}</span>
-                                      </div>`);
+            setConversationToChatBox(conversation)
             scrollToBottom();
         }
         else {
@@ -121,7 +127,8 @@ function addMessageToConversation(conversation) {
                 $(notifyBadge).text(0 + 1);
             }
         }
-    } else {
+    }// if loadConversions does not contain messageList div
+    else {
         let notifyBadge = $(`#notify_${conversation.fromUserId}`);
         let notifyCount = $(notifyBadge).text();
         if (notifyCount) {
@@ -176,18 +183,19 @@ function userConnectivity(connectedUserList) {
 
 // create group
 // Get modal for create or update User Group
-function getCreateOrUpdateGroupModal(id, title) {
+function getCreateOrUpdateGroupModal(id, title = 'Title') {
     $.get(`/Chat/Chat/OnGetGroupCreateOrEdit?id=${id}`, (result) => {
-        $('#formModal .modal-body').html(result);
         $('#formModal #modalHeaderTitle').html(title);
+        $('#formModal .modal-body').html(result);
         $('#formModal').modal('show');
     });
 }
 
 
 // Get modal for create or update User Group
-function getCreateOrUpdateUserGroupModal(groupId) {
+function getCreateOrUpdateUserGroupModal(groupId, title = '') {
     $.get(`/Chat/Chat/OnGetCreateOrEdit?groupId=${groupId}`, (result) => {
+        $('#formModal #modalHeaderTitle').html(title);
         $('#formModal .modal-body').html(result);
         $('#formModal').modal('show');
     });
@@ -199,9 +207,8 @@ function deleteGroup(groupId) {
     if (isConfirmed) {
         $.post(`/Chat/Chat/DeleteGroup`, { groupId: groupId }, (result) => {
             if (result.isSuccess) {
-                //toastr.success(`${result.groupName} is deleted successfully`, `success`);
-                alert(`${result.groupName} is deleted successfully`);
-                window.location.assign("https://localhost:7077/Chat/Chat/Index")
+                alert(`Group(${result.groupName}) is deleted successfully`);
+                location.reload();
             }
             else {
                 toastr.error(`${result.msg}`);
@@ -210,6 +217,28 @@ function deleteGroup(groupId) {
     }
     else {
         return;
+    }
+}
+
+// Set conversation to chatbox
+function setConversationToChatBox(conversation) {
+    if (conversation.textMessage) {
+        $(`#messageList`).append(`<div class="otherMessage">
+                                        <p id="toUserHeader">${conversation.fromUserName}</p>
+                                        <pre>${conversation.textMessage}</pre>
+                                        <span class="time">${conversation.toShortTime}</span>
+                                     </div>`);
+    }
+
+    if (conversation.conversationFiles.length > 0) {
+        for (var i = 0; i < conversation.conversationFiles.length; i++) {
+            $(`#messageList`).append(` <div class="otherMessageImg">
+                                <a onclick="showImageToModal('${conversation.conversationFiles[i].fileUrl}')">
+                                    <img src="${conversation.conversationFiles[i].fileUrl}" alt="file" class="img-fluid img-thumbnail ml-0 mr-0 coversationImg">
+                                </a>
+                                <span class="time">${conversation.toShortTime}</span>
+                            </div>`);
+        }
     }
 }
 

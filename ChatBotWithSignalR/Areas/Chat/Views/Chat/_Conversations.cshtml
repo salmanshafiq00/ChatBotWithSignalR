@@ -28,6 +28,21 @@
             width: 100%;
         }
 
+    .ownMessageImg {
+        background-color: #007bff;
+        padding: 6px;
+        color: wheat;
+        margin-top: 5px;
+        border-radius: 8px;
+        margin-left: 17%;
+        min-width: 40%;
+        max-width: 75%;
+        display: block;
+        float: right;
+        vertical-align: top;
+        background-size: cover;
+    }
+
     .time {
         font-size: 10px;
         font-weight: 600;
@@ -58,6 +73,28 @@
             padding-right: 5px;
             width: 100%;
         }
+
+    .otherMessageImg {
+        background-color: #f9f6f6;
+        padding: 5px 0px;
+        color: black;
+        margin-left: 5px;
+        margin-top: 5px;
+        border-radius: 8px;
+        margin-right: 10%;
+        min-width: 40%;
+        max-width: 75%;
+        float: left;      
+        display: block;
+        text-align: center;
+    }
+
+    .coversationImg{
+        display: block;
+        max-width: 200px;
+        text-align: center;
+        margin-left: 10px
+    }
 
     #toUserContainer {
         height: 50px;
@@ -112,7 +149,8 @@
         }
         else if (!string.IsNullOrEmpty(Model.GroupName))
         {
-            <span style="margin-right: 5px"><i class="fas fa-users" style="font-size: 20px"></i> </span>
+            @*<span style="margin-right: 5px"><i class="fas fa-users" style="font-size: 20px"></i> </span>*@
+            <img src="@(Model.GroupPhotoUrl ?? "/images/no-images.png")" alt="Group Photo" style="width: 35px; border-radius: 50%; margin-top: -11px">
             <h3 id="conGroupTitle" style="display: inline">@Model.GroupName</h3>
             <button style="padding: 0;border: none;background: none; margin-left: 20px" onclick="getCreateOrUpdateGroupModal(@Model.GroupId, `Edit Group Name`)">
                 <i class="fa fa-pencil" aria-hidden="true" style="font-size:12px;"></i>
@@ -136,23 +174,65 @@
             {
                 if (conversation.FromUserId == Model.LoginUserId)
                 {
-                    <div class="ownMessage">
-                        <pre>@conversation.TextMessage.Replace("<br/>",Environment.NewLine)</pre>
-                        <span class="time">@conversation.SendDate.ToShortTimeString()</span>
-                    </div>
+                    if (!String.IsNullOrEmpty(conversation.TextMessage))
+                    {
+                        <div class="ownMessage">
+                            <pre>@conversation.TextMessage.Replace("<br/>",Environment.NewLine)</pre>
+                            <span class="time">@conversation.SendDate.ToShortTimeString()</span>
+                        </div>
+                    }
+                    if (conversation.ConversationFiles.Count > 0)
+                    {
+                        foreach (var file in conversation.ConversationFiles)
+                        {
+                            <div class="ownMessageImg">
+                                <a onclick="showImageToModal('@file.FileUrl')">
+                                    <img src="@file.FileUrl" alt="file" class="img-fluid img-thumbnail ml-0 mr-0 coversationImg">
+                                </a>
+                                <span class="time">@conversation.SendDate.ToShortTimeString()</span>
+                            </div>
+                        }
+                    }
                 }
                 else
                 {
-                    <div class="otherMessage">
-                        <p id="toUserHeader">@conversation.FromUserName</p>
-                        <pre>@conversation.TextMessage.Replace("<br/>",Environment.NewLine)</pre>
-                        <span class="time">@conversation.SendDate.ToShortTimeString()</span>
-                    </div>
+                    if (!String.IsNullOrEmpty(conversation.TextMessage))
+                    {
+                        <div class="otherMessage">
+                            <p id="toUserHeader">@conversation.FromUserName</p>
+                            <pre>@conversation.TextMessage.Replace("<br/>",Environment.NewLine)</pre>
+                            <span class="time">@conversation.SendDate.ToShortTimeString()</span>
+                        </div>
+                    }
+                    if (conversation.ConversationFiles.Count > 0)
+                    {
+                        foreach (var file in conversation.ConversationFiles)
+                        {
+                            <div class="otherMessageImg">
+                                <a onclick="showImageToModal('@file.FileUrl')">
+                                    <img src="@file.FileUrl" alt="file" class="img-fluid img-thumbnail ml-0 mr-0 coversationImg">
+                                </a>
+                                <span class="time">@conversation.SendDate.ToShortTimeString()</span>
+                            </div>
+                        }
+                    }
                 }
             }
         }
     </div>
 </div>
+
+@*Modal for create a user group*@
+<div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body" id="imgBody" style="padding: 8px">
+                <img src="" atl="img" class="img-fluid img-thumbnail" id="modalImgTag" />
+            </div>
+        </div>
+    </div>
+</div>
+@*Modal for create a user group*@
 
 @section Scripts{
     <script>
@@ -164,6 +244,12 @@
 }
 <script>
     $('#ToUserName').val('@Model.ToUserName');
+
+    function showImageToModal (url) {
+        $('#modalImgTag').attr('src', url);
+        $('#imageModal').modal('show');
+
+    }
 </script>
 
 

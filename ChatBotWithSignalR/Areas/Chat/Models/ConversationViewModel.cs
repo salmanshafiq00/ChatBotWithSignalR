@@ -12,6 +12,7 @@
         public string GroupName { get; set; } = string.Empty;
         public string EmptyMessage { get; set; } = string.Empty;
         public string GroupAuthorId { get; set; } = string.Empty;
+        public string? GroupPhotoUrl { get; set; }
 
         public List<Conversation> Conversations { get; set; } = new();
     }

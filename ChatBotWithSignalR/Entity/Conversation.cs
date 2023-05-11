@@ -10,10 +10,11 @@ namespace ChatBotWithSignalR.Entity
         public string FromUserId { get; set; } = string.Empty;
         public string FromUserName { get; set; } = string.Empty;
         [StringLength(50)]
-        public string ToUserId { get; set; } = string.Empty;
-        public string ToUserName { get; set; } = string.Empty;
+        public string? ToUserId { get; set; } = string.Empty;
+        [StringLength(50)]
+        public string? ToUserName { get; set; } = string.Empty;
         [StringLength(500)]
-        public string TextMessage { get; set; } = string.Empty;
+        public string? TextMessage { get; set; } = string.Empty;
         public DateTime SendDate { get; set; } = DateTime.Now;
         public DateTime? ReceiveDate { get; set; }
         public bool IsSeen { get; set; }

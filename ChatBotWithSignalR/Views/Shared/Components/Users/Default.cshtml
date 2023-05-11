@@ -1,5 +1,5 @@
-﻿@using Microsoft.AspNetCore.Identity;
-@model IEnumerable<IdentityUser>
+﻿@using ChatBotWithSignalR.Entity;
+@model IEnumerable<ApplicationUser>
 @{
     var name = ViewBag.Name;
     var id = ViewBag.Id;
@@ -10,6 +10,12 @@
     var functionName = ViewBag.FunctionName;
     var required = ViewBag.Required;
 }
+<style>
+    .photoOption{
+        padding: 2px;
+        margin-right: 5px;
+    }
+</style>
 
 @if (!string.IsNullOrEmpty(labelName))
 {
@@ -24,11 +30,11 @@
         {
             if (item.Id == userId)
             {
-                <option selected value="@item.Id">@item.UserName</option>
+                <option selected value="@item.Id"><img src="@item.ProfilePhotoUrl" width="30" class="photoOption" /> @item.UserName</option>
             }
             else
             {
-                <option value="@item.Id">@item.UserName</option>
+                <option value="@item.Id"><img src="@item.ProfilePhotoUrl" width="30" class="photoOption" />  @item.UserName</option>
             }
         }
     </select>
@@ -41,11 +47,11 @@ else
         {
             if (item.Id == userId)
             {
-                <option selected value="@item.Id">@item.UserName</option>
+                <option selected value="@item.Id"><img src="/images/users/rayhan8_20230507.jpg" width="30" class="photoOption" asp-append-version="true" />  @item.UserName</option>
             }
             else
             {
-                <option value="@item.Id">@item.UserName</option>
+                <option value="@item.Id"><img src="/images/users/rayhan8_20230507.jpg" width="30" class="photoOption" asp-append-version="true" />  @item.UserName</option>
             }
         }
     </select>

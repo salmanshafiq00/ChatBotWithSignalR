@@ -71,6 +71,7 @@ D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\N
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\NuGet.ProjectModel.dll
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\NuGet.Protocol.dll
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\NuGet.Versioning.dll
+D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\SixLabors.ImageSharp.dll
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\System.Composition.AttributedModel.dll
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\System.Composition.Convention.dll
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\System.Composition.Hosting.dll
@@ -278,4 +279,3 @@ D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\obj\Debug\net6.0\r
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\obj\Debug\net6.0\ChatBotWithSignalR.pdb
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\obj\Debug\net6.0\ChatBotWithSignalR.genruntimeconfig.cache
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\obj\Debug\net6.0\ref\ChatBotWithSignalR.dll
-D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\SixLabors.ImageSharp.dll
