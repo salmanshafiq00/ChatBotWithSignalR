@@ -40,7 +40,7 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
             model.LoginUserId = loginUser.Id;
             model.LoginUserFullName = string.Concat(loginUser.FirstName, " ", loginUser.LastName) ?? loginUser.UserName;
 
-            var userList = await _userManager.Users.Where(p => p.IsChatUser).ToListAsync();
+            var userList = await _userManager.Users.ToListAsync();
             foreach (var user in userList)
             {
                 model.ChatUsers.Add(new ChatUserViewModel

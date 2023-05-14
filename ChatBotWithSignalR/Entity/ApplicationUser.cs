@@ -14,6 +14,5 @@ namespace ChatBotWithSignalR.Entity
         [StringLength(20)]
         public string Gender { get; set; } = string.Empty;
 
-        public bool IsChatUser { get; set; }
     }
 }

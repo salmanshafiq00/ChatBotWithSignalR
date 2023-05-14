@@ -18,7 +18,7 @@ namespace  ChatBotWithSignalR.Areas.Identity.Pages.Account.Manage
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
         public static string Index => "Index";
-
+        public static string ProfilePhoto => "ProfilePhoto";
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
@@ -66,6 +66,7 @@ namespace  ChatBotWithSignalR.Areas.Identity.Pages.Account.Manage
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
         public static string IndexNavClass(ViewContext viewContext) => PageNavClass(viewContext, Index);
+        public static string ProfilePhotoNavClass(ViewContext viewContext) => PageNavClass(viewContext, ProfilePhoto);
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used

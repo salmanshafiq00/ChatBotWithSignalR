@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "wA7tiDBwfDkJ58UO26iL/WHtfeelpJWMX2O1CtqRdVA=",
+  "Hash": "i4tQiUWHg7DCGBNlDdqME/YvOeLQa6mciE5mvV8RJEw=",
   "Source": "ChatBotWithSignalR",
   "BasePath": "_content/ChatBotWithSignalR",
   "Mode": "Default",
@@ -1394,12 +1394,12 @@
       "OriginalItemSpec": "wwwroot\\images\\users\\RAZU28_20230507.jpg"
     },
     {
-      "Identity": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\users\\salmanshafiq00_20230507.jpg",
+      "Identity": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\users\\salmanshafiq00_20230514.png",
       "SourceId": "ChatBotWithSignalR",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\",
       "BasePath": "_content/ChatBotWithSignalR",
-      "RelativePath": "images/users/salmanshafiq00_20230507.jpg",
+      "RelativePath": "images/users/salmanshafiq00_20230514.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1408,7 +1408,24 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\users\\salmanshafiq00_20230507.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\users\\salmanshafiq00_20230514.png"
+    },
+    {
+      "Identity": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\users\\shofiq.dev2_20230515.png",
+      "SourceId": "ChatBotWithSignalR",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\",
+      "BasePath": "_content/ChatBotWithSignalR",
+      "RelativePath": "images/users/shofiq.dev2_20230515.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\users\\shofiq.dev2_20230515.png"
     },
     {
       "Identity": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\whatsBgImage.png",

@@ -3,9 +3,15 @@ using ChatBotWithSignalR.Extensions;
 using ChatBotWithSignalR.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using SixLabors.ImageSharp;
+using System.Text.Encodings.Web;
+using System.Text;
+using ChatBotWithSignalR.DTOs;
 
 namespace ChatBotWithSignalR.Areas.Admin.Controllers
 {
@@ -15,15 +21,27 @@ namespace ChatBotWithSignalR.Areas.Admin.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IToastNotification _toast;
         private readonly IWebHostEnvironment _webHost;
+        private readonly IMailService _mailService;
+        private readonly ILogger<UserController> _logger;
 
-        public UserController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IToastNotification toast, IWebHostEnvironment webHost)
+        public UserController(UserManager<ApplicationUser> userManager,
+            RoleManager<IdentityRole> roleManager,
+            SignInManager<ApplicationUser> signInManager,
+            IToastNotification toast,
+            IWebHostEnvironment webHost,
+            IMailService mailService,
+            ILogger<UserController> logger)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _signInManager = signInManager;
             _toast = toast;
             _webHost = webHost;
+            _mailService = mailService;
+            _logger = logger;
         }
         public IActionResult Index() => View();
 
@@ -52,7 +70,6 @@ namespace ChatBotWithSignalR.Areas.Admin.Controllers
                         Email = user.Email,
                         PhoneNumber = user.PhoneNumber,
                         ProfilePhotoUrl = user.ProfilePhotoUrl,
-                        IsChatUser = user.IsChatUser,
                         Roles = string.Join(",", await _userManager.GetRolesAsync(user))
                     });
                 }
@@ -77,34 +94,54 @@ namespace ChatBotWithSignalR.Areas.Admin.Controllers
         {
             try
             {
+                var returnUrl = Url.Content("~/");
                 if (ModelState.IsValid)
                 {
+
                     ApplicationUser user = new();
                     user.FirstName = model.FirstName.Trim();
                     user.LastName = model.LastName.Trim();
                     user.UserName = model.UserName.Trim();
                     user.Email = model.Email.Trim();
                     user.PhoneNumber = model.PhoneNumber.Trim();
-                    user.EmailConfirmed = true;
-                    user.IsChatUser = true;
                     await _userManager.AddPasswordAsync(user, model.Password);
                     var result = await _userManager.CreateAsync(user, model.Password);
                     if (result.Succeeded)
                     {
-                         result = await _userManager.AddToRoleAsync(user, "ChatUser");
+                        result = await _userManager.AddToRoleAsync(user, "ChatUser");
+                        _logger.LogInformation("User created a new account with password.");
                         if (result.Succeeded)
                         {
-                            await _toast.ToastSuccess("User Registered Successfully");
-                            return new JsonResult(new { IsSuccess = true });
+                            var userId = await _userManager.GetUserIdAsync(user);
+                            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                            code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+
+                            var callbackUrl = Url.Page(
+                                "/Account/ConfirmEmail",
+                                pageHandler: null,
+                                values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
+                                protocol: Request.Scheme);
+
+                            List<string> to = new List<string> { model.Email.Trim() };
+                            string subject = "Confirm Your Mail";
+                            string body = $"<h5>Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.</h5>";
+                            MailRequest mail = new(to, subject, body);
+
+                            bool isSend = await _mailService.SendAsync(mail, new CancellationToken());
+                            if (isSend)
+                            {
+                                await _toast.ToastSuccess("User Registered Successfully");
+                                return new JsonResult(new { IsSuccess = true, Username = user.UserName, Password = model.Password });
+                            }
                         }
                     }
                     await _toast.ToastError($"{result.Errors}");
-                    return new JsonResult(new {IsSuccess = false});
+                    return new JsonResult(new { IsSuccess = false });
                 }
                 else
                 {
                     await _toast.ToastError(ModelState.GetModelStateError());
-                    return new JsonResult(new {IsSuccess = false});
+                    return new JsonResult(new { IsSuccess = false });
                 }
             }
             catch (Exception ex)
@@ -112,6 +149,8 @@ namespace ChatBotWithSignalR.Areas.Admin.Controllers
                 throw new Exception(ex.Message);
             }
         }
+
+
 
         [HttpGet]
         public async Task<IActionResult> OnCreateOrEdit(string userId = "")
@@ -140,7 +179,6 @@ namespace ChatBotWithSignalR.Areas.Admin.Controllers
                         PhoneNumber = user.PhoneNumber,
                         ProfilePhotoUrl = user.ProfilePhotoUrl,
                         Password = user.PasswordHash,
-                        IsChatUser = user.IsChatUser,
                     };
                     return View("CreateOrEdit", userViewModel);
                 }
@@ -165,7 +203,6 @@ namespace ChatBotWithSignalR.Areas.Admin.Controllers
                         user.UserName = model.UserName.Trim();
                         user.Email = model.Email.Trim();
                         user.PhoneNumber = model.PhoneNumber.Trim();
-                        user.IsChatUser = model.IsChatUser;
                         user.EmailConfirmed = true;
                         user.ProfilePhotoUrl = await SaveImageAsync(model.ProfilePhoto, user.UserName, 200, 200);
                         await _userManager.AddPasswordAsync(user, model.Password);
@@ -190,7 +227,6 @@ namespace ChatBotWithSignalR.Areas.Admin.Controllers
                         user.LastName = model.LastName.Trim();
                         user.Email = model?.Email.Trim();
                         user.PhoneNumber = model?.PhoneNumber.Trim();
-                        user.IsChatUser = model.IsChatUser;
                         user.ProfilePhotoUrl = await SaveImageAsync(model.ProfilePhoto, model.UserName, 200, 200, model.ProfilePhotoUrl);
                         var result = await _userManager.UpdateAsync(user);
                         if (result.Succeeded)

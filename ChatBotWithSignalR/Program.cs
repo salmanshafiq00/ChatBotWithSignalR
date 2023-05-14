@@ -1,5 +1,6 @@
 global using ChatBotWithSignalR.Entity;
 using ChatBotWithSignalR.Data;
+using ChatBotWithSignalR.DTOs;
 using ChatBotWithSignalR.Hubs;
 using ChatBotWithSignalR.Interface;
 using ChatBotWithSignalR.Permission;
@@ -17,7 +18,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultUI()
     .AddDefaultTokenProviders()
@@ -42,8 +43,9 @@ builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProv
 //    });
 //    // These goes on for every permission
 //});
-
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(nameof(MailSettings)));
 builder.Services.AddTransient<IToastNotification, ToastNotification>();
+builder.Services.AddTransient<IMailService, MailService>();
 builder.Services.AddSignalR();
 
 var app = builder.Build();

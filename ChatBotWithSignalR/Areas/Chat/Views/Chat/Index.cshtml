@@ -161,12 +161,22 @@
         color: #1d8ecd
     }
 
+    .card-header{
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
+    }
+
+    .profileAvatar{
+        width: 35px;
+        border-radius: 50%;
+    }
+
 </style>
 <div class="card ml-auto mt-5" style="min-width: 768px">
     <div class="card-header">
         @*<h3 class="card-title">Chat Bot</h3>*@
         <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-light navbar-white">
+       @* <nav class="main-header navbar navbar-expand navbar-light navbar-white">
             <div class="container">
                 <a href="index3.html" class="navbar-brand">
                     <span class="brand-text font-weight-light">
@@ -180,6 +190,26 @@
                         <span class="badge bg-primary text-black text-xs" id="notificationCount">10</span>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="notiIcon" id="notify-wrapper">
+                    </ul>
+                </div>
+            </div>
+        </nav>*@
+        <nav class="main-header  navbar  navbar-expand navbar-light navbar-white">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="Chat" asp-controller="Chat" asp-action="Index">Triangle chat bot</a>
+                <div class=" d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav">
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><img src="@(me?.ProfilePhotoUrl ?? "/images/no-image.png")" class="profileAvatar" alt="avatar"> @me?.FullName!</a>
+                            </li>
+                            <li class="nav-item">
+                                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Chat", new { area = "Chat" })">
+                                    <button type="submit" class="nav-link btn btn-link text-dark"><i class="fa-solid fa-right-from-bracket"></i> </button>
+                                </form>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -210,7 +240,7 @@
                             {
                                 <li class="clearfix userlistclass" id="user_@user.Id">
                                     <a href="javascript:void(0)" class="text-dark" onclick="loadConversions(this, '@user.Id')">
-                                        <img src="@(user.ProfilePhotoUrl ?? "/images/no-images.png")" alt="avatar">
+                                        <img src="@(user.ProfilePhotoUrl ?? "/images/no-image.png")" alt="avatar">
                                         <div class="about">
                                             <div class="name">@user.FullName</div>
                                             <div class="status">

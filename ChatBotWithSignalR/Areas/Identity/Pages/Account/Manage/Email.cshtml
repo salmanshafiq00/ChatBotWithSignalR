@@ -10,6 +10,7 @@
         font-size: 25px;
         font-weight: 500;
         position: relative;
+        margin-bottom: 10px;
     }
 
         .title::before {
@@ -73,6 +74,10 @@
             form .button input:hover {
                 background: linear-gradient(-135deg, #71b7e6, #9b59b6);
             }
+
+    .fa-circle-check{
+        color: linear-gradient(135deg, #71b7e6, #9b59b6);
+    }
 </style>
 
 <div class="title">@ViewData["Title"]</div>
@@ -101,7 +106,11 @@
             }*@
             <div class="input-box">
                 <span class="details">Email</span>
-                <input type="email" asp-for="Email" disabled>
+                <input type="email" asp-for="Email" disabled> @if (Model.IsEmailConfirmed)
+                {
+                    <i class="fa-regular fa-circle-check"></i>
+                }
+
             </div>
             <div class="input-box">
                 <span class="details">New Email</span>

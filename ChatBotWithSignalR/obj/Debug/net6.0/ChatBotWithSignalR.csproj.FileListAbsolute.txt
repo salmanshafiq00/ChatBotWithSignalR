@@ -279,3 +279,8 @@ D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\obj\Debug\net6.0\r
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\obj\Debug\net6.0\ChatBotWithSignalR.pdb
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\obj\Debug\net6.0\ChatBotWithSignalR.genruntimeconfig.cache
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\obj\Debug\net6.0\ref\ChatBotWithSignalR.dll
+D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\BouncyCastle.Cryptography.dll
+D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\MailKit.dll
+D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\MimeKit.dll
+D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\System.Security.Cryptography.Pkcs.dll
+D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.Pkcs.dll

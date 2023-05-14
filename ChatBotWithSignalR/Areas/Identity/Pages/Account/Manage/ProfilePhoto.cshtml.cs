@@ -16,54 +16,40 @@ namespace ChatBotWithSignalR.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IWebHostEnvironment _webHost;
 
         public ProfilePhotoModel(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager,
+            IWebHostEnvironment webHost)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _webHost = webHost;
         }
+        public string ProfilePhotoUrl { get; set; } = string.Empty;
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         [TempData]
         public string StatusMessage { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
+
         [BindProperty]
         public InputModel Input { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         public class InputModel
         {
-            public string? ProfilePhotoUrl { get; set; } = string.Empty;
-            public IFormFile? ProfilePhoto { get; set; }
+            public string ProfilePhotoUrl { get; set; } = string.Empty;
+            public IFormFile ProfilePhoto { get; set; }
         }
 
         private async Task LoadAsync(ApplicationUser user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             var userInfo = await _userManager.GetUserAsync(User);
-            var firstName = userInfo.FirstName;
-            var lastName = userInfo.LastName;
-            var email = userInfo.Email;
-            var gender = userInfo.Gender;
-            var photoUrl = userInfo.ProfilePhotoUrl;
-
-
+            ProfilePhotoUrl = userInfo.ProfilePhotoUrl;
             Input = new InputModel
             {
-                ProfilePhotoUrl = photoUrl
+                ProfilePhotoUrl = userInfo.ProfilePhotoUrl
             };
         }
 
@@ -92,13 +78,79 @@ namespace ChatBotWithSignalR.Areas.Identity.Pages.Account.Manage
                 await LoadAsync(user);
                 return Page();
             }
-
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-
-
-            await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
+            if (string.IsNullOrEmpty(Input.ProfilePhotoUrl) && Input.ProfilePhoto is  null)
+            {
+                return RedirectToPage();
+            }
+            user.ProfilePhotoUrl = await SaveImageAsync(Input.ProfilePhoto, user.UserName, 220, 220, user.ProfilePhotoUrl);
+            var result = await _userManager.UpdateAsync(user);
+            if (result.Succeeded)
+            {
+                await _userManager.UpdateSecurityStampAsync(user);
+                await _signInManager.RefreshSignInAsync(user);
+                StatusMessage = "Your profile Photo has been updated";
+                return RedirectToPage();
+            }
             return RedirectToPage();
+        }
+
+        private async Task<string> SaveImageAsync(IFormFile file, string username, int maxWidth, int maxHeight, string? existiongFileUrl = null)
+        {
+            try
+            {
+                if (file is null && String.IsNullOrEmpty(existiongFileUrl))                   // during create when no file uploaded
+                {
+                    return string.Empty;
+                }
+                else if (!string.IsNullOrEmpty(existiongFileUrl) && file is null)             // during edit while file was created but no changes
+                {
+                    return existiongFileUrl;
+                }
+
+                if (file is not null && file.Length > 0)                        // during create/changes file
+                {
+                    if (!string.IsNullOrEmpty(existiongFileUrl))
+                    {
+                        string existPath = _webHost.WebRootPath + existiongFileUrl.Replace('/', '\\');
+                        if (System.IO.File.Exists(existPath))
+                        {
+                            System.IO.File.Delete(Path.Combine(existPath));
+                        }
+                    }
+                    string uploadFolder = Path.Combine(_webHost.WebRootPath, "images", "users");
+                    string extension = Path.GetExtension(file.FileName);
+                    string fileName = $"{username}_{DateTime.Now.ToString("yyyyMMdd")}{extension}";
+                    string path = Path.Combine(uploadFolder, fileName);
+
+                    using (var stream = new MemoryStream())
+                    {
+                        // Load the image from the IFormFile into an Image object
+                        await file.CopyToAsync(stream);
+                        stream.Seek(0, SeekOrigin.Begin);
+                        var image = Image.Load(stream);
+
+                        // Resize the image to the desired dimensions
+                        image.Mutate(x => x.Resize(new ResizeOptions
+                        {
+                            Size = new Size(maxWidth, maxHeight),
+                            //Mode = ResizeMode.Min  // it maintain orignal aspect ratio
+                            Mode = ResizeMode.Stretch // it maintain orignal aspect ratio
+                        }));
+
+                        // Save the resized image to a file in the wwwroot folder
+                        using FileStream fileStream = new(path, FileMode.Create);
+                        await image.SaveAsPngAsync(fileStream);
+                        //await file.CopyToAsync(fileStream);
+                        fileStream.Position = 0;
+                    }
+                    return $"/images/users/{fileName}";
+                }
+                return string.Empty;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

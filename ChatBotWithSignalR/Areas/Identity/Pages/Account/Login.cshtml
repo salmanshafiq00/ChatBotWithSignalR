@@ -146,14 +146,8 @@
             }
         });
 
-        //$('#registerLink').click(() => {
-        //    $('#registerForm').modal('show');
-        //});
-
-        // Get modal for create or update User Group
         function onGetRegisterForm() {
             $.get(`/Admin/User/OnGetUserRegister`, (result) => {
-                //$('#formModal #modalHeaderTitle').html(title);
                 $('#registerForm .modal-body').html(result);
                 $('#registerForm').modal('show');
             });
@@ -171,6 +165,9 @@
                         if (result.isSuccess) {
                             toastr.success(`User registration successful`, `success`);
                             $('#registerForm').modal('hide');
+                            $('#Input_Email').val(result.username);
+                            $('#Input_Password').val(result.password);
+
                         }
                         else {
                             toastr.error(`User registration failed`, `warning`);
