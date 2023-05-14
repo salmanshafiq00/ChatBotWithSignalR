@@ -70,11 +70,12 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
         name: "areaRoute",
-        pattern: "{area:exists}/{controller}/{action}"
-    );
+        pattern: "{area:exists}/{controller}/{action}",
+        defaults: new {area = "Chat", controller = "Chat", action = "Index" });
+
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{area:exists}/{controller=Chat}/{action=Index}");
 app.MapRazorPages();
 app.MapHub<ChatHub>("/Chat");
 

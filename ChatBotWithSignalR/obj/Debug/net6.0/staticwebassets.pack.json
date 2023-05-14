@@ -21,6 +21,10 @@
       "PackagePath": "staticwebassets\\css\\chat.css"
     },
     {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\css\\login.css",
+      "PackagePath": "staticwebassets\\css\\login.css"
+    },
+    {
       "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
@@ -35,6 +39,10 @@
     {
       "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\conversation\\56a0435a-3e09-48fc-b837-c6100300e9c8_20230510_493.png",
       "PackagePath": "staticwebassets\\images\\conversation\\56a0435a-3e09-48fc-b837-c6100300e9c8_20230510_493.png"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\conversation\\56a0435a-3e09-48fc-b837-c6100300e9c8_20230511_337.png",
+      "PackagePath": "staticwebassets\\images\\conversation\\56a0435a-3e09-48fc-b837-c6100300e9c8_20230511_337.png"
     },
     {
       "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\conversation\\56a0435a-3e09-48fc-b837-c6100300e9c8_20230511_521.png",
@@ -59,6 +67,10 @@
     {
       "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\propic.jpg",
       "PackagePath": "staticwebassets\\images\\propic.jpg"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\undraw_file_sync_ot38.svg",
+      "PackagePath": "staticwebassets\\images\\undraw_file_sync_ot38.svg"
     },
     {
       "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\users\\RAZU28_20230507.jpg",

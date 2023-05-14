@@ -59,6 +59,20 @@
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
+        @*Modal for create a user group*@
+        <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="modalHeaderTitle" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalHeaderTitle"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="modalBody">
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*Modal for create a user group*@
     </div>
 
     <footer class="border-top footer text-muted">

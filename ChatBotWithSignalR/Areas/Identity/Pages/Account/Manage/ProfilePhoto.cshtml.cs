@@ -12,25 +12,18 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ChatBotWithSignalR.Areas.Identity.Pages.Account.Manage
 {
-    public class IndexModel : PageModel
+    public class ProfilePhotoModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public IndexModel(
+        public ProfilePhotoModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
         }
-
-
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
-        public string Username { get; set; }
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -52,25 +45,8 @@ namespace ChatBotWithSignalR.Areas.Identity.Pages.Account.Manage
         /// </summary>
         public class InputModel
         {
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 1)]
-            public string FirstName { get; set; } = string.Empty;
-
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 1)]
-            public string LastName { get; set; } = string.Empty;
-
-
-            //[Phone]
-            //[Display(Name = "Phone number")]
-            //public string PhoneNumber { get; set; }
-            [Required]
-            [RegularExpression(@"^(?:\+88|88)?(01[0-9]\d{8})$", ErrorMessage = "Please input valid phone number")]
-            public string PhoneNumber { get; set; } = string.Empty;
-
-            [Required]
-            public string Gender { get; set; } = string.Empty;
-
+            public string? ProfilePhotoUrl { get; set; } = string.Empty;
+            public IFormFile? ProfilePhoto { get; set; }
         }
 
         private async Task LoadAsync(ApplicationUser user)
@@ -80,16 +56,14 @@ namespace ChatBotWithSignalR.Areas.Identity.Pages.Account.Manage
             var userInfo = await _userManager.GetUserAsync(User);
             var firstName = userInfo.FirstName;
             var lastName = userInfo.LastName;
+            var email = userInfo.Email;
             var gender = userInfo.Gender;
+            var photoUrl = userInfo.ProfilePhotoUrl;
 
-            Username = userName;
 
             Input = new InputModel
             {
-                FirstName = firstName,
-                LastName = lastName,
-                Gender = gender,
-                PhoneNumber = phoneNumber
+                ProfilePhotoUrl = photoUrl
             };
         }
 
@@ -119,24 +93,8 @@ namespace ChatBotWithSignalR.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
-
-
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            if (Input.PhoneNumber != phoneNumber)
-            {
-                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
-                if (!setPhoneResult.Succeeded)
-                {
-                    StatusMessage = "Unexpected error when trying to set phone number.";
-                    return RedirectToPage();
-                }
-            }
-            user.FirstName = Input.FirstName;
-            user.LastName = Input.LastName;
-            user.Gender = Input.Gender;
 
-            await _userManager.UpdateAsync(user);
-            await _userManager.UpdateSecurityStampAsync(user);
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";

@@ -36,6 +36,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVXNlclxVc2VyUm9sZXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Programming/Projects/ChatBotWithSignalR/ChatBotWithSignalR/Areas/Admin/Views/User/_RegisterUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVXNlclxfUmVnaXN0ZXJVc2VyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Programming/Projects/ChatBotWithSignalR/ChatBotWithSignalR/Areas/Admin/Views/User/_ViewAll.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVXNlclxfVmlld0FsbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -44,20 +48,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ2hhdFxWaWV3c1xDaGF0XEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Programming/Projects/ChatBotWithSignalR/ChatBotWithSignalR/Areas/Chat/Views/Chat/Index2.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ2hhdFxWaWV3c1xDaGF0XEluZGV4Mi5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Programming/Projects/ChatBotWithSignalR/ChatBotWithSignalR/Areas/Chat/Views/Chat/Index3.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ2hhdFxWaWV3c1xDaGF0XEluZGV4My5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
 [D:/Programming/Projects/ChatBotWithSignalR/ChatBotWithSignalR/Areas/Chat/Views/Chat/_Conversations.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ2hhdFxWaWV3c1xDaGF0XF9Db252ZXJzYXRpb25zLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Programming/Projects/ChatBotWithSignalR/ChatBotWithSignalR/Areas/Chat/Views/Chat/_Conversations2.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ2hhdFxWaWV3c1xDaGF0XF9Db252ZXJzYXRpb25zMi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Programming/Projects/ChatBotWithSignalR/ChatBotWithSignalR/Areas/Chat/Views/Chat/_CreateOrEditGroup.cshtml]
@@ -150,6 +142,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Programming/Projects/ChatBotWithSignalR/ChatBotWithSignalR/Areas/Identity/Pages/Account/Manage/PersonalData.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcUGVyc29uYWxEYXRhLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Programming/Projects/ChatBotWithSignalR/ChatBotWithSignalR/Areas/Identity/Pages/Account/Manage/ProfilePhoto.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcUHJvZmlsZVBob3RvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Programming/Projects/ChatBotWithSignalR/ChatBotWithSignalR/Areas/Identity/Pages/Account/Manage/ResetAuthenticator.cshtml]

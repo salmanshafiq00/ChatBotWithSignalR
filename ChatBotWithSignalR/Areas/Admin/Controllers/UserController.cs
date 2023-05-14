@@ -1,4 +1,5 @@
 ﻿using ChatBotWithSignalR.Areas.Admin.Models;
+using ChatBotWithSignalR.Extensions;
 using ChatBotWithSignalR.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -56,6 +57,55 @@ namespace ChatBotWithSignalR.Areas.Admin.Controllers
                     });
                 }
                 return PartialView("_ViewAll", userList);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public PartialViewResult OnGetUserRegister()
+        {
+            return PartialView("_RegisterUser", new RegisterViewModel());
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> OnPostUserRegister(RegisterViewModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    ApplicationUser user = new();
+                    user.FirstName = model.FirstName.Trim();
+                    user.LastName = model.LastName.Trim();
+                    user.UserName = model.UserName.Trim();
+                    user.Email = model.Email.Trim();
+                    user.PhoneNumber = model.PhoneNumber.Trim();
+                    user.EmailConfirmed = true;
+                    user.IsChatUser = true;
+                    await _userManager.AddPasswordAsync(user, model.Password);
+                    var result = await _userManager.CreateAsync(user, model.Password);
+                    if (result.Succeeded)
+                    {
+                         result = await _userManager.AddToRoleAsync(user, "ChatUser");
+                        if (result.Succeeded)
+                        {
+                            await _toast.ToastSuccess("User Registered Successfully");
+                            return new JsonResult(new { IsSuccess = true });
+                        }
+                    }
+                    await _toast.ToastError($"{result.Errors}");
+                    return new JsonResult(new {IsSuccess = false});
+                }
+                else
+                {
+                    await _toast.ToastError(ModelState.GetModelStateError());
+                    return new JsonResult(new {IsSuccess = false});
+                }
             }
             catch (Exception ex)
             {
@@ -164,6 +214,8 @@ namespace ChatBotWithSignalR.Areas.Admin.Controllers
             }
         }
 
+
+
         [HttpPost]
         public async Task<IActionResult> OnPostUserDelete(string userId)
         {
@@ -267,6 +319,7 @@ namespace ChatBotWithSignalR.Areas.Admin.Controllers
 
         #endregion
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> IsEmailUsed(string email, string id)
         {
@@ -280,6 +333,7 @@ namespace ChatBotWithSignalR.Areas.Admin.Controllers
                 return Json($"Email {email} is already used");
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> IsUsernameUsed(string userName, string id)
         {
@@ -293,7 +347,7 @@ namespace ChatBotWithSignalR.Areas.Admin.Controllers
                 return Json($"Username {userName} is already used");
         }
 
-        private async Task<string> SaveImageAsync(IFormFile file, string username,int maxWidth, int maxHeight, string? fileUrl = null)
+        private async Task<string> SaveImageAsync(IFormFile file, string username, int maxWidth, int maxHeight, string? fileUrl = null)
         {
             try
             {
@@ -344,7 +398,7 @@ namespace ChatBotWithSignalR.Areas.Admin.Controllers
                         await image.SaveAsPngAsync(fileStream);
                         //await file.CopyToAsync(fileStream);
                         fileStream.Position = 0;
-                    }                     
+                    }
                     return $"/images/users/{fileName}";
                 }
                 return string.Empty;

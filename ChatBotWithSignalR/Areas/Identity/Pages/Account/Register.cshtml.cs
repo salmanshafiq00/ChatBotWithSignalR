@@ -5,6 +5,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
+using ChatBotWithSignalR.Areas.Admin.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -149,6 +150,7 @@ namespace ChatBotWithSignalR.Areas.Identity.Pages.Account
             return Page();
         }
 
+     
         private ApplicationUser CreateUser()
         {
             try

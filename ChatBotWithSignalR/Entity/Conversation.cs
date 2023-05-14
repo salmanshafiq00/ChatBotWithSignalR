@@ -18,6 +18,7 @@ namespace ChatBotWithSignalR.Entity
         public DateTime SendDate { get; set; } = DateTime.Now;
         public DateTime? ReceiveDate { get; set; }
         public bool IsSeen { get; set; }
+        public DateTime? SeenDate { get; set; }
         public int GroupId { get; set; }
         [NotMapped]
         public List<IFormFile>? Files { get; set; }
