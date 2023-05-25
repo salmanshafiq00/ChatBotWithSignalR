@@ -9,14 +9,29 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-
 var builder = WebApplication.CreateBuilder(args);
+var configuration = builder.Configuration;
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var connectionString = configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+
+builder.Services.AddAuthentication()
+    .AddGoogle(options =>
+    {
+        options.ClientId = configuration["Authentication:Google:ClientId"];
+        options.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+    })
+    .AddFacebook(options =>
+    {
+        options.ClientId = configuration["Authentication:Facebook:ClientId"];
+        options.ClientSecret = configuration["Authentication:Facebook:ClientSecret"];
+    });
+
+builder.Services.AddControllersWithViews();
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -24,7 +39,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.S
     .AddDefaultTokenProviders()
     .AddSignInManager<CustomSignInManager<ApplicationUser>>();
 
-builder.Services.AddControllersWithViews();
+
 
 builder.Services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
 builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
@@ -73,7 +88,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
         name: "areaRoute",
         pattern: "{area:exists}/{controller}/{action}",
-        defaults: new {area = "Chat", controller = "Chat", action = "Index" });
+        defaults: new { area = "Chat", controller = "Chat", action = "Index" });
 
 app.MapControllerRoute(
     name: "default",

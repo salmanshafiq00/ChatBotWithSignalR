@@ -284,3 +284,5 @@ D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\M
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\MimeKit.dll
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\System.Security.Cryptography.Pkcs.dll
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.Pkcs.dll
+D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.Google.dll
+D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.Facebook.dll

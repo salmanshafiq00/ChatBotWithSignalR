@@ -24,16 +24,16 @@
             background: linear-gradient(135deg, #71b7e6, #9b59b6);
         }
 
-    form  .input-box {
+    form .input-box {
         margin-bottom: 15px;
         width: calc(100%);
     }
 
-    form .input-box span.details {
-        display: block;
-        font-weight: 500;
-        margin-bottom: 5px;
-    }
+        form .input-box span.details {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
 
     .input-box input {
         height: 45px;
@@ -75,7 +75,7 @@
                 background: linear-gradient(-135deg, #71b7e6, #9b59b6);
             }
 
-    .fa-circle-check{
+    .fa-circle-check {
         color: linear-gradient(135deg, #71b7e6, #9b59b6);
     }
 </style>
@@ -106,9 +106,14 @@
             }*@
             <div class="input-box">
                 <span class="details">Email</span>
-                <input type="email" asp-for="Email" disabled> @if (Model.IsEmailConfirmed)
+                <input type="email" asp-for="Email" disabled>
+                @if (Model.IsEmailConfirmed)
                 {
                     <i class="fa-regular fa-circle-check"></i>
+                }
+                else
+                {
+                    <button id="email-verification" type="submit" asp-page-handler="SendVerificationEmail" class="btn btn-link">Send verification email</button>
                 }
 
             </div>

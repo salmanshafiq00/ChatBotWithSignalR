@@ -101,7 +101,7 @@ h2 {
   top: 2px;
   font-size: 14px; }
 
-.social-login a {
+/*.social-login a {
   text-decoration: none;
   position: relative;
   text-align: center;
@@ -131,7 +131,7 @@ h2 {
   .social-login a.google {
     background: #ea4335; }
     .social-login a.google:hover {
-      background: #e82e1e; }
+      background: #e82e1e; }*/
 
 .control {
   display: block;

@@ -96,6 +96,13 @@
         margin-left: 10px
     }
 
+    .coversationAudio {
+        display: block;
+        max-width: 250px;
+        text-align: center;
+        margin-left: 10px
+    }
+
     #toUserContainer {
         height: 50px;
         padding: 10px 0;
@@ -143,14 +150,14 @@
         @if (!string.IsNullOrEmpty(Model.ToUserName))
         {
             @*<span style="margin-right: 5px"><i class="fas fa-user" style="font-size: 20px"></i> </span>*@
-            <img src="@(Model.ToUserProfilePhotoUrl ?? "/images/no-images.png")" alt="avatar" style="width: 35px; border-radius: 50%; margin-top: -11px">
+            <img src="@(Model.ToUserProfilePhotoUrl ?? "/images/no-image.png")" alt="avatar" style="width: 35px; border-radius: 50%; margin-top: -11px" asp-append-version="true">
             <h3 id="conUserTitle" style="display: inline">@Model.ToUserName</h3>
             <span id="toUserIdFromHeader" class="d-none">@Model.ToUserId</span>
         }
         else if (!string.IsNullOrEmpty(Model.GroupName))
         {
             @*<span style="margin-right: 5px"><i class="fas fa-users" style="font-size: 20px"></i> </span>*@
-            <img src="@(Model.GroupPhotoUrl ?? "/images/no-images.png")" alt="Group Photo" style="width: 35px; border-radius: 50%; margin-top: -11px">
+            <img src="@(Model.GroupPhotoUrl ?? "/images/no-image.png")" alt="Group Photo" style="width: 35px; border-radius: 50%; margin-top: -11px" asp-append-version="true">
             <h3 id="conGroupTitle" style="display: inline">@Model.GroupName</h3>
             <button style="padding: 0;border: none;background: none; margin-left: 20px" onclick="getCreateOrUpdateGroupModal(@Model.GroupId, `Edit Group Name`)">
                 <i class="fa fa-pencil" aria-hidden="true" style="font-size:12px;"></i>
@@ -185,12 +192,47 @@
                     {
                         foreach (var file in conversation.ConversationFiles)
                         {
-                            <div class="ownMessageImg">
-                                <a onclick="showImageToModal('@file.FileUrl')">
-                                    <img src="@file.FileUrl" alt="file" class="img-fluid img-thumbnail ml-0 mr-0 coversationImg">
-                                </a>
-                                <span class="time">@conversation.SendDate.ToShortTimeString()</span>
-                            </div>
+                            var fileType = file.FileType.Split('/')[0];
+                            if (fileType == "image")
+                            {
+                                <div class="ownMessageImg">
+                                    <a onclick="showImageToModal('@file.FileUrl')">
+                                        <img src="@file.FileUrl" alt="file" class="img-fluid img-thumbnail ml-0 mr-0 coversationImg">
+                                    </a>
+                                    <span class="time">@conversation.SendDate.ToShortTimeString()</span>
+                                </div>
+                            }
+                            else if (fileType == "audio")
+                            {
+                                <div class="ownMessageImg">
+                                    <span>@file.FileName</span>
+                                    <audio controls>
+                                        <source src="@file.FileUrl">
+                                    </audio>
+
+                                    <span class="time">@conversation.SendDate.ToShortTimeString()</span>
+                                </div>
+                            }
+                            else if (fileType == "video")
+                            {
+                                <div class="ownMessageImg">
+                                    <p>@file.FileName</p>
+                                    <video controls style="width: 50%;">
+                                        <source src="@file.FileUrl">
+                                    </video>
+                                    <span class="time">@conversation.SendDate.ToShortTimeString()</span>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="ownMessageImg">
+                                    <a onclick="showFileInModal('@file.FileUrl')">
+                                        <p class="text-white"><i class="fa-solid fa-file-lines"></i> @file.FileName</p>
+                                        <p class="text-white">@file.FileSize</p>
+                                    </a>
+                                    <span class="time">@conversation.SendDate.ToShortTimeString()</span>
+                                </div>
+                            }
                         }
                     }
                 }
@@ -208,12 +250,53 @@
                     {
                         foreach (var file in conversation.ConversationFiles)
                         {
-                            <div class="otherMessageImg">
-                                <a onclick="showImageToModal('@file.FileUrl')">
+                           @* <div class="otherMessageImg">
+                                <a onclick="showFileInModal('@file.FileUrl')">
                                     <img src="@file.FileUrl" alt="file" class="img-fluid img-thumbnail ml-0 mr-0 coversationImg">
                                 </a>
                                 <span class="time">@conversation.SendDate.ToShortTimeString()</span>
-                            </div>
+                            </div>*@
+                            var fileType = file.FileType.Split('/')[0];
+                            if (fileType == "image")
+                            {
+                                <div class="otherMessageImg">
+                                    <a onclick="showImageToModal('@file.FileUrl')">
+                                        <img src="@file.FileUrl" alt="file" class="img-fluid img-thumbnail ml-0 mr-0 coversationImg">
+                                    </a>
+                                    <span class="time">@conversation.SendDate.ToShortTimeString()</span>
+                                </div>
+                            }
+                            else if (fileType == "audio")
+                            {
+                                <div class="otherMessageImg">
+                                    <span>@file.FileName</span>
+                                    <audio controls class="coversationAudio">
+                                        <source src="@file.FileUrl">
+                                    </audio>
+
+                                    <span class="time">@conversation.SendDate.ToShortTimeString()</span>
+                                </div>
+                            }
+                            else if (fileType == "video")
+                            {
+                                <div class="otherMessageImg">
+                                    <p>@file.FileName</p>
+                                    <video controls class="coversationImg">
+                                        <source src="@file.FileUrl">
+                                    </video>
+                                    <span class="time">@conversation.SendDate.ToShortTimeString()</span>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="otherMessageImg">
+                                    <a onclick="showFileInModal('@file.FileUrl')">
+                                        <p><i class="fa-solid fa-file-lines"></i> @file.FileName</p>
+                                        <p>@file.FileSize</p>
+                                    </a>
+                                    <span class="time">@conversation.SendDate.ToShortTimeString()</span>
+                                </div>
+                            }
                         }
                     }
                 }

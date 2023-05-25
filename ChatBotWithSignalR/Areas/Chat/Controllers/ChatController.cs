@@ -8,7 +8,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats;
+using SixLabors.ImageSharp.Formats.Jpeg;
+using SixLabors.ImageSharp.Formats.Png;
 using System.Net.WebSockets;
+using System.Reflection.Metadata;
 using System.Security.Claims;
 using Image = SixLabors.ImageSharp.Image;
 using Size = SixLabors.ImageSharp.Size;
@@ -156,7 +161,6 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
                         break;
                     }
                     return new JsonResult(new { IsSuccess = false });
-                    //return View();
 
                 }
             }
@@ -471,26 +475,57 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
                     string fileName = $"{fromUserId}_{DateTime.Now.ToString("yyyyMMdd")}_{DateTime.Now.Millisecond}{extension}";
                     string path = Path.Combine(uploadFolder, fileName);
 
-                    using (var memoryStream = new MemoryStream())
+                    if (file.ContentType.Split('/')[0] == "image")
                     {
-                        await file.CopyToAsync(memoryStream);
-                        memoryStream.Seek(0, SeekOrigin.Begin);
-                        var image = Image.Load(memoryStream);
-
-                        // Resize the image to the desired dimensions
-                        image.Mutate(x => x.Resize(new ResizeOptions
+                        using (var memoryStream = new MemoryStream())
                         {
-                            Size = new Size(maxWidth, maxHeight),
-                            Mode = ResizeMode.Max
-                        }));
+                            await file.CopyToAsync(memoryStream);
+                            memoryStream.Seek(0, SeekOrigin.Begin);
+                            var image = Image.Load(memoryStream);
 
-                        using FileStream fileStream = new(path, FileMode.Create);
-                        await file.CopyToAsync(fileStream);
-                        fileStream.Position = 0;
+                            // Resize the image to the desired dimensions
+                            image.Mutate(x => x.Resize(new ResizeOptions
+                            {
+                                Size = new Size(maxWidth, maxHeight),
+                                Mode = ResizeMode.Max
+                            }));
+
+                            // Optimize the image before saving
+                            IImageEncoder encoder;
+
+                            if (extension == ".jpg" || extension == ".jpeg")
+                            {
+                                encoder = new JpegEncoder
+                                {
+                                    Quality = 80 // Adjust the quality level as needed (0-100)
+                                };
+                            }
+                            else if (extension == ".png")
+                            {
+                                encoder = new PngEncoder
+                                {
+                                    CompressionLevel = (PngCompressionLevel)6
+                                };
+                            }
+                            else
+                            {
+                                // Handle unsupported file formats
+                                throw new NotSupportedException("Unsupported image format.");
+                            }
+    
+                            // Save the optimized image to disk
+                            using FileStream fileStream = new(path, FileMode.Create);
+                            await image.SaveAsync(fileStream, encoder);
+                            fileStream.Position = 0;
+                        }
                     }
-
-
-
+                    else
+                    {
+                        using (var fileStream = new FileStream(path, FileMode.Create))
+                        {
+                            await file.CopyToAsync(fileStream);
+                        }
+                    }
                     return ($"/images/conversation/{fileName}", fileSize);
                 }
                 return (string.Empty, string.Empty);

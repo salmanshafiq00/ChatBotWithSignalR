@@ -56,6 +56,57 @@
     .mb-4, .my-4 {
         margin-bottom: 1.5rem !important;
     }
+
+
+    .social-login button {
+        text-decoration: none;
+        position: relative;
+        text-align: center;
+        color: #fff;
+        margin-bottom: 10px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: inline-block;
+        border: none;
+    }
+
+        .social-login button i {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+
+        .social-login button:hover {
+            color: #fff;
+        }
+
+        .social-login button.facebook {
+            background: #3b5998;
+        }
+
+            .social-login button.facebook:hover {
+                background: #344e86;
+            }
+
+        .social-login button.twitter {
+            background: #1da1f2;
+        }
+
+            .social-login button.twitter:hover {
+                background: #0d95e8;
+            }
+
+        .social-login button.google {
+            background: #ea4335 !important;
+        }
+
+            .social-login button.google:hover {
+                background: #e82e1e !important;
+            }
 </style>
 
 
@@ -102,20 +153,48 @@
                                 </label>
                                 <span class="ml-auto" style="margin-left: auto !important;"><a id="registerLink" @*asp-page="./Register"*@ onclick="onGetRegisterForm()" class="forgot-pass" style="cursor: pointer;">Register Here</a></span>
                             </div>
-
-
-                            <div class="social-login">
-                                <a href="#" class="facebook">
-                                    <i class="fa-brands fa-facebook-f"></i>
-                                </a>
-                                <a href="#" class="twitter">
-                                    <i class="fa-brands fa-twitter"></i>
-                                </a>
-                                <a href="#" class="google">
-                                    <i class="fa-brands fa-google"></i>
-                                </a>
-                            </div>
                         </form>
+
+                        @*  Extenal Login provider   *@
+
+                      @*  <div class="social-login">
+                            <a href="#" class="facebook">
+                                <i class="fa-brands fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="twitter">
+                                <i class="fa-brands fa-twitter"></i>
+                            </a>
+                            <a href="#" class="google">
+                                <i class="fa-brands fa-google"></i>
+                            </a>
+                        </div>*@
+
+                        @{
+                            if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                            {
+                                <div class="social-login">
+                                    There is nothing external login provider
+                                </div>
+                            }
+                            else
+                            {
+                                <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                                    <div class="social-login">
+                                        @foreach (var provider in Model.ExternalLogins!)
+                                        {
+                                            if (provider.Name == "Google")
+                                            {
+                                                <button type="submit" class="btn btn-primary google" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"> <i class="fa-brands fa-google"></i></button>
+                                            }
+                                            else if (provider.Name == "Facebook")
+                                            {
+                                                <button type="submit" class="btn btn-primary facebook" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"> <i class="fa-brands fa-facebook-f"></i></button>
+                                            }
+                                        }
+                                    </div>
+                                </form>
+                            }
+                        }
                     </div>
                 </div>
 

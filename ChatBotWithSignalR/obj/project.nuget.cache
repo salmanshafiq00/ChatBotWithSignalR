@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "oMiNR/FtyvKIHJlCeB5IKuEgZU8u6sK/1TJElT54MGb+i1tFoLyGcp/2JQwDqYvCISt7NLD5iND4da7/Eo4sNg==",
+  "dgSpecHash": "RqDwfeewoGLZiyD5VsVT02tAwkA7XjNGwnW4gSh2FF+31dNc8TBt+uhN0ipdsoRpc2zXwkNwiID2I5RRBlCtfQ==",
   "success": true,
   "projectFilePath": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\ChatBotWithSignalR.csproj",
   "expectedPackageFiles": [
@@ -10,6 +10,8 @@
     "C:\\Users\\Salman\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
     "C:\\Users\\Salman\\.nuget\\packages\\messagepack.annotations\\2.1.152\\messagepack.annotations.2.1.152.nupkg.sha512",
     "C:\\Users\\Salman\\.nuget\\packages\\messagepackanalyzer\\2.1.152\\messagepackanalyzer.2.1.152.nupkg.sha512",
+    "C:\\Users\\Salman\\.nuget\\packages\\microsoft.aspnetcore.authentication.facebook\\6.0.16\\microsoft.aspnetcore.authentication.facebook.6.0.16.nupkg.sha512",
+    "C:\\Users\\Salman\\.nuget\\packages\\microsoft.aspnetcore.authentication.google\\6.0.16\\microsoft.aspnetcore.authentication.google.6.0.16.nupkg.sha512",
     "C:\\Users\\Salman\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\6.0.16\\microsoft.aspnetcore.cryptography.internal.6.0.16.nupkg.sha512",
     "C:\\Users\\Salman\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\6.0.16\\microsoft.aspnetcore.cryptography.keyderivation.6.0.16.nupkg.sha512",
     "C:\\Users\\Salman\\.nuget\\packages\\microsoft.aspnetcore.diagnostics.entityframeworkcore\\6.0.16\\microsoft.aspnetcore.diagnostics.entityframeworkcore.6.0.16.nupkg.sha512",

@@ -57,26 +57,7 @@ let sendMessage = form => {
             processData: false,
             success: function (result) {
                 if (result.isSuccess) {
-                    if (msgContent) {
-                        $(`#messageList`).append(`<div class="ownMessage">
-                                                    <pre class="text-white">${msgContent.replace(/\n\r?/g, '<br />')}</pre>
-                                                    <span class="time">${result.time}</span>
-                                                  </div>`);
-
-                    }
-                    if (files.files.length > 0) {
-                        for (var i = 0; i < files.files.length; i++) {
-                            let imgSrc = URL.createObjectURL(files.files[i])
-
-                            $(`#messageList`).append(` <div class="ownMessageImg">
-                                <a onclick="showImageToModal('${imgSrc}')">
-                                    <img src="${imgSrc}" alt="file" class="img-fluid img-thumbnail ml-0 mr-0 coversationImg">
-                                </a>
-                                <span class="time">${result.time}</span>
-                            </div>`);
-                        }
-                    }
-
+                    setConversationToCaller(result, msgContent, files);
                     $(`#msgContent`).val('').trigger('input');
                     $(`#msgContent`).focus();
                     scrollToBottom();
@@ -232,12 +213,109 @@ function setConversationToChatBox(conversation) {
 
     if (conversation.conversationFiles.length > 0) {
         for (var i = 0; i < conversation.conversationFiles.length; i++) {
-            $(`#messageList`).append(` <div class="otherMessageImg">
-                                <a onclick="showImageToModal('${conversation.conversationFiles[i].fileUrl}')">
-                                    <img src="${conversation.conversationFiles[i].fileUrl}" alt="file" class="img-fluid img-thumbnail ml-0 mr-0 coversationImg">
+            let fileType = conversation.conversationFiles[i].fileType.split('/')[0];
+            let fileName = conversation.conversationFiles[i].fileName;
+            let fileSrc =  conversation.conversationFiles[i].fileUrl;
+
+            //$(`#messageList`).append(` <div class="otherMessageImg">
+            //                    <p id="toUserHeader">${conversation.fromUserName}</p>
+            //                    <a onclick="showImageToModal('${conversation.conversationFiles[i].fileUrl}')">
+            //                        <img src="${conversation.conversationFiles[i].fileUrl}" alt="file" class="img-fluid img-thumbnail ml-0 mr-0 coversationImg">
+            //                    </a>
+            //                    <span class="time">${conversation.toShortTime}</span>
+            //                </div>`);
+
+            if (fileType == 'image') {
+                $(`#messageList`).append(` <div class="otherMessageImg">
+                                <p id="toUserHeader">${conversation.fromUserName}</p>
+                                <a onclick="showImageToModal('${fileSrc}')">
+                                    <img src="${fileSrc}" alt="file" class="img-fluid img-thumbnail ml-0 mr-0 coversationImg">
                                 </a>
                                 <span class="time">${conversation.toShortTime}</span>
                             </div>`);
+            }
+            else if (fileType == 'video') {
+                $(`#messageList`).append(` <div class="otherMessageImg">
+                                <p id="toUserHeader">${conversation.fromUserName}</p>
+                                <video controls class="coversationImg">
+                                        <source src="${fileSrc}">
+                                    </video>
+                                <span class="time">${conversation.toShortTime}</span>
+                            </div>`);
+            }
+            else if (fileType == 'audio') {
+                $(`#messageList`).append(` <div class="otherMessageImg">
+                              <p id="toUserHeader">${conversation.fromUserName}</p>
+                                <audio controls>
+                                    <source src="${fileSrc}">
+                                </audio>
+                               <span class="time">${conversation.toShortTime}</span>
+                            </div>`);
+            }
+            else {
+                $(`#messageList`).append(` <div class="otherMessageImg">
+                                <p id="toUserHeader"><i class="fa-solid fa-file-lines"></i> ${conversation.fromUserName}</p>
+                                <a onclick="showFileInModal('${fileSrc}')">
+                                    <p class="text-white">${fileName}</p>
+                                </a>
+                                <span class="time">${conversation.toShortTime}</span>
+                            </div>`);
+            }
+        }
+    }
+
+    let fileExtension = '';
+}
+
+// Set conversation to caler
+function setConversationToCaller(result, msgContent, files) {
+    if (msgContent) {
+        $(`#messageList`).append(`<div class="ownMessage">
+                                                    <pre class="text-white">${msgContent.replace(/\n\r?/g, '<br />')}</pre>
+                                                    <span class="time">${result.time}</span>
+                                                  </div>`);
+
+    }
+    if (files.files.length > 0) {
+        debugger;
+        for (var i = 0; i < files.files.length; i++) {
+            let fileSrc = URL.createObjectURL(files.files[i])
+            let fileType = files.files[i].type.split('/')[0];
+            let fileName = files.files[i].name;
+
+            if (fileType == 'image') {
+                $(`#messageList`).append(` <div class="ownMessageImg">
+                                <a onclick="showImageToModal('${fileSrc}')">
+                                    <img src="${fileSrc}" alt="file" class="img-fluid img-thumbnail ml-0 mr-0 coversationImg">
+                                </a>
+                                <span class="time">${result.time}</span>
+                            </div>`);
+            }
+            else if (fileType == 'video') {
+                $(`#messageList`).append(` <div class="ownMessageImg">
+                                 <p class="text-white">${fileName}</p>
+                                <video controls class="coversationImg">
+                                    <source src="${fileSrc}">
+                                </video>
+                                <span class="time">${result.time}</span>
+                            </div>`);
+            }
+            else if (fileType == 'audio') {
+                $(`#messageList`).append(` <div class="ownMessageImg">
+                                <audio controls>
+                                    <source src="${fileSrc}">
+                                </audio>
+                                <span class="time">${result.time}</span>
+                            </div>`);
+            }
+            else {
+                $(`#messageList`).append(` <div class="ownMessageImg">
+                                <a onclick="showFileInModal('${fileSrc}')">
+                                    <p class="text-white"><i class="fa-solid fa-file-lines"></i> ${fileName}</p>
+                                </a>
+                                <span class="time">${result.time}</span>
+                            </div>`);
+            }
         }
     }
 }

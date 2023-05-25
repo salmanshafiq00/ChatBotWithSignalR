@@ -144,7 +144,7 @@
         font-size: 13px
     }
 
-    .groupPhoto{
+    .groupPhoto {
         width: 45px;
         border-radius: 50%
     }
@@ -161,38 +161,46 @@
         color: #1d8ecd
     }
 
-    .card-header{
+    .card-header {
         padding-top: 0px !important;
         padding-bottom: 0px !important;
     }
 
-    .profileAvatar{
+    .profileAvatar {
         width: 35px;
         border-radius: 50%;
     }
 
+    .textGradient {
+        /*background: -webkit-linear-gradient(#eee, #333);*/
+        background: -webkit-linear-gradient(135deg, #71b7e6, #9b59b6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
 </style>
 <div class="card ml-auto mt-5" style="min-width: 768px">
     <div class="card-header">
         @*<h3 class="card-title">Chat Bot</h3>*@
         <!-- Navbar -->
-       @* <nav class="main-header navbar navbar-expand navbar-light navbar-white">
-            <div class="container">
-                <a href="index3.html" class="navbar-brand">
-                    <span class="brand-text font-weight-light">
-                        Triangle chat bot
-                    </span>
-                </a>
+        @* <nav class="main-header navbar navbar-expand navbar-light navbar-white">
+        <div class="container">
+        <a href="index3.html" class="navbar-brand">
+        <span class="brand-text font-weight-light">
+        Triangle chat bot
+        </span>
+        </a>
 
-                <div class="dropdown">
-                    <button class="btn btn-outline-secondary" type="button" id="notiIcon" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa-solid fa-bell text-warning" id="notify-bell"></i>
-                        <span class="badge bg-primary text-black text-xs" id="notificationCount">10</span>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="notiIcon" id="notify-wrapper">
-                    </ul>
-                </div>
-            </div>
+        <div class="dropdown">
+        <button class="btn btn-outline-secondary" type="button" id="notiIcon" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fa-solid fa-bell text-warning" id="notify-bell"></i>
+        <span class="badge bg-primary text-black text-xs" id="notificationCount">10</span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="notiIcon" id="notify-wrapper">
+        </ul>
+        </div>
+        </div>
         </nav>*@
         <nav class="main-header  navbar  navbar-expand navbar-light navbar-white">
             <div class="container-fluid">
@@ -202,7 +210,7 @@
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><img src="@(me?.ProfilePhotoUrl ?? "/images/no-image.png")" class="profileAvatar" alt="avatar"> @me?.FullName!</a>
+                                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><img src="@(me?.ProfilePhotoUrl ?? "/images/no-image.png")" class="profileAvatar" alt="avatar" asp-append-version="true"> @me?.FullName!</a>
                             </li>
                             <li class="nav-item">
                                 <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Chat", new { area = "Chat" })">
@@ -222,25 +230,25 @@
                     <h4>User List</h4>
                     <div class="people-list" id="UserListContainer">
                         <ul class="list-unstyled chat-list mt-2 mb-0">
-                                
-                                <li class="clearfix userlistclass" id="user_@Model.LoginUserId">
-                                    <a href="javascript:void(0)" class="text-dark" onclick="loadConversions(this, '@me.Id')">
-                                        <img src="@(me.ProfilePhotoUrl ?? "/images/no-image.png")"  alt="avatar">
-                                        <div class="about">
-                                            <div class="name">@me.FullName</div>
-                                            <div class="status">
-                                                <i class="fa fa-circle me"></i>
-                                                left 7 mins ago
-                                                <span class="badge bg-danger ml-2" id="notify_@me.Id">@(me.UnreadMessageNo == 0 ? "" : me.UnreadMessageNo.ToString())</span>
-                                            </div>
+
+                            <li class="clearfix userlistclass" id="user_@Model.LoginUserId">
+                                <a href="javascript:void(0)" class="text-dark" onclick="loadConversions(this, '@me.Id')">
+                                    <img src="@(me.ProfilePhotoUrl ?? "/images/no-image.png")" alt="avatar" asp-append-version="true">
+                                    <div class="about">
+                                        <div class="name">@me.FullName</div>
+                                        <div class="status">
+                                            <i class="fa fa-circle me"></i>
+                                            left 7 mins ago
+                                            <span class="badge bg-danger ml-2" id="notify_@me.Id">@(me.UnreadMessageNo == 0 ? "" : me.UnreadMessageNo.ToString())</span>
                                         </div>
-                                    </a>
-                                </li>
-                                    @foreach (var user in Model.ChatUsers.Where(p => p.Id != Model.LoginUserId))
+                                    </div>
+                                </a>
+                            </li>
+                            @foreach (var user in Model.ChatUsers.Where(p => p.Id != Model.LoginUserId))
                             {
                                 <li class="clearfix userlistclass" id="user_@user.Id">
                                     <a href="javascript:void(0)" class="text-dark" onclick="loadConversions(this, '@user.Id')">
-                                        <img src="@(user.ProfilePhotoUrl ?? "/images/no-image.png")" alt="avatar">
+                                        <img src="@(user.ProfilePhotoUrl ?? "/images/no-image.png")" alt="avatar" asp-append-version="true">
                                         <div class="about">
                                             <div class="name">@user.FullName</div>
                                             <div class="status">
@@ -277,20 +285,20 @@
                             @foreach (var group in Model.ChatGroupsList)
                             {
                                 @*<li id="user_@group.Id" class="grouplistclass">
-                                    <a href="javascript:void(0)" onclick="loadConversionsByGroupId('@group.Id')">@group.Name</a>
-                                    <button type="button" class="btn btn-outline-primary" style="padding: 0px 5px" onclick="getCreateOrUpdateUserGroupModal(@group.Id)">
-                                        <i class="fa fa-users" aria-hidden="true" style="font-size: 12px"></i>
-                                    </button>
-                                </li>*@
+                            <a href="javascript:void(0)" onclick="loadConversionsByGroupId('@group.Id')">@group.Name</a>
+                            <button type="button" class="btn btn-outline-primary" style="padding: 0px 5px" onclick="getCreateOrUpdateUserGroupModal(@group.Id)">
+                            <i class="fa fa-users" aria-hidden="true" style="font-size: 12px"></i>
+                            </button>
+                            </li>*@
 
                                 <li class="clearfix grouplistclass" id="user_@group.Id">
                                     <a href="javascript:void(0)" class="text-dark" onclick="loadConversionsByGroupId('@group.Id')">
-                                        <img src="@(group.GroupPhotoUrl ?? "/images/no-images.png")" alt="Group Photo Url" class="groupPhoto">
+                                        <img src="@(group.GroupPhotoUrl ?? "/images/no-images.png")" alt="Group Photo Url" class="groupPhoto" asp-append-version="true">
                                         <div class="about">
                                             <div class="name">@group.Name</div>
-                                           @* <div class="status">
-                                                <span class="badge bg-danger ml-3" id="notify_@group.Id">@(group.UnreadMessageNo == 0 ? "" : group.UnreadMessageNo.ToString())</span>
-                                            </div>*@
+                                            @* <div class="status">
+                                        <span class="badge bg-danger ml-3" id="notify_@group.Id">@(group.UnreadMessageNo == 0 ? "" : group.UnreadMessageNo.ToString())</span>
+                                        </div>*@
                                         </div>
                                     </a>
                                     <button type="button" class="btn btn-outline-primary" style="padding: 0px 5px" onclick="getCreateOrUpdateUserGroupModal(@group.Id)">
@@ -309,7 +317,7 @@
             </div>
         </div>
     </div>
-    <div class="footer d-none" >
+    <div class="footer d-none">
         <div class="row mt-2 m-0">
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-3 col-3">
             </div>
@@ -322,11 +330,25 @@
                     <input type="hidden" name="GroupId" id="GroupId" value="0" />
 
                     <div class="input-group mb-3">
-                        <div class="input-group-prepend">
+                        <div class="input-group-prepend" style="cursor: pointer" title="Upload Files">
                             <label for="Files" style="padding-right: 8px; margin-top: 5px">
                                 <i class="fa fa-paperclip" aria-hidden="true"></i>
-                                <input type="file" id="Files" name="Files" style="display: none" accept="image/gif,image/jpeg,image/jpg,image/png" multiple="" data-original-title="upload photos">
+                                <input type="file" id="Files" name="Files" style="display: none" multiple="" data-original-title="upload photos">
                             </label>
+                        </div>
+                        <div class="input-group-prepend textGradient" title="Upload Recording" id="startRecordingContainer">
+                            <label for="recordingStart" style="padding-right: 8px; margin-top: 5px">
+                                <i class="fa-solid fa-microphone" style="cursor: pointer"></i>
+                            </label>
+                            <button type="button" id="recordingStart" style="display: none" onclick="startRecording()"></button>
+                        </div>
+                        <div class="input-group-prepend d-none" title="Upload Recording" id="stopRecordingContainer">
+                            <label for="recordingStop" style="padding-right: 8px; margin-top: 5px">
+                                <i class="fa-solid fa-microphone" style="cursor: pointer; color: palevioletred"></i>
+                            </label>
+                            <button type="button" id="recordingStop" style="display: none" onclick="stopRecording()"></button>
+
+                            <canvas id="visualizer" width="400" height="30"></canvas>
                         </div>
                         <textarea class="form-control" id="msgContent" name="TextMessage" style="max-height: 100px; resize: none;" rows="1" data-min-rows='3' placeholder="Type a message" autofocus></textarea>
                         <div class="input-group-append">
@@ -378,4 +400,4 @@
 <script src="~/js/signalr.js"></script>
 <script src="~/js/chat.js" asp-append-version="true"></script>
 <script src="~/js/chatrequesthandler.js" asp-append-version="true"></script>
-
+<script src="~/js/recording.js" asp-append-version="true"></script>
