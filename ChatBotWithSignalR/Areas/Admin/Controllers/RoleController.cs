@@ -21,9 +21,12 @@ namespace ChatBotWithSignalR.Areas.Admin.Controllers
             _roleManager = roleManager;
             _toast = toast;
         }
+
+        [Authorize(Permissions.IdentityRoles.View)]
         public async Task<IActionResult> Index() => View(await _roleManager.Roles.ToListAsync());
 
         [HttpPost]
+        [Authorize(Permissions.IdentityRoles.Create)]
         public async Task<IActionResult> CreateOrEdit(string roleId, string roleName)
         {
             try
@@ -84,6 +87,7 @@ namespace ChatBotWithSignalR.Areas.Admin.Controllers
         #region Manage Role Permissions/Claims
 
         [HttpGet]
+        [Authorize(Permissions.ManageRoleClaims.View)]
         public async Task<IActionResult> OnGetRoleClaims(string roleId)
         {
             try
@@ -141,6 +145,7 @@ namespace ChatBotWithSignalR.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [Authorize(Permissions.ManageRoleClaims.Create)]
         public async Task<IActionResult> OnPostRoleClaims(PermissionViewModel model)
         {
             try

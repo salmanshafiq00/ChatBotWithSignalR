@@ -6,6 +6,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Threading.Tasks;
+using ChatBotWithSignalR.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -14,13 +15,16 @@ using Microsoft.AspNetCore.WebUtilities;
 
 namespace ChatBotWithSignalR.Areas.Identity.Pages.Account
 {
+    [AllowAnonymous]
     public class ResetPasswordModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IToastNotification _toast;
 
-        public ResetPasswordModel(UserManager<ApplicationUser> userManager)
+        public ResetPasswordModel(UserManager<ApplicationUser> userManager, IToastNotification toast)
         {
             _userManager = userManager;
+            _toast = toast;
         }
 
         /// <summary>
@@ -98,13 +102,15 @@ namespace ChatBotWithSignalR.Areas.Identity.Pages.Account
             if (user == null)
             {
                 // Don't reveal that the user does not exist
-                return RedirectToPage("./ResetPasswordConfirmation");
+                await _toast.ToastSuccess("Your password has been reset");
+                return RedirectToPage("./Login");
             }
 
             var result = await _userManager.ResetPasswordAsync(user, Input.Code, Input.Password);
             if (result.Succeeded)
             {
-                return RedirectToPage("./ResetPasswordConfirmation");
+                await _toast.ToastSuccess("Your password has been reset");
+                return RedirectToPage("./Login");
             }
 
             foreach (var error in result.Errors)

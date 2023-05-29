@@ -5,7 +5,7 @@ namespace ChatBotWithSignalR.Areas.Admin.Models
 {
     public class ApplicationUserViewModel
     {
-        public string Id { get; set; } = string.Empty;
+        public string? Id { get; set; } = string.Empty;
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
         [Remote("IsUsernameUsed", "User", "Admin", ErrorMessage = "This username already used", AdditionalFields = "Id")]
@@ -29,7 +29,7 @@ namespace ChatBotWithSignalR.Areas.Admin.Models
         public string Password { get; set; } = string.Empty;
 
         [RegularExpression(@"^(?:\+88|88)?(01[0-9]\d{8})$", ErrorMessage = "Please input valid phone number")]
-        public string PhoneNumber { get; set; } = string.Empty;
+        public string? PhoneNumber { get; set; } = string.Empty;
 
         public string? ProfilePhotoUrl { get; set; } = string.Empty;
 
@@ -37,9 +37,9 @@ namespace ChatBotWithSignalR.Areas.Admin.Models
         [Required]
         public IFormFile ProfilePhoto { get; set; } = default!;
 
-        public bool IsChatUser { get; set; }
+        //public bool IsChatUser { get; set; }
 
         public string Roles { get; set; } = string.Empty;
-        public IList<UserRolesViewModel> UserRoles { get; set; } = new List<UserRolesViewModel>();
+        public virtual IList<UserRolesViewModel> UserRoles { get; set; } = new List<UserRolesViewModel>();
     }
 }

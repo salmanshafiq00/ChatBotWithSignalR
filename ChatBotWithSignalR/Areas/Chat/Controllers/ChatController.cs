@@ -1,4 +1,5 @@
 ﻿using ChatBotWithSignalR.Areas.Chat.Models;
+using ChatBotWithSignalR.Constant;
 using ChatBotWithSignalR.Data;
 using ChatBotWithSignalR.Entity;
 using ChatBotWithSignalR.Hubs;
@@ -21,7 +22,7 @@ using Size = SixLabors.ImageSharp.Size;
 namespace ChatBotWithSignalR.Areas.Chat.Controllers
 {
     [Area("Chat")]
-    [Authorize]
+    [Authorize(Roles = "SuperAdmin, ChatUser")]
     public class ChatController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -38,10 +39,15 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
             _toast = toast;
             _webHost = webHost;
         }
+        //[Authorize(Permissions.ChatBots.View)]
         public async Task<IActionResult> Index()
         {
             ChatUserGroupViewModel model = new();
             var loginUser = await _userManager.GetUserAsync(User);
+            if (loginUser is null)
+            {
+                return RedirectToPage("/Identity/Account/Login");
+            }
             model.LoginUserId = loginUser.Id;
             model.LoginUserFullName = string.Concat(loginUser.FirstName, " ", loginUser.LastName) ?? loginUser.UserName;
 

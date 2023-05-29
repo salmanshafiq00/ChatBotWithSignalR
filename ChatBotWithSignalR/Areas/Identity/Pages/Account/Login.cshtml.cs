@@ -3,6 +3,7 @@
 #nullable disable
 
 using System.ComponentModel.DataAnnotations;
+using ChatBotWithSignalR.Constant;
 using ChatBotWithSignalR.Interface;
 using ChatBotWithSignalR.Service;
 using Microsoft.AspNetCore.Authentication;
@@ -102,6 +103,10 @@ namespace ChatBotWithSignalR.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/Chat/Chat/Index");
+            if (User.IsInRole(Roles.ChatUser.ToString()) || User.IsInRole(Roles.ChatUser.ToString()))
+            {
+                returnUrl = Url.Content("~/Home/Index");
+            }
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 

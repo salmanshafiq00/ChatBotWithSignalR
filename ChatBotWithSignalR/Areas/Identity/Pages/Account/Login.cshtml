@@ -39,7 +39,7 @@
         }
     }
 
-    .content .contents, .content .bg {
+/*    .content .contents, .content .bg {
         width: 50%;
     }
 
@@ -47,7 +47,7 @@
         .content .contents, .content .bg {
             width: 100%;
         }
-    }
+    }*/
 
     .form-group {
         margin-bottom: 1.5rem;
@@ -93,7 +93,7 @@
             }
 
         .social-login button.twitter {
-            background: #1da1f2;
+            background: #1da1f2; 
         }
 
             .social-login button.twitter:hover {
@@ -142,7 +142,7 @@
                                     <input type="checkbox" checked="checked" asp-for="Input.RememberMe" />
                                     <div class="control__indicator"></div>
                                 </label>
-                                <span class="ml-auto" style="margin-left: auto !important;"><a id="forgot-password" asp-page="./ForgotPassword" class="forgot-pass">Forgot Password</a></span>
+                                <span class="ml-auto" style="margin-left: auto !important;"><a id="forgot-password" onclick="onGetForgotPasswordForm()" class="forgot-pass" style="cursor: pointer;">Forgot Password</a></span>
                             </div>
 
                             <input type="submit" value="Log In" class="btn text-white btn-block btn-primary">
@@ -188,7 +188,11 @@
                                             }
                                             else if (provider.Name == "Facebook")
                                             {
-                                                <button type="submit" class="btn btn-primary facebook" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"> <i class="fa-brands fa-facebook-f"></i></button>
+                                                <button type="submit" class="btn btn-secondary facebook" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"> <i class="fa-brands fa-facebook-f"></i></button>
+                                            }
+                                            else if (provider.Name == "Twitter")
+                                            {
+                                                <button type="submit" class="btn btn-secondary twitter" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"> <i class="fa-brands fa-twitter"></i></button>
                                             }
                                         }
                                     </div>
@@ -226,7 +230,7 @@
         });
 
         function onGetRegisterForm() {
-            $.get(`/Admin/User/OnGetUserRegister`, (result) => {
+            $.get(`/Admin/Account/OnGetUserRegister`, (result) => {
                 $('#registerForm .modal-body').html(result);
                 $('#registerForm').modal('show');
             });
@@ -250,6 +254,40 @@
                         }
                         else {
                             toastr.error(`User registration failed`, `warning`);
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err)
+                    }
+                })
+                return false;
+            } catch (ex) {
+                console.log(ex)
+            }
+        }
+
+        function onGetForgotPasswordForm() {
+            $.get(`/Admin/Account/OnGetForgotPassword`, (result) => {
+                $('#registerForm .modal-body').html(result);
+                $('#registerForm').modal('show');
+            });
+        }
+
+        let onPostForgotPassword = form => {
+            try {
+                $.ajax({
+                    type: 'POST',
+                    url: form.action,
+                    data: new FormData(form),
+                    contentType: false,
+                    processData: false,
+                    success: function (result) {
+                        if (result.isSuccess) {
+                            $('#registerForm').modal('hide');
+                            toastr.success(`${result.message}`, `success`);
+                        }
+                        else {
+                            toastr.error(`${result.message}`, `warning`);
                         }
                     },
                     error: function (err) {

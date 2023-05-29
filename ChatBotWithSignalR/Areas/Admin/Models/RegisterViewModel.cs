@@ -19,9 +19,8 @@ namespace ChatBotWithSignalR.Areas.Admin.Models
         [Remote("IsUsernameUsed", "User", "Admin", ErrorMessage = "This username already used", AdditionalFields = "Id")]
         public string UserName { get; set; } = string.Empty;
 
-        [Required]
         [RegularExpression(@"^(?:\+88|88)?(01[0-9]\d{8})$", ErrorMessage = "Please input valid phone number")]
-        public string PhoneNumber { get; set; } = string.Empty;
+        public string? PhoneNumber { get; set; } = string.Empty;
 
         [Required]
         public string Gender { get; set; } = string.Empty;

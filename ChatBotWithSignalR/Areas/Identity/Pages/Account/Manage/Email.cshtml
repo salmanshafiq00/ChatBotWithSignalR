@@ -57,7 +57,7 @@
         margin: 35px 0
     }
 
-        form .button input {
+        form .button button {
             height: 100%;
             width: 100%;
             border-radius: 5px;
@@ -71,65 +71,46 @@
             background: linear-gradient(135deg, #71b7e6, #9b59b6);
         }
 
-            form .button input:hover {
+            form .button button:hover {
                 background: linear-gradient(-135deg, #71b7e6, #9b59b6);
             }
-
-    .fa-circle-check {
-        color: linear-gradient(135deg, #71b7e6, #9b59b6);
-    }
 </style>
 
 <div class="title">@ViewData["Title"]</div>
 <partial name="_StatusMessage" for="StatusMessage" />
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-7">
         <form id="email-form" method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
-            @*  @if (Model.IsEmailConfirmed)
+            @if (Model.IsEmailConfirmed)
             {
-            <div class="form-floating input-group">
-            <input asp-for="Email" class="form-control" disabled />
-            <div class="input-group-append">
-            <span class="h-100 input-group-text text-success font-weight-bold">✓</span>
-            </div>
-            <label asp-for="Email" class="form-label"></label>
-            </div>
+                <div class="input-box">
+                    <span class="details">Email</span>
+                    <input type="email" asp-for="Email" disabled style="width: 93%">
+                    <i class="fa-regular fa-circle-check text-success" title="Email Confirmed"></i>
+                </div>
+
             }
             else
             {
-            <div class="form-floating">
-            <input asp-for="Email" class="form-control" disabled />
-            <label asp-for="Email" class="form-label"></label>
-            <button id="email-verification" type="submit" asp-page-handler="SendVerificationEmail" class="btn btn-link">Send verification email</button>
-            </div>
-            }*@
-            <div class="input-box">
-                <span class="details">Email</span>
-                <input type="email" asp-for="Email" disabled>
-                @if (Model.IsEmailConfirmed)
-                {
-                    <i class="fa-regular fa-circle-check"></i>
-                }
-                else
-                {
+                <div class="input-box">
+                    <span class="details">Email</span>
+                    <input type="email" asp-for="Email" disabled style="width: 93%">
                     <button id="email-verification" type="submit" asp-page-handler="SendVerificationEmail" class="btn btn-link">Send verification email</button>
-                }
+                </div>
 
-            </div>
+            }
+
             <div class="input-box">
                 <span class="details">New Email</span>
                 <input type="email" asp-for="Input.NewEmail" placeholder="Enter your email" autocomplete="email" aria-required="true">
                 <span asp-validation-for="Input.NewEmail" class="text-danger"></span>
             </div>
-            @*<div class="form-floating">
-            <input asp-for="Input.NewEmail" class="form-control" autocomplete="email" aria-required="true" />
-            <label asp-for="Input.NewEmail" class="form-label"></label>
-            <span asp-validation-for="Input.NewEmail" class="text-danger"></span>
-            </div>*@
-            @*<button id="change-email-button" type="submit" asp-page-handler="ChangeEmail" class="w-100 btn btn-lg btn-primary">Change email</button>*@
+
             <div class="button">
-                <input type="submit" asp-page-handler="ChangeEmail" value="Change email">
+                @*<input type="submit" asp-page-handler="ChangeEmail" value="Change email">*@
+                <button id="change-email-button" type="submit" asp-page-handler="ChangeEmail">Change email</button>
+
             </div>
         </form>
     </div>

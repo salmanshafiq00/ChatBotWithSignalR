@@ -6,9 +6,14 @@ D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\C
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\ChatBotWithSignalR.runtimeconfig.json
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\ChatBotWithSignalR.dll
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\ChatBotWithSignalR.pdb
+D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\BouncyCastle.Cryptography.dll
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\Humanizer.dll
+D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\MailKit.dll
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\MessagePack.dll
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\MessagePack.Annotations.dll
+D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.Facebook.dll
+D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.Google.dll
+D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.Twitter.dll
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.Internal.dll
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.dll
@@ -61,6 +66,7 @@ D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\M
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\MimeKit.dll
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\Newtonsoft.Json.dll
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\NuGet.Common.dll
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\NuGet.Configuration.dll
@@ -83,6 +89,7 @@ D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\S
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\System.Reflection.MetadataLoadContext.dll
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\System.Runtime.Caching.dll
+D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\System.Security.Cryptography.Pkcs.dll
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\System.Security.Permissions.dll
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\System.Windows.Extensions.dll
@@ -252,6 +259,7 @@ D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\r
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.Pkcs.dll
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\obj\Debug\net6.0\ChatBotWithSignalR.csproj.AssemblyReference.cache
@@ -279,10 +287,3 @@ D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\obj\Debug\net6.0\r
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\obj\Debug\net6.0\ChatBotWithSignalR.pdb
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\obj\Debug\net6.0\ChatBotWithSignalR.genruntimeconfig.cache
 D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\obj\Debug\net6.0\ref\ChatBotWithSignalR.dll
-D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\BouncyCastle.Cryptography.dll
-D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\MailKit.dll
-D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\MimeKit.dll
-D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\System.Security.Cryptography.Pkcs.dll
-D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.Pkcs.dll
-D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.Google.dll
-D:\Programming\Projects\ChatBotWithSignalR\ChatBotWithSignalR\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.Facebook.dll

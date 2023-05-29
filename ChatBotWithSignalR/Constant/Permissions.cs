@@ -14,7 +14,10 @@
             };
         }
 
-        // These will generate all modules name like Faculties, Departments
+        /// <summary>
+        /// These will generate list of modules name (string) like ApplicationUsers, IdentityRoles
+        /// </summary>
+        /// <returns></returns>
         public static List<string> GetAllNestedModule()
         {
             Type permissionType = typeof(Permissions);
@@ -27,7 +30,10 @@
             return result;
         }
 
-        // These will generate all modules type like ApplicationUsers, IdentityRoles
+        /// <summary>
+        /// These will generate list of modules type (Type) like ApplicationUsers, IdentityRoles
+        /// </summary>
+        /// <returns></returns>
         public static Type[] GetAllNestedModuleType()
         {
             Type permissionType = typeof(Permissions);
@@ -65,6 +71,14 @@
             public const string Create = "Permissions.ManageRoleClaims.Create";
             public const string Edit = "Permissions.ManageRoleClaims.Edit";
             public const string Delete = "Permissions.ManageRoleClaims.Delete";
+        }
+
+        public static class ChatBots
+        {
+            public const string View = "Permissions.ChatBots.View";
+            public const string Create = "Permissions.ChatBots.Create";
+            public const string Edit = "Permissions.ChatBots.Edit";
+            public const string Delete = "Permissions.ChatBots.Delete";
         }
 
     }

@@ -8,9 +8,14 @@
         Layout = "/Areas/Identity/Pages/_Layout.cshtml";
     }
 }
-
-<h1>Manage your account</h1>
-<a asp-action="Index" asp-controller="Chat" asp-area="Chat" class="btn btn-sm btn-outline-info">Back to Chat</a>
+<div class="row mt-3">
+    <div class="col-md-8">
+        <h1 class="d-inline">Manage your account</h1>
+    </div>
+    <div class="col-md-4 mt-2">
+        <a asp-action="Index" asp-controller="Chat" asp-area="Chat" class="btn btn-sm btn-outline-info" style="float: right !important">Back to Chat</a>
+    </div>
+</div>
 <div>
     @*<h2>Change your account settings</h2>*@
     <hr />

@@ -12,6 +12,7 @@ using SixLabors.ImageSharp;
 using System.Text.Encodings.Web;
 using System.Text;
 using ChatBotWithSignalR.DTOs;
+using ChatBotWithSignalR.Constant;
 
 namespace ChatBotWithSignalR.Areas.Admin.Controllers
 {
@@ -43,6 +44,9 @@ namespace ChatBotWithSignalR.Areas.Admin.Controllers
             _mailService = mailService;
             _logger = logger;
         }
+
+        [HttpGet]
+        [Authorize(Permissions.ApplicationUsers.View)]
         public IActionResult Index() => View();
 
         [HttpGet]
@@ -70,7 +74,7 @@ namespace ChatBotWithSignalR.Areas.Admin.Controllers
                         Email = user.Email,
                         PhoneNumber = user.PhoneNumber,
                         ProfilePhotoUrl = user.ProfilePhotoUrl,
-                        Roles = string.Join(",", await _userManager.GetRolesAsync(user))
+                        Roles = string.Join(", ", await _userManager.GetRolesAsync(user))
                     });
                 }
                 return PartialView("_ViewAll", userList);
@@ -81,78 +85,10 @@ namespace ChatBotWithSignalR.Areas.Admin.Controllers
             }
         }
 
-        [AllowAnonymous]
-        [HttpGet]
-        public PartialViewResult OnGetUserRegister()
-        {
-            return PartialView("_RegisterUser", new RegisterViewModel());
-        }
-
-        [AllowAnonymous]
-        [HttpPost]
-        public async Task<IActionResult> OnPostUserRegister(RegisterViewModel model)
-        {
-            try
-            {
-                var returnUrl = Url.Content("~/");
-                if (ModelState.IsValid)
-                {
-
-                    ApplicationUser user = new();
-                    user.FirstName = model.FirstName.Trim();
-                    user.LastName = model.LastName.Trim();
-                    user.UserName = model.UserName.Trim();
-                    user.Email = model.Email.Trim();
-                    user.PhoneNumber = model.PhoneNumber.Trim();
-                    await _userManager.AddPasswordAsync(user, model.Password);
-                    var result = await _userManager.CreateAsync(user, model.Password);
-                    if (result.Succeeded)
-                    {
-                        result = await _userManager.AddToRoleAsync(user, "ChatUser");
-                        _logger.LogInformation("User created a new account with password.");
-                        if (result.Succeeded)
-                        {
-                            var userId = await _userManager.GetUserIdAsync(user);
-                            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                            code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-
-                            var callbackUrl = Url.Page(
-                                "/Account/ConfirmEmail",
-                                pageHandler: null,
-                                values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
-                                protocol: Request.Scheme);
-
-                            List<string> to = new List<string> { model.Email.Trim() };
-                            string subject = "Confirm Your Mail";
-                            string body = $"<h5>Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.</h5>";
-                            MailRequest mail = new(to, subject, body);
-
-                            bool isSend = await _mailService.SendAsync(mail, new CancellationToken());
-                            if (isSend)
-                            {
-                                await _toast.ToastSuccess("User Registered Successfully");
-                                return new JsonResult(new { IsSuccess = true, Username = user.UserName, Password = model.Password });
-                            }
-                        }
-                    }
-                    await _toast.ToastError($"{result.Errors}");
-                    return new JsonResult(new { IsSuccess = false });
-                }
-                else
-                {
-                    await _toast.ToastError(ModelState.GetModelStateError());
-                    return new JsonResult(new { IsSuccess = false });
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-
-
 
         [HttpGet]
+        [Authorize(Permissions.ApplicationUsers.Create)]
+        [Authorize(Permissions.ApplicationUsers.Edit)]
         public async Task<IActionResult> OnCreateOrEdit(string userId = "")
         {
             try
@@ -188,7 +124,9 @@ namespace ChatBotWithSignalR.Areas.Admin.Controllers
                 throw new Exception(ex.Message);
             }
         }
+
         [HttpPost]
+        [Authorize(Permissions.ApplicationUsers.Create)]
         public async Task<IActionResult> OnPostCreateOrEdit(ApplicationUserViewModel model)
         {
             try
@@ -203,7 +141,6 @@ namespace ChatBotWithSignalR.Areas.Admin.Controllers
                         user.UserName = model.UserName.Trim();
                         user.Email = model.Email.Trim();
                         user.PhoneNumber = model.PhoneNumber.Trim();
-                        user.EmailConfirmed = true;
                         user.ProfilePhotoUrl = await SaveImageAsync(model.ProfilePhoto, user.UserName, 200, 200);
                         await _userManager.AddPasswordAsync(user, model.Password);
                         var result = await _userManager.CreateAsync(user, model.Password);
@@ -253,6 +190,7 @@ namespace ChatBotWithSignalR.Areas.Admin.Controllers
 
 
         [HttpPost]
+        [Authorize(Permissions.ApplicationUsers.Delete)]
         public async Task<IActionResult> OnPostUserDelete(string userId)
         {
             try
@@ -281,6 +219,7 @@ namespace ChatBotWithSignalR.Areas.Admin.Controllers
         #region User Role Manage
 
         [HttpGet]
+        [Authorize(Permissions.ManageUserRoles.View)]
         public async Task<IActionResult> OnGetUserRoles(string userId)
         {
             try
@@ -315,6 +254,7 @@ namespace ChatBotWithSignalR.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [Authorize(Permissions.ManageUserRoles.Create)]
         public async Task<IActionResult> OnPostUserRoles(ApplicationUserViewModel model, string userId)
         {
             try
@@ -360,7 +300,7 @@ namespace ChatBotWithSignalR.Areas.Admin.Controllers
         public async Task<IActionResult> IsEmailUsed(string email, string id)
         {
             var userById = await _userManager.FindByIdAsync(id);
-            var userByEmail = await _userManager.FindByEmailAsync(email);
+            var userByEmail = await _userManager.FindByEmailAsync(email ?? "");
             if (userById is null && userByEmail is null)
                 return Json(true);
             else if (userById?.Email == userByEmail.Email)

@@ -11,29 +11,35 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
+var services = builder.Services;
 
 // Add services to the container.
 var connectionString = configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+services.AddDatabaseDeveloperPageExceptionFilter();
 
 
-builder.Services.AddAuthentication()
+services.AddAuthentication()
     .AddGoogle(options =>
     {
         options.ClientId = configuration["Authentication:Google:ClientId"];
         options.ClientSecret = configuration["Authentication:Google:ClientSecret"];
     })
-    .AddFacebook(options =>
+    .AddTwitter(options =>
+    {
+        options.ConsumerKey = configuration["Authentication:Twitter:ClientId"];
+        options.ConsumerSecret = configuration["Authentication:Twitter:ClientSecret"];
+        options.RetrieveUserDetails = true;
+    }).AddFacebook(options =>
     {
         options.ClientId = configuration["Authentication:Facebook:ClientId"];
         options.ClientSecret = configuration["Authentication:Facebook:ClientSecret"];
     });
 
-builder.Services.AddControllersWithViews();
+services.AddControllersWithViews();
 
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
+services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultUI()
     .AddDefaultTokenProviders()
@@ -41,12 +47,12 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.S
 
 
 
-builder.Services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
-builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
+services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
+services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
 
 
 // When manully create policy for every permission.
-//builder.Services.AddAuthorization(options =>
+//services.AddAuthorization(options =>
 //{
 //    options.AddPolicy(Permissions.ApplicationUsers.Delete, builder =>
 //    {
@@ -58,10 +64,10 @@ builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProv
 //    });
 //    // These goes on for every permission
 //});
-builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(nameof(MailSettings)));
-builder.Services.AddTransient<IToastNotification, ToastNotification>();
-builder.Services.AddTransient<IMailService, MailService>();
-builder.Services.AddSignalR();
+services.Configure<MailSettings>(builder.Configuration.GetSection(nameof(MailSettings)));
+services.AddTransient<IToastNotification, ToastNotification>();
+services.AddTransient<IMailService, MailService>();
+services.AddSignalR();
 
 var app = builder.Build();
 
@@ -69,6 +75,17 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
+
+
+    // Here seeding data of Superadmin user, role 
+    using (var scope = app.Services.CreateScope())
+    {
+        var seedingSevice = scope.ServiceProvider;
+        var userManager = seedingSevice.GetRequiredService<UserManager<ApplicationUser>>();
+        var roleManager = seedingSevice.GetRequiredService<RoleManager<IdentityRole>>();
+        await ChatBotWithSignalR.Seeds.DefaultRoles.SeedAsync(userManager, roleManager);
+        await ChatBotWithSignalR.Seeds.DefaultUsers.SeedSuperAdminAsync(userManager, roleManager);
+    }
 }
 else
 {
@@ -87,13 +104,24 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
         name: "areaRoute",
-        pattern: "{area:exists}/{controller}/{action}",
+        pattern: "{area:exists}/{controller=Chat}/{action=Index}/{id?}",
         defaults: new { area = "Chat", controller = "Chat", action = "Index" });
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{area:exists}/{controller=Chat}/{action=Index}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
+
+
+//app.UseEndpoints(endpoints =>
+//{
+//    endpoints.MapRazorPages();
+//    endpoints.MapControllerRoute(
+//        name: "default",
+//        pattern: "{area=exists}/{controller}/{action}/{id?}",
+//        defaults: new { area = "Chat", controller = "Chat", action = "Index" });
+//});
+
 app.MapHub<ChatHub>("/Chat");
 
 app.Run();
