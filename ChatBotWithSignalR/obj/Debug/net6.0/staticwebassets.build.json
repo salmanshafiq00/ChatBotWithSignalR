@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "FzdjxatSExFAGLd75y94PY0tFvOhWjkjqX+XrMx2bcg=",
+  "Hash": "fMGuH4BQntBX1IrU9oik+mRkrEoTuoznB7fQW0QIAkE=",
   "Source": "ChatBotWithSignalR",
   "BasePath": "_content/ChatBotWithSignalR",
   "Mode": "Default",
@@ -1139,6 +1139,23 @@
       "OriginalItemSpec": "wwwroot\\css\\chat.css"
     },
     {
+      "Identity": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\css\\form-button.css",
+      "SourceId": "ChatBotWithSignalR",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\",
+      "BasePath": "_content/ChatBotWithSignalR",
+      "RelativePath": "css/form-button.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\form-button.css"
+    },
+    {
       "Identity": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\css\\login.css",
       "SourceId": "ChatBotWithSignalR",
       "SourceType": "Discovered",
@@ -1156,6 +1173,23 @@
       "OriginalItemSpec": "wwwroot\\css\\login.css"
     },
     {
+      "Identity": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\css\\recording.css",
+      "SourceId": "ChatBotWithSignalR",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\",
+      "BasePath": "_content/ChatBotWithSignalR",
+      "RelativePath": "css/recording.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\recording.css"
+    },
+    {
       "Identity": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\css\\site.css",
       "SourceId": "ChatBotWithSignalR",
       "SourceType": "Discovered",
@@ -1171,6 +1205,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
+    },
+    {
+      "Identity": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\css\\two-col-form.css",
+      "SourceId": "ChatBotWithSignalR",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\",
+      "BasePath": "_content/ChatBotWithSignalR",
+      "RelativePath": "css/two-col-form.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\two-col-form.css"
     },
     {
       "Identity": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\favicon.ico",
@@ -1700,6 +1751,74 @@
       "OriginalItemSpec": "wwwroot\\images\\conversation\\7e2d8b0f-4dfb-48a1-a689-956d266640e4_20230510_981.png"
     },
     {
+      "Identity": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\conversation\\ecaf3269-be1d-4563-a235-e6447194c481_20230531_104.webm",
+      "SourceId": "ChatBotWithSignalR",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\",
+      "BasePath": "_content/ChatBotWithSignalR",
+      "RelativePath": "images/conversation/ecaf3269-be1d-4563-a235-e6447194c481_20230531_104.webm",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\conversation\\ecaf3269-be1d-4563-a235-e6447194c481_20230531_104.webm"
+    },
+    {
+      "Identity": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\conversation\\ecaf3269-be1d-4563-a235-e6447194c481_20230531_208.webm",
+      "SourceId": "ChatBotWithSignalR",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\",
+      "BasePath": "_content/ChatBotWithSignalR",
+      "RelativePath": "images/conversation/ecaf3269-be1d-4563-a235-e6447194c481_20230531_208.webm",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\conversation\\ecaf3269-be1d-4563-a235-e6447194c481_20230531_208.webm"
+    },
+    {
+      "Identity": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230603_379.webm",
+      "SourceId": "ChatBotWithSignalR",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\",
+      "BasePath": "_content/ChatBotWithSignalR",
+      "RelativePath": "images/conversation/fa73abec-1e32-4fef-8a8b-adf0abfce589_20230603_379.webm",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230603_379.webm"
+    },
+    {
+      "Identity": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230603_500.webm",
+      "SourceId": "ChatBotWithSignalR",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\",
+      "BasePath": "_content/ChatBotWithSignalR",
+      "RelativePath": "images/conversation/fa73abec-1e32-4fef-8a8b-adf0abfce589_20230603_500.webm",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230603_500.webm"
+    },
+    {
       "Identity": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\groups\\Business Studies_20230509.jpg",
       "SourceId": "ChatBotWithSignalR",
       "SourceType": "Discovered",
@@ -1885,6 +2004,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\whatsBgImage.png"
+    },
+    {
+      "Identity": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\js\\audio-recording.js",
+      "SourceId": "ChatBotWithSignalR",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\",
+      "BasePath": "_content/ChatBotWithSignalR",
+      "RelativePath": "js/audio-recording.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\audio-recording.js"
     },
     {
       "Identity": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\js\\chat.js",
@@ -2956,6 +3092,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Identity": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\reports\\personalData.frx",
+      "SourceId": "ChatBotWithSignalR",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\",
+      "BasePath": "_content/ChatBotWithSignalR",
+      "RelativePath": "reports/personalData.frx",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\reports\\personalData.frx"
     }
   ]
 }

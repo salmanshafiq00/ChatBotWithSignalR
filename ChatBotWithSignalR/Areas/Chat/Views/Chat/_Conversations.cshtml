@@ -61,7 +61,6 @@
         min-width: 50%;
         max-width: 75%;
         float: left;
-
     }
 
         .otherMessage pre {
@@ -84,12 +83,12 @@
         margin-right: 10%;
         min-width: 40%;
         max-width: 75%;
-        float: left;      
+        float: left;
         display: block;
         text-align: center;
     }
 
-    .coversationImg{
+    .coversationImg {
         display: block;
         max-width: 200px;
         text-align: center;
@@ -137,7 +136,7 @@
             border: 3px solid var(--scrollbarBG);
         }
 
-    #toUserHeader{
+    #toUserHeader {
         margin: 0px 0px 0px 5px;
         font-size: 10px;
         font-weight: 600;
@@ -193,6 +192,8 @@
                         foreach (var file in conversation.ConversationFiles)
                         {
                             var fileType = file.FileType.Split('/')[0];
+                            var hasWebmExtension = file.FileType.Contains("webm");
+
                             if (fileType == "image")
                             {
                                 <div class="ownMessageImg">
@@ -204,14 +205,28 @@
                             }
                             else if (fileType == "audio")
                             {
-                                <div class="ownMessageImg">
-                                    <span>@file.FileName</span>
-                                    <audio controls>
-                                        <source src="@file.FileUrl">
-                                    </audio>
+                                if (hasWebmExtension)
+                                {
+                                    <div class="ownMessageImg">
+                                        <audio controls>
+                                            <source src="@file.FileUrl">
+                                        </audio>
 
-                                    <span class="time">@conversation.SendDate.ToShortTimeString()</span>
-                                </div>
+                                        <span class="time">@conversation.SendDate.ToShortTimeString()</span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="ownMessageImg">
+                                        <span>@file.FileName</span>
+                                        <audio controls>
+                                            <source src="@file.FileUrl">
+                                        </audio>
+
+                                        <span class="time">@conversation.SendDate.ToShortTimeString()</span>
+                                    </div>
+                                }
+
                             }
                             else if (fileType == "video")
                             {
@@ -250,13 +265,14 @@
                     {
                         foreach (var file in conversation.ConversationFiles)
                         {
-                           @* <div class="otherMessageImg">
-                                <a onclick="showFileInModal('@file.FileUrl')">
-                                    <img src="@file.FileUrl" alt="file" class="img-fluid img-thumbnail ml-0 mr-0 coversationImg">
-                                </a>
-                                <span class="time">@conversation.SendDate.ToShortTimeString()</span>
-                            </div>*@
+                            @* <div class="otherMessageImg">
+        <a onclick="showFileInModal('@file.FileUrl')">
+        <img src="@file.FileUrl" alt="file" class="img-fluid img-thumbnail ml-0 mr-0 coversationImg">
+        </a>
+        <span class="time">@conversation.SendDate.ToShortTimeString()</span>
+        </div>*@
                             var fileType = file.FileType.Split('/')[0];
+                            var hasWebmExtension = file.FileType.Contains("webm");
                             if (fileType == "image")
                             {
                                 <div class="otherMessageImg">
@@ -268,14 +284,28 @@
                             }
                             else if (fileType == "audio")
                             {
-                                <div class="otherMessageImg">
-                                    <span>@file.FileName</span>
-                                    <audio controls class="coversationAudio">
-                                        <source src="@file.FileUrl">
-                                    </audio>
+                                if (hasWebmExtension)
+                                {
+                                    <div class="otherMessageImg">
+                                        <audio controls class="coversationAudio">
+                                            <source src="@file.FileUrl">
+                                        </audio>
 
-                                    <span class="time">@conversation.SendDate.ToShortTimeString()</span>
-                                </div>
+                                        <span class="time">@conversation.SendDate.ToShortTimeString()</span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="otherMessageImg">
+                                        <span>@file.FileName</span>
+                                        <audio controls class="coversationAudio">
+                                            <source src="@file.FileUrl">
+                                        </audio>
+
+                                        <span class="time">@conversation.SendDate.ToShortTimeString()</span>
+                                    </div>
+                                }
+
                             }
                             else if (fileType == "video")
                             {
@@ -328,7 +358,7 @@
 <script>
     $('#ToUserName').val('@Model.ToUserName');
 
-    function showImageToModal (url) {
+    function showImageToModal(url) {
         $('#modalImgTag').attr('src', url);
         $('#imageModal').modal('show');
 

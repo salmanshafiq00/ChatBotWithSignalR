@@ -219,8 +219,8 @@ namespace ChatBotWithSignalR.Migrations
 
                     b.Property<string>("FileType")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("FileUrl")
                         .IsRequired()

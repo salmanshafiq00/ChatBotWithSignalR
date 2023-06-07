@@ -115,25 +115,25 @@ namespace ChatBotWithSignalR.Areas.Admin.Controllers
                     var viewResult = model.RoleClaims.Where(x => x.ViewValue == claim.Value).FirstOrDefault();
                     if (viewResult is not null)
                     {
-                        model.RoleClaims.Where(x => x.ViewValue == claim.Value).FirstOrDefault().IsViewSelected = true;
+                        viewResult.IsViewSelected = true;
                     }
 
                     var createResult = model.RoleClaims.Where(x => x.CreateValue == claim.Value).FirstOrDefault();
                     if (createResult is not null)
                     {
-                        model.RoleClaims.Where(x => x.CreateValue == claim.Value).FirstOrDefault().IsCreateSelected = true;
+                        createResult.IsCreateSelected = true;
                     }
 
                     var editResult = model.RoleClaims.Where(x => x.EditValue == claim.Value).FirstOrDefault();
                     if (editResult is not null)
                     {
-                        model.RoleClaims.Where(x => x.EditValue == claim.Value).FirstOrDefault().IsEditSelected = true;
+                        editResult.IsEditSelected = true;
                     }
 
                     var deleteResult = model.RoleClaims.Where(x => x.DeleteValue == claim.Value).FirstOrDefault();
                     if (deleteResult is not null)
                     {
-                        model.RoleClaims.Where(x => x.DeleteValue == claim.Value).FirstOrDefault().IsDeleteSelected = true;
+                        deleteResult.IsDeleteSelected = true;
                     }
                 }
                 return View("RoleClaims", model);

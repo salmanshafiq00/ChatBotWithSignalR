@@ -5,84 +5,38 @@
     ViewData["ActivePage"] = ManageNavPages.ProfilePhoto;
 }
 
-<partial name="_StatusMessage" for="StatusMessage" />
-
+<link href="~/css/form-button.css" rel="stylesheet" />
 <style>
-    @@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Poppins',sans-serif;
-    }
-
-    .title {
-        font-size: 25px;
-        font-weight: 500;
-        position: relative;
-    }
-
-        .title::before {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            height: 3px;
-            width: 30px;
-            border-radius: 5px;
-            background: linear-gradient(135deg, #71b7e6, #9b59b6);
-        }
-
-    .user-details .input-box input:focus,
-    .user-details .input-box input:valid {
-        border-color: #9b59b6;
-    }
-
-    form .button {
-        height: 45px;
-        margin: 10px 2px;
-    }
-
-        form .button input {
-            height: 100%;
-            width: 200px;
-            border-radius: 5px;
-            border: none;
-            color: #fff;
-            font-size: 18px;
-            font-weight: 500;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: linear-gradient(135deg, #71b7e6, #9b59b6);
-        }
-
-            form .button input:hover {
-                background: linear-gradient(-135deg, #71b7e6, #9b59b6);
-            }
-
-    #photoPreview{
+    #photoPreview {
         margin-top: 20px;
         width: 250px;
     }
-    .img-border{
+
+    .img-border {
         padding: 10px;
         border-image: linear-gradient(135deg, #71b7e6, #9b59b6) 30;
         border-width: 2px;
         border-style: solid;
+        width: 200px;
+        height: 200px;
+    }
+
+    form .button input {
+        width: 200px;
     }
 </style>
 
+<partial name="_StatusMessage" for="StatusMessage" />
 
-<div class="title">Profile Photo</div>
 <div class="row">
-    <div class="col-md-12 col-sm-12">
+    <div class="col-md-8 offset-md-2">
+        <div class="title">Profile Photo</div>
         <form method="post" enctype="multipart/form-data">
             <div class="user-details">
                 <div id="photoPreview">
                     <label asp-for="Input.ProfilePhoto">
-                        <img src="@(Model.ProfilePhotoUrl ?? "/images/no-image.png")" id="imgTag" class="img-fluid img-border" width="200" height="200" asp-append-version="true" title="Profile Photo" />
+                        <img src="@(Model.ProfilePhotoUrl ?? "/images/no-image.png")" id="imgTag" class="img-fluid img-border" asp-append-version="true" title="Profile Photo" />
                         <input type="file" asp-for="Input.ProfilePhoto" style="display: none" accept="image/gif,image/jpeg,image/jpg,image/png" />
                     </label>
                 </div>
@@ -93,6 +47,7 @@
         </form>
     </div>
 </div>
+
 
 @section Scripts{
 
@@ -122,7 +77,7 @@
                 let imgSrc = URL.createObjectURL(event.dataTransfer.files[0]);
                 $('#imgTag').attr('src', imgSrc);
                 // Submit the form
-               // document.getElementById('uploadForm').submit();
+                // document.getElementById('uploadForm').submit();
             }
         }
 

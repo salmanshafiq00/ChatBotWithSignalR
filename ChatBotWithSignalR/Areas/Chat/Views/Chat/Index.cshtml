@@ -3,6 +3,7 @@
 @{
     var me = Model.ChatUsers.FirstOrDefault(p => p.Id == Model.LoginUserId);
 }
+<link href="~/css/recording.css" rel="stylesheet" />
 <style>
     #msgMainContainer {
         background-image: url('/images/whatsbgimage.png');
@@ -336,20 +337,19 @@
                                 <input type="file" id="Files" name="Files" style="display: none" multiple="" data-original-title="upload photos">
                             </label>
                         </div>
-                        <div class="input-group-prepend textGradient" title="Upload Recording" id="startRecordingContainer">
-                            <label for="recordingStart" style="padding-right: 8px; margin-top: 5px">
-                                <i class="fa-solid fa-microphone" style="cursor: pointer"></i>
-                            </label>
-                            <button type="button" id="recordingStart" style="display: none" onclick="startRecording()"></button>
-                        </div>
-                        <div class="input-group-prepend d-none" title="Upload Recording" id="stopRecordingContainer">
-                            <label for="recordingStop" style="padding-right: 8px; margin-top: 5px">
-                                <i class="fa-solid fa-microphone" style="cursor: pointer; color: palevioletred"></i>
-                            </label>
-                            <button type="button" id="recordingStop" style="display: none" onclick="stopRecording()"></button>
 
-                            <canvas id="visualizer" width="400" height="30"></canvas>
+
+                        @*Recording*@
+                        <i class="start-recording-button fa fa-microphone" aria-hidden="true"></i>
+                        <div class="recording-contorl-buttons-container hide" style="width: 80%">
+                            <i class="cancel-recording-button fa-regular fa-circle-xmark" aria-hidden="true"></i>
+                            <div class="recording-elapsed-time">
+                                <i class="red-recording-dot fa fa-circle" aria-hidden="true"></i>
+                                <p class="elapsed-time"></p>
+                            </div>
+                            <i class="stop-recording-button fa-regular fa-circle-stop" aria-hidden="true"></i>
                         </div>
+
                         <textarea class="form-control" id="msgContent" name="TextMessage" style="max-height: 100px; resize: none;" rows="1" data-min-rows='3' placeholder="Type a message" autofocus></textarea>
                         <div class="input-group-append">
                             <button type="submit" class="btn btn-outline-secondary" id="sendBtn">
@@ -358,6 +358,8 @@
                         </div>
                     </div>
 
+
+                 
                 </form>
             </div>
         </div>
@@ -400,4 +402,6 @@
 <script src="~/js/signalr.js"></script>
 <script src="~/js/chat.js" asp-append-version="true"></script>
 <script src="~/js/chatrequesthandler.js" asp-append-version="true"></script>
-<script src="~/js/recording.js" asp-append-version="true"></script>
+@*<script src="~/js/recording.js" asp-append-version="true"></script>*@
+@*<script src="~/js/recordingCopy.js" asp-append-version="true"></script>*@
+<script src="~/js/audio-recording.js" asp-append-version="true"></script>

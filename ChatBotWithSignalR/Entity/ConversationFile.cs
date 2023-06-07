@@ -8,7 +8,7 @@ namespace ChatBotWithSignalR.Entity
         public int Id { get; set; }
         [StringLength(200)]
         public string FileName { get; set; } = string.Empty;
-        [StringLength(20)]
+        [StringLength(50)]
         public string FileType { get; set; } = string.Empty;
         //[StringLength(20)]
         //public string Extension { get; set; } = string.Empty;

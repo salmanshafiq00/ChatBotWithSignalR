@@ -76,7 +76,7 @@ namespace ChatBotWithSignalR.Areas.Identity.Pages.Account.Manage
             [Required]
             [EmailAddress]
             [Display(Name = "New email")]
-            [Remote("IsEmailUsed", "User", "Admin", ErrorMessage = "This mail already used", AdditionalFields = "Id")]
+           // [Remote("IsEmailUsed", "User", "Admin", ErrorMessage = "This mail already used", AdditionalFields = "Id")]
             public string NewEmail { get; set; }
         }
 

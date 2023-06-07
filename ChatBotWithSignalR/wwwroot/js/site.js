@@ -19,3 +19,11 @@ toastr.options = {
     "showMethod": "fadeIn",
     "hideMethod": "fadeOut"
 };
+
+window.addEventListener('offline', () => {
+    toastr.info('No Internet Connection', 'info');
+});
+
+window.addEventListener('online', () => {
+    toastr.info('Internet Connected', 'info');
+});

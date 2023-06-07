@@ -5,88 +5,25 @@
     ViewData["ActivePage"] = ManageNavPages.Email;
 }
 
+<link href="~/css/form-button.css" rel="stylesheet" />
 <style>
-    .title {
-        font-size: 25px;
-        font-weight: 500;
-        position: relative;
-        margin-bottom: 10px;
+    .email {
+        width: 93%;
     }
-
-        .title::before {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            height: 3px;
-            width: 30px;
-            border-radius: 5px;
-            background: linear-gradient(135deg, #71b7e6, #9b59b6);
-        }
-
-    form .input-box {
-        margin-bottom: 15px;
-        width: calc(100%);
-    }
-
-        form .input-box span.details {
-            display: block;
-            font-weight: 500;
-            margin-bottom: 5px;
-        }
-
-    .input-box input {
-        height: 45px;
-        outline: none;
-        font-size: 16px;
-        border-radius: 5px;
-        padding-left: 15px;
-        border: 1px solid #ccc;
-        border-bottom-width: 2px;
-        transition: all 0.3s ease;
-        width: 100%;
-    }
-
-        .input-box input:focus,
-        .input-box input:valid {
-            border-color: #9b59b6;
-        }
-
-    form .button {
-        height: 45px;
-        margin: 35px 0
-    }
-
-        form .button button {
-            height: 100%;
-            width: 100%;
-            border-radius: 5px;
-            border: none;
-            color: #fff;
-            font-size: 18px;
-            font-weight: 500;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: linear-gradient(135deg, #71b7e6, #9b59b6);
-        }
-
-            form .button button:hover {
-                background: linear-gradient(-135deg, #71b7e6, #9b59b6);
-            }
 </style>
 
-<div class="title">@ViewData["Title"]</div>
-<partial name="_StatusMessage" for="StatusMessage" />
 <div class="row">
-    <div class="col-md-7">
+    <div class="col-md-8 offset-md-2">
+        <partial name="_StatusMessage" for="StatusMessage" />
+
+        <div class="title">@ViewData["Title"]</div>
         <form id="email-form" method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
             @if (Model.IsEmailConfirmed)
             {
                 <div class="input-box">
                     <span class="details">Email</span>
-                    <input type="email" asp-for="Email" disabled style="width: 93%">
+                    <input type="email" asp-for="Email" class="email" disabled>
                     <i class="fa-regular fa-circle-check text-success" title="Email Confirmed"></i>
                 </div>
 
@@ -95,7 +32,7 @@
             {
                 <div class="input-box">
                     <span class="details">Email</span>
-                    <input type="email" asp-for="Email" disabled style="width: 93%">
+                    <input type="email" asp-for="Email" class="email" disabled>
                     <button id="email-verification" type="submit" asp-page-handler="SendVerificationEmail" class="btn btn-link">Send verification email</button>
                 </div>
 

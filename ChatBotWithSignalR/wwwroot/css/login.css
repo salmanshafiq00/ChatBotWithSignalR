@@ -27,13 +27,13 @@ h2 {
   .content .bg {
     height: 500px; } }
 
-.content .contents, .content .bg {
-  width: 50%; }
-
+/*.content .contents, .content .bg {
+  width: 50%; }*/
+/*
   @media (max-width: 1199.98px) {
     .content .contents, .content .bg {
-      width: 100%; } }
-
+      width: 50%; } }
+*/
   .content .contents .form-group, .content .bg .form-group {
     position: relative; }
     .content .contents .form-group label, .content .bg .form-group label {

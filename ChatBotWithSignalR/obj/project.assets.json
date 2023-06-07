@@ -15,6 +15,83 @@
           }
         }
       },
+      "FastReport.Compat/2023.1.8": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.CodeAnalysis.CSharp": "3.3.1",
+          "Microsoft.CodeAnalysis.VisualBasic": "3.3.1",
+          "System.Drawing.Common": "4.7.0"
+        },
+        "compile": {
+          "lib/netcoreapp3.0/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/_._": {}
+        },
+        "build": {
+          "buildTransitive/netcoreapp3.0/FastReport.Compat.targets": {}
+        },
+        "runtimeTargets": {
+          "runtimes/any/lib/netcoreapp3.0/FastReport.Compat.dll": {
+            "assetType": "runtime",
+            "rid": "any"
+          }
+        }
+      },
+      "FastReport.Data.MsSql/2023.2.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Data.SqlClient": "4.4.3"
+        },
+        "compile": {
+          "lib/netstandard2.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/_._": {}
+        },
+        "build": {
+          "buildTransitive/netstandard2.0/FastReport.Data.MsSql.props": {},
+          "buildTransitive/netstandard2.0/FastReport.Data.MsSql.targets": {}
+        }
+      },
+      "FastReport.OpenSource/2023.2.16": {
+        "type": "package",
+        "dependencies": {
+          "FastReport.Compat": "[2023.1.8]",
+          "System.Drawing.Common": "4.7.0",
+          "System.Security.Cryptography.Pkcs": "4.7.0",
+          "System.Security.Permissions": "4.5.0",
+          "System.Text.Encoding.CodePages": "4.7.0"
+        },
+        "compile": {
+          "lib/netstandard2.1/FastReport.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.1/FastReport.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/FastReport.OpenSource.props": {}
+        },
+        "buildMultiTargeting": {
+          "buildMultiTargeting/FastReport.OpenSource.props": {}
+        }
+      },
+      "FastReport.OpenSource.Export.PdfSimple/2023.2.16": {
+        "type": "package",
+        "dependencies": {
+          "FastReport.OpenSource": "2023.2.16"
+        },
+        "compile": {
+          "lib/netstandard2.0/FastReport.OpenSource.Export.PdfSimple.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/FastReport.OpenSource.Export.PdfSimple.dll": {}
+        }
+      },
       "Humanizer.Core/2.8.26": {
         "type": "package",
         "compile": {
@@ -2128,6 +2205,14 @@
           "lib/netstandard1.0/_._": {}
         }
       },
+      "runtime.native.System.Data.SqlClient.sni/4.4.0": {
+        "type": "package",
+        "dependencies": {
+          "runtime.win-arm64.runtime.native.System.Data.SqlClient.sni": "4.4.0",
+          "runtime.win-x64.runtime.native.System.Data.SqlClient.sni": "4.4.0",
+          "runtime.win-x86.runtime.native.System.Data.SqlClient.sni": "4.4.0"
+        }
+      },
       "runtime.native.System.IO.Compression/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -2256,6 +2341,33 @@
           "runtimes/ubuntu.16.10-x64/native/System.Security.Cryptography.Native.OpenSsl.so": {
             "assetType": "native",
             "rid": "ubuntu.16.10-x64"
+          }
+        }
+      },
+      "runtime.win-arm64.runtime.native.System.Data.SqlClient.sni/4.4.0": {
+        "type": "package",
+        "runtimeTargets": {
+          "runtimes/win-arm64/native/sni.dll": {
+            "assetType": "native",
+            "rid": "win-arm64"
+          }
+        }
+      },
+      "runtime.win-x64.runtime.native.System.Data.SqlClient.sni/4.4.0": {
+        "type": "package",
+        "runtimeTargets": {
+          "runtimes/win-x64/native/sni.dll": {
+            "assetType": "native",
+            "rid": "win-x64"
+          }
+        }
+      },
+      "runtime.win-x86.runtime.native.System.Data.SqlClient.sni/4.4.0": {
+        "type": "package",
+        "runtimeTargets": {
+          "runtimes/win-x86/native/sni.dll": {
+            "assetType": "native",
+            "rid": "win-x86"
           }
         }
       },
@@ -2506,6 +2618,33 @@
         "compile": {
           "ref/netstandard1.3/System.Console.dll": {
             "related": ".xml"
+          }
+        }
+      },
+      "System.Data.SqlClient/4.4.3": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Win32.Registry": "4.4.0",
+          "System.Security.Principal.Windows": "4.4.0",
+          "System.Text.Encoding.CodePages": "4.4.0",
+          "runtime.native.System.Data.SqlClient.sni": "4.4.0"
+        },
+        "compile": {
+          "ref/netstandard2.0/System.Data.SqlClient.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Data.SqlClient.dll": {}
+        },
+        "runtimeTargets": {
+          "runtimes/unix/lib/netstandard2.0/System.Data.SqlClient.dll": {
+            "assetType": "runtime",
+            "rid": "unix"
+          },
+          "runtimes/win/lib/netstandard2.0/System.Data.SqlClient.dll": {
+            "assetType": "runtime",
+            "rid": "win"
           }
         }
       },
@@ -3837,6 +3976,93 @@
         "lib/netstandard2.0/BouncyCastle.Cryptography.dll",
         "lib/netstandard2.0/BouncyCastle.Cryptography.xml",
         "packageIcon.png"
+      ]
+    },
+    "FastReport.Compat/2023.1.8": {
+      "sha512": "GFvZwuKkUJ21nd26IKu8iGb8uXUQ5/98Cl76cLDsvcrXC3HqdPht1AfIALP9to6ov26ZAFuqxnwwSeDL+5AXfw==",
+      "type": "package",
+      "path": "fastreport.compat/2023.1.8",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "build/netcoreapp3.0/FastReport.Compat.targets",
+        "build/netcoreapp3.0/lib/Any/FastReport.Compat.dll",
+        "build/netcoreapp3.0/lib/Win/FastReport.Compat.dll",
+        "buildTransitive/netcoreapp3.0/FastReport.Compat.targets",
+        "fastreport.compat.2023.1.8.nupkg.sha512",
+        "fastreport.compat.nuspec",
+        "frlogo192.png",
+        "lib/net40/FastReport.Compat.dll",
+        "lib/net5.0-windows7.0/FastReport.Compat.dll",
+        "lib/netcoreapp3.0/_._",
+        "lib/netstandard2.0/FastReport.Compat.dll",
+        "lib/netstandard2.1/FastReport.Compat.dll",
+        "runtimes/any/lib/netcoreapp3.0/FastReport.Compat.dll"
+      ]
+    },
+    "FastReport.Data.MsSql/2023.2.0": {
+      "sha512": "IVV4sWHM5OaYRsBhejcaaj6yUdDzAjQx8ce1cC7w6IoMWI+18VxEftlMYHQjxB22hG6n1Nf+99ZgX3HcaaNDqw==",
+      "type": "package",
+      "path": "fastreport.data.mssql/2023.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "FastReport .NET-license.md",
+        "build/net462/FastReport.Core/FastReport.Data.MsSql.dll",
+        "build/net462/FastReport.Data.MsSql.props",
+        "build/net462/FastReport.Data.MsSql.targets",
+        "build/net462/FastReport.OpenSource/FastReport.Data.MsSql.dll",
+        "build/net462/ImportConnector.targets",
+        "build/netstandard2.0/FastReport.Core/FastReport.Data.MsSql.dll",
+        "build/netstandard2.0/FastReport.Data.MsSql.props",
+        "build/netstandard2.0/FastReport.Data.MsSql.targets",
+        "build/netstandard2.0/FastReport.OpenSource/FastReport.Data.MsSql.dll",
+        "build/netstandard2.0/ImportConnector.targets",
+        "buildTransitive/net462/FastReport.Data.MsSql.props",
+        "buildTransitive/net462/FastReport.Data.MsSql.targets",
+        "buildTransitive/netstandard2.0/FastReport.Data.MsSql.props",
+        "buildTransitive/netstandard2.0/FastReport.Data.MsSql.targets",
+        "fastreport.data.mssql.2023.2.0.nupkg.sha512",
+        "fastreport.data.mssql.nuspec",
+        "frlogo192.png",
+        "lib/net462/_._",
+        "lib/netstandard2.0/_._"
+      ]
+    },
+    "FastReport.OpenSource/2023.2.16": {
+      "sha512": "ljWBCSjhtDmIprjawya5sv3BTpHobAaeb4O/CErXdtkdFPzcqjaUR30M6eUfYqoe5F1MO1GUX/EklsaJ+qUqIg==",
+      "type": "package",
+      "path": "fastreport.opensource/2023.2.16",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "FastReport MIT license.md",
+        "build/FastReport.OpenSource.props",
+        "buildMultiTargeting/FastReport.OpenSource.props",
+        "buildTransitive/FastReport.OpenSource.props",
+        "fastreport.opensource.2023.2.16.nupkg.sha512",
+        "fastreport.opensource.nuspec",
+        "frlogo192.png",
+        "lib/net462/FastReport.dll",
+        "lib/net462/FastReport.xml",
+        "lib/netstandard2.0/FastReport.dll",
+        "lib/netstandard2.0/FastReport.xml",
+        "lib/netstandard2.1/FastReport.dll",
+        "lib/netstandard2.1/FastReport.xml"
+      ]
+    },
+    "FastReport.OpenSource.Export.PdfSimple/2023.2.16": {
+      "sha512": "1EbVFPR3pNjZ3C0Zi8q6W13J8/QrU9lv+CiwncAd4ivRw8PPtiaLCF/JtZQdfOJm0mhsaoqy97eu54ulfjY3HQ==",
+      "type": "package",
+      "path": "fastreport.opensource.export.pdfsimple/2023.2.16",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "fastreport.opensource.export.pdfsimple.2023.2.16.nupkg.sha512",
+        "fastreport.opensource.export.pdfsimple.nuspec",
+        "lib/net462/FastReport.OpenSource.Export.PdfSimple.dll",
+        "lib/netstandard2.0/FastReport.OpenSource.Export.PdfSimple.dll"
       ]
     },
     "Humanizer.Core/2.8.26": {
@@ -6719,6 +6945,21 @@
         "runtime.native.system.nuspec"
       ]
     },
+    "runtime.native.System.Data.SqlClient.sni/4.4.0": {
+      "sha512": "A8v6PGmk+UGbfWo5Ixup0lPM4swuSwOiayJExZwKIOjTlFFQIsu3QnDXECosBEyrWSPryxBVrdqtJyhK3BaupQ==",
+      "type": "package",
+      "path": "runtime.native.system.data.sqlclient.sni/4.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
+        "runtime.native.system.data.sqlclient.sni.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
     "runtime.native.System.IO.Compression/4.3.0": {
       "sha512": "INBPonS5QPEgn7naufQFXJEp3zX6L4bwHgJ/ZH78aBTpeNfQMtf7C6VrAFhlq2xxWBveIOWyFzQjJ8XzHMhdOQ==",
       "type": "package",
@@ -6885,6 +7126,54 @@
         "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
         "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.nuspec",
         "runtimes/ubuntu.16.10-x64/native/System.Security.Cryptography.Native.OpenSsl.so"
+      ]
+    },
+    "runtime.win-arm64.runtime.native.System.Data.SqlClient.sni/4.4.0": {
+      "sha512": "LbrynESTp3bm5O/+jGL8v0Qg5SJlTV08lpIpFesXjF6uGNMWqFnUQbYBJwZTeua6E/Y7FIM1C54Ey1btLWupdg==",
+      "type": "package",
+      "path": "runtime.win-arm64.runtime.native.system.data.sqlclient.sni/4.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ThirdPartyNotices.txt",
+        "dotnet_library_license.txt",
+        "runtime.win-arm64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
+        "runtime.win-arm64.runtime.native.system.data.sqlclient.sni.nuspec",
+        "runtimes/win-arm64/native/sni.dll",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "runtime.win-x64.runtime.native.System.Data.SqlClient.sni/4.4.0": {
+      "sha512": "38ugOfkYJqJoX9g6EYRlZB5U2ZJH51UP8ptxZgdpS07FgOEToV+lS11ouNK2PM12Pr6X/PpT5jK82G3DwH/SxQ==",
+      "type": "package",
+      "path": "runtime.win-x64.runtime.native.system.data.sqlclient.sni/4.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ThirdPartyNotices.txt",
+        "dotnet_library_license.txt",
+        "runtime.win-x64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
+        "runtime.win-x64.runtime.native.system.data.sqlclient.sni.nuspec",
+        "runtimes/win-x64/native/sni.dll",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "runtime.win-x86.runtime.native.System.Data.SqlClient.sni/4.4.0": {
+      "sha512": "YhEdSQUsTx+C8m8Bw7ar5/VesXvCFMItyZF7G1AUY+OM0VPZUOeAVpJ4Wl6fydBGUYZxojTDR3I6Bj/+BPkJNA==",
+      "type": "package",
+      "path": "runtime.win-x86.runtime.native.system.data.sqlclient.sni/4.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ThirdPartyNotices.txt",
+        "dotnet_library_license.txt",
+        "runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
+        "runtime.win-x86.runtime.native.system.data.sqlclient.sni.nuspec",
+        "runtimes/win-x86/native/sni.dll",
+        "useSharedDesignerContext.txt",
+        "version.txt"
       ]
     },
     "SixLabors.ImageSharp/3.0.1": {
@@ -7281,6 +7570,74 @@
         "ref/xamarinwatchos10/_._",
         "system.console.4.3.0.nupkg.sha512",
         "system.console.nuspec"
+      ]
+    },
+    "System.Data.SqlClient/4.4.3": {
+      "sha512": "D1hEOS1oPLJ6WcGCzpTWe8SauWVxnDoDTUWhv5XCNdRm/QeSUk4BQ3ZDe7BH+zNVHDBkPYjVzpVjnCl43eOSGg==",
+      "type": "package",
+      "path": "system.data.sqlclient/4.4.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net451/System.Data.SqlClient.dll",
+        "lib/net46/System.Data.SqlClient.dll",
+        "lib/net461/System.Data.SqlClient.dll",
+        "lib/netstandard1.2/System.Data.SqlClient.dll",
+        "lib/netstandard1.3/System.Data.SqlClient.dll",
+        "lib/netstandard2.0/System.Data.SqlClient.dll",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/net451/System.Data.SqlClient.dll",
+        "ref/net46/System.Data.SqlClient.dll",
+        "ref/net461/System.Data.SqlClient.dll",
+        "ref/net461/System.Data.SqlClient.xml",
+        "ref/netstandard1.2/System.Data.SqlClient.dll",
+        "ref/netstandard1.2/System.Data.SqlClient.xml",
+        "ref/netstandard1.2/de/System.Data.SqlClient.xml",
+        "ref/netstandard1.2/es/System.Data.SqlClient.xml",
+        "ref/netstandard1.2/fr/System.Data.SqlClient.xml",
+        "ref/netstandard1.2/it/System.Data.SqlClient.xml",
+        "ref/netstandard1.2/ja/System.Data.SqlClient.xml",
+        "ref/netstandard1.2/ko/System.Data.SqlClient.xml",
+        "ref/netstandard1.2/ru/System.Data.SqlClient.xml",
+        "ref/netstandard1.2/zh-hans/System.Data.SqlClient.xml",
+        "ref/netstandard1.2/zh-hant/System.Data.SqlClient.xml",
+        "ref/netstandard1.3/System.Data.SqlClient.dll",
+        "ref/netstandard1.3/System.Data.SqlClient.xml",
+        "ref/netstandard1.3/de/System.Data.SqlClient.xml",
+        "ref/netstandard1.3/es/System.Data.SqlClient.xml",
+        "ref/netstandard1.3/fr/System.Data.SqlClient.xml",
+        "ref/netstandard1.3/it/System.Data.SqlClient.xml",
+        "ref/netstandard1.3/ja/System.Data.SqlClient.xml",
+        "ref/netstandard1.3/ko/System.Data.SqlClient.xml",
+        "ref/netstandard1.3/ru/System.Data.SqlClient.xml",
+        "ref/netstandard1.3/zh-hans/System.Data.SqlClient.xml",
+        "ref/netstandard1.3/zh-hant/System.Data.SqlClient.xml",
+        "ref/netstandard2.0/System.Data.SqlClient.dll",
+        "ref/netstandard2.0/System.Data.SqlClient.xml",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._",
+        "runtimes/unix/lib/netstandard1.3/System.Data.SqlClient.dll",
+        "runtimes/unix/lib/netstandard2.0/System.Data.SqlClient.dll",
+        "runtimes/win/lib/net451/System.Data.SqlClient.dll",
+        "runtimes/win/lib/net46/System.Data.SqlClient.dll",
+        "runtimes/win/lib/net461/System.Data.SqlClient.dll",
+        "runtimes/win/lib/netstandard1.3/System.Data.SqlClient.dll",
+        "runtimes/win/lib/netstandard2.0/System.Data.SqlClient.dll",
+        "system.data.sqlclient.4.4.3.nupkg.sha512",
+        "system.data.sqlclient.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
       ]
     },
     "System.Diagnostics.Debug/4.3.0": {
@@ -10710,6 +11067,9 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "FastReport.Data.MsSql >= 2023.2.0",
+      "FastReport.OpenSource >= 2023.2.16",
+      "FastReport.OpenSource.Export.PdfSimple >= 2023.2.16",
       "MailKit >= 4.0.0",
       "Microsoft.AspNetCore.Authentication.Facebook >= 6.0.16",
       "Microsoft.AspNetCore.Authentication.Google >= 6.0.16",
@@ -10768,6 +11128,18 @@
       "net6.0": {
         "targetAlias": "net6.0",
         "dependencies": {
+          "FastReport.Data.MsSql": {
+            "target": "Package",
+            "version": "[2023.2.0, )"
+          },
+          "FastReport.OpenSource": {
+            "target": "Package",
+            "version": "[2023.2.16, )"
+          },
+          "FastReport.OpenSource.Export.PdfSimple": {
+            "target": "Package",
+            "version": "[2023.2.16, )"
+          },
           "MailKit": {
             "target": "Package",
             "version": "[4.0.0, )"

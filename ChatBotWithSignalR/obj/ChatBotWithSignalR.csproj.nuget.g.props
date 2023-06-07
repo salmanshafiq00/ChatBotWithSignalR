@@ -18,6 +18,8 @@
     <Import Project="$(NuGetPackageRoot)microsoft.entityframeworkcore\6.0.16\buildTransitive\net6.0\Microsoft.EntityFrameworkCore.props" Condition="Exists('$(NuGetPackageRoot)microsoft.entityframeworkcore\6.0.16\buildTransitive\net6.0\Microsoft.EntityFrameworkCore.props')" />
     <Import Project="$(NuGetPackageRoot)microsoft.entityframeworkcore.design\6.0.16\build\net6.0\Microsoft.EntityFrameworkCore.Design.props" Condition="Exists('$(NuGetPackageRoot)microsoft.entityframeworkcore.design\6.0.16\build\net6.0\Microsoft.EntityFrameworkCore.Design.props')" />
     <Import Project="$(NuGetPackageRoot)microsoft.aspnetcore.identity.ui\6.0.16\build\Microsoft.AspNetCore.Identity.UI.props" Condition="Exists('$(NuGetPackageRoot)microsoft.aspnetcore.identity.ui\6.0.16\build\Microsoft.AspNetCore.Identity.UI.props')" />
+    <Import Project="$(NuGetPackageRoot)fastreport.opensource\2023.2.16\buildTransitive\FastReport.OpenSource.props" Condition="Exists('$(NuGetPackageRoot)fastreport.opensource\2023.2.16\buildTransitive\FastReport.OpenSource.props')" />
+    <Import Project="$(NuGetPackageRoot)fastreport.data.mssql\2023.2.0\buildTransitive\netstandard2.0\FastReport.Data.MsSql.props" Condition="Exists('$(NuGetPackageRoot)fastreport.data.mssql\2023.2.0\buildTransitive\netstandard2.0\FastReport.Data.MsSql.props')" />
   </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <PkgMessagePackAnalyzer Condition=" '$(PkgMessagePackAnalyzer)' == '' ">C:\Users\Salman\.nuget\packages\messagepackanalyzer\2.1.152</PkgMessagePackAnalyzer>

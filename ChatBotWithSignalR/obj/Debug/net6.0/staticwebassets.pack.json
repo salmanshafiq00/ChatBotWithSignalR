@@ -21,12 +21,24 @@
       "PackagePath": "staticwebassets\\css\\chat.css"
     },
     {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\css\\form-button.css",
+      "PackagePath": "staticwebassets\\css\\form-button.css"
+    },
+    {
       "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\css\\login.css",
       "PackagePath": "staticwebassets\\css\\login.css"
     },
     {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\css\\recording.css",
+      "PackagePath": "staticwebassets\\css\\recording.css"
+    },
+    {
       "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\css\\two-col-form.css",
+      "PackagePath": "staticwebassets\\css\\two-col-form.css"
     },
     {
       "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\favicon.ico",
@@ -153,6 +165,22 @@
       "PackagePath": "staticwebassets\\images\\conversation\\7e2d8b0f-4dfb-48a1-a689-956d266640e4_20230510_981.png"
     },
     {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\conversation\\ecaf3269-be1d-4563-a235-e6447194c481_20230531_104.webm",
+      "PackagePath": "staticwebassets\\images\\conversation\\ecaf3269-be1d-4563-a235-e6447194c481_20230531_104.webm"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\conversation\\ecaf3269-be1d-4563-a235-e6447194c481_20230531_208.webm",
+      "PackagePath": "staticwebassets\\images\\conversation\\ecaf3269-be1d-4563-a235-e6447194c481_20230531_208.webm"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230603_379.webm",
+      "PackagePath": "staticwebassets\\images\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230603_379.webm"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230603_500.webm",
+      "PackagePath": "staticwebassets\\images\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230603_500.webm"
+    },
+    {
       "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\groups\\Business Studies_20230509.jpg",
       "PackagePath": "staticwebassets\\images\\groups\\Business Studies_20230509.jpg"
     },
@@ -195,6 +223,10 @@
     {
       "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\whatsBgImage.png",
       "PackagePath": "staticwebassets\\images\\whatsBgImage.png"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\js\\audio-recording.js",
+      "PackagePath": "staticwebassets\\js\\audio-recording.js"
     },
     {
       "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\js\\chat.js",
@@ -447,6 +479,10 @@
     {
       "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\reports\\personalData.frx",
+      "PackagePath": "staticwebassets\\reports\\personalData.frx"
     },
     {
       "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.ChatBotWithSignalR.Microsoft.AspNetCore.StaticWebAssets.props",

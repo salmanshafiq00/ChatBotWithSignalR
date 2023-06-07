@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\css\form-button.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FastReport.Data.MsSql" Version="2023.2.0" />
+    <PackageReference Include="FastReport.OpenSource" Version="2023.2.16" />
+    <PackageReference Include="FastReport.OpenSource.Export.PdfSimple" Version="2023.2.16" />
     <PackageReference Include="MailKit" Version="4.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="6.0.16" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="6.0.16" />

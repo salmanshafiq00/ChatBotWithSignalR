@@ -81,5 +81,10 @@
             public const string Delete = "Permissions.ChatBots.Delete";
         }
 
+        public static class ApplicationHeaders
+        {
+            public const string View = "Permissions.ApplicationHeaders.View";
+        }
+
     }
 }

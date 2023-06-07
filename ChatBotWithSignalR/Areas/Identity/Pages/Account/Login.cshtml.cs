@@ -103,9 +103,13 @@ namespace ChatBotWithSignalR.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/Chat/Chat/Index");
-            if (User.IsInRole(Roles.ChatUser.ToString()) || User.IsInRole(Roles.ChatUser.ToString()))
+            if (User.IsInRole(Roles.ChatUser.ToString()) && !User.IsInRole(Roles.SuperAdmin.ToString()))
             {
-                returnUrl = Url.Content("~/Home/Index");
+                returnUrl = Url.Content("~/Chat/Chat/Index");
+            }
+            else
+            {
+                returnUrl = Url.Content("~/Admin/Dashboard/Index");
             }
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();

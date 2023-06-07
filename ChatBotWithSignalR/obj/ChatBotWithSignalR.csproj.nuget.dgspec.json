@@ -45,6 +45,18 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "FastReport.Data.MsSql": {
+              "target": "Package",
+              "version": "[2023.2.0, )"
+            },
+            "FastReport.OpenSource": {
+              "target": "Package",
+              "version": "[2023.2.16, )"
+            },
+            "FastReport.OpenSource.Export.PdfSimple": {
+              "target": "Package",
+              "version": "[2023.2.16, )"
+            },
             "MailKit": {
               "target": "Package",
               "version": "[4.0.0, )"
