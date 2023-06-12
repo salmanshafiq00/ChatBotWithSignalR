@@ -83,6 +83,7 @@ if (app.Environment.IsDevelopment())
     using (var scope = app.Services.CreateScope())
     {
         var seedingSevice = scope.ServiceProvider;
+        // Here using UserManager<ApplicaitonUser> as service
         var userManager = seedingSevice.GetRequiredService<UserManager<ApplicationUser>>();
         var roleManager = seedingSevice.GetRequiredService<RoleManager<IdentityRole>>();
         await ChatBotWithSignalR.Seeds.DefaultRoles.SeedAsync(userManager, roleManager);

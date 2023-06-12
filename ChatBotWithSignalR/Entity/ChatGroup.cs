@@ -9,9 +9,10 @@ namespace ChatBotWithSignalR.Entity
     {
         public int Id { get; set; }
         [StringLength(50)]
+        [Required(ErrorMessage = "Group Name is required")]
         public string Name { get; set; } = string.Empty;
         [StringLength(200)]
-        public string Description { get; set; } = string.Empty;
+        public string? Description { get; set; }
         [StringLength(50)]
         public string AuthorId { get; set; } = string.Empty; // Created By userId
         public DateTime CreatedDate { get; set; } = DateTime.Now;

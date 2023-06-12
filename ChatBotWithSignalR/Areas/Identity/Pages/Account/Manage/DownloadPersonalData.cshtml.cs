@@ -74,6 +74,43 @@ namespace ChatBotWithSignalR.Areas.Identity.Pages.Account.Manage
         //    return new FileContentResult(JsonSerializer.SerializeToUtf8Bytes(personalData), "application/json");
         //}
 
+        //public async Task<IActionResult> OnPostAsync()
+        //{
+        //    try
+        //    {
+        //        await Task.Delay(0);
+        //        FastReport.Utils.Config.WebMode = true;
+        //        Report report = new();
+        //        var mssqlConnection = new MsSqlDataConnection();
+        //        mssqlConnection.ConnectionString = _config.GetConnectionString("DefaultConnection");
+        //        report.Dictionary.Connections.Add(mssqlConnection);
+        //        string path = $@"{_env.WebRootPath}\reports\personalData.frx";
+        //        report.Report.Load(path);
+        //        var loginUserId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        //        report.Report.SetParameterValue("id", loginUserId);
+        //        if (report.Report.Prepare())
+        //        {
+        //            PDFSimpleExport pdfExport = new()
+        //            {
+        //                ShowProgress = true,
+        //                Subject = "User Personal Data",
+        //                Title = "User Personal Data"
+        //            };
+        //            using MemoryStream ms = new();
+        //            report.Report.Export(pdfExport, ms);
+        //            report.Report.Dispose();
+        //            pdfExport.Dispose();
+        //            ms.Flush();
+        //            return File(ms.ToArray(), "application/pdf", "personal-data.pdf");
+        //        }
+        //        return null;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception(ex.Message);
+        //    }
+        //}
+
         public async Task<IActionResult> OnPostAsync()
         {
             try
@@ -81,13 +118,17 @@ namespace ChatBotWithSignalR.Areas.Identity.Pages.Account.Manage
                 await Task.Delay(0);
                 FastReport.Utils.Config.WebMode = true;
                 Report report = new();
-                var mssqlConnection = new MsSqlDataConnection();
-                mssqlConnection.ConnectionString = _config.GetConnectionString("DefaultConnection");
-                report.Dictionary.Connections.Add(mssqlConnection);
-                string path = $@"{_env.WebRootPath}\reports\personalData.frx";
+                //var mssqlConnection = new MsSqlDataConnection();
+               // mssqlConnection.ConnectionString = _config.GetConnectionString("DefaultConnection");
+                //report.Dictionary.Connections.Add(mssqlConnection);
+                //string path = $@"{_env.WebRootPath}\reports\usersUsingSp.frx";
+                //string path = $@"{_env.WebRootPath}\reports\usersUsingQuery.frx";
+                string path = $@"{_env.WebRootPath}\reports\usersByQueryWithParameter.frx";
                 report.Report.Load(path);
-                var loginUserId = report.GetParameter("id");
-                loginUserId.Value = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                string userName = HttpContext.User.Identity.Name;
+                string loginUserId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                //report.Report.SetParameterValue("userName", userName);
+                report.Report.SetParameterValue("id", loginUserId);
                 if (report.Report.Prepare())
                 {
                     PDFSimpleExport pdfExport = new()

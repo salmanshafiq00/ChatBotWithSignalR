@@ -2,6 +2,8 @@
 using ChatBotWithSignalR.Constant;
 using ChatBotWithSignalR.Data;
 using ChatBotWithSignalR.Entity;
+using ChatBotWithSignalR.Enum;
+using ChatBotWithSignalR.Extensions;
 using ChatBotWithSignalR.Hubs;
 using ChatBotWithSignalR.Interface;
 using Microsoft.AspNetCore.Authorization;
@@ -16,6 +18,7 @@ using SixLabors.ImageSharp.Formats.Png;
 using System.Net.WebSockets;
 using System.Reflection.Metadata;
 using System.Security.Claims;
+using static System.Net.Mime.MediaTypeNames;
 using Image = SixLabors.ImageSharp.Image;
 using Size = SixLabors.ImageSharp.Size;
 
@@ -76,6 +79,8 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
                     model.ChatGroupsList.Add(group);
                 }
             }
+
+            model.TransectionHistries = await _context.TransectionHistories.Where(x => x.NotifyUserId == loginUser.Id).ToListAsync();
             //model.ChatUsers.RemoveAt(model.ChatUsers.FindIndex(p => p.Id == model.LoginUserId));
             return View(model);
         }
@@ -261,7 +266,8 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
                     {
                         await _context.UserGroups.AddAsync(new UserGroup { Id = 0, GroupId = result.Entity.Id, UserId = chatGroup.AuthorId });
                         await _context.SaveChangesAsync();
-                        return new JsonResult(new { IsValid = true, Id = result.Entity.Id, Name = result.Entity.Name, GroupPhotoUrl = chatGroup.GroupPhotoUrl });
+                        await _toast.ToastSuccess("New Group Created Successfully");
+                        return new JsonResult(new { IsValid = true, Id = result.Entity.Id, Name = result.Entity.Name, GroupPhotoUrl = chatGroup.GroupPhotoUrl, Msg = "New Group Created Successfully" });
                     }
                 }
                 else
@@ -279,13 +285,16 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
                         result.GroupPhotoUrl = await SaveGroupImageAsync(chatGroup.GroupPhoto, chatGroup.Name, 200, 200, chatGroup.GroupPhotoUrl);
                         _context.ChatGroups.Update(result);
                         await _context.SaveChangesAsync();
-                        return new JsonResult(new { IsValid = true, Id = chatGroup.Id, Name = chatGroup.Name, GroupPhotoUrl = chatGroup.GroupPhotoUrl });
+                        await _toast.ToastSuccess("Group Updated Successfully");
+                        return new JsonResult(new { IsValid = true, Id = chatGroup.Id, Name = chatGroup.Name, GroupPhotoUrl = chatGroup.GroupPhotoUrl, Msg = "Group Updated Successfully" });
                     }
                 }
+                await _toast.ToastError("Something went wrong");
                 return new JsonResult(new { IsValid = false });
             }
             catch
             {
+                await _toast.ToastError("Something went wrong");
                 return new JsonResult(new { IsValid = false });
             }
         }
@@ -301,6 +310,7 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
                 return new JsonResult(new { IsValid = false });
             }
             GroupUsersViewModel model = new GroupUsersViewModel();
+            // Get all members belong to this groupId
             var result = await _context.UserGroups.Where(g => g.GroupId == groupId).OrderBy(u => u.Id).ToListAsync();
             model.AuthorId = chatGroup.AuthorId;
             model.GroupName = chatGroup.Name;
@@ -324,12 +334,26 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
 
         // Assign or remove user/users from a particular group
         [HttpPost]
-        public async Task<IActionResult> OnPostCreateOrEdit(List<UserGroup> userGroups)
+        public async Task<IActionResult> OnPostCreateOrEdit(List<UserGroup> userGroups, string groupName)
         {
             try
             {
                 var loginUserId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 userGroups.RemoveAll(g => g.GroupId == 0 && string.IsNullOrEmpty(g.UserId));
+
+                TransectionHistory transection = new()
+                {
+                    FromGroupId = userGroups.FirstOrDefault()?.GroupId,
+                    FromUserId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier),
+                    FromUserName = await ApplicationUserExtension.GetUserFullNameByName(_userManager, User.Identity?.Name),
+                    Title = "Group Notification",
+                    Url = $"",
+                    TransectionType = TransectionType.GroupMessage,
+                    TransectionTypeName = TransectionType.GroupMessage.GetDisplayName(),
+                    TransectionStatus = TransectionStatus.MemberAddedInGroup,
+                    TransectionStatusName = TransectionStatus.MemberAddedInGroup.GetDisplayName()
+                };
+
                 if (userGroups.Any(p => p.Id == 0))
                 {
                     foreach (var user in userGroups.Where(p => p.Id == 0))
@@ -337,32 +361,43 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
                         user.CreatedDate = DateTime.Now;
                         user.CreatedBy = loginUserId;
                     }
-                    var userList = userGroups.Where(p => p.Id == 0).Select(s => s.UserId).ToList();
+                    var userIdList = userGroups.Where(p => p.Id == 0).Select(s => s.UserId).ToList();
                     await _context.UserGroups.AddRangeAsync(userGroups.Where(p => p.Id == 0));
                     var affectedRow = await _context.SaveChangesAsync();
+
                     if (affectedRow > 0)
                     {
-                        //List<Notification> notifyList = new();
-                        //foreach (var user in userList)
-                        //{
-                        //    Notification notification = new();
-                        //    notification.Title = "Chat Notification";
-                        //    notification.Text = $"Chat Notification From {User.Identity.Name}";
-                        //    notification.NotifyUserId = loginUserId;
-                        //    notification.ReceivedUserId = user;
-                        //    notification.TransId = 10;
-                        //    notification.Url = $"";
-                        //    notifyList.Add(notification);
-                        //    await _chatHubContext.Clients.User(user).SendAsync("ReceiveNotifications", notification);
-                        //}
-                        //await _context.AddRangeAsync(notifyList);
-                        //await _context.SaveChangesAsync();
+                        List<TransectionHistory> transList = new();
+                        foreach (var userId in userIdList)
+                        {
+                            transection.Text = $"{await ApplicationUserExtension.GetUserFullNameByName(_userManager, User.Identity?.Name)} added to \"{groupName}\" group ";
+                            transection.NotifyUserId = userId;
+                            transection.NotifyUserName = await ApplicationUserExtension.GetUserFullNameById(_userManager, userId);
+                            transList.Add(transection);
+                        }
+                        await _context.AddRangeAsync(transList);
+                        await _context.SaveChangesAsync();
                     }
                 }
                 else
                 {
+                    var userIdList = userGroups.Where(p => p.Id != 0).Select(s => s.UserId).ToList();
                     _context.UserGroups.UpdateRange(userGroups.Where(p => p.Id != 0));
-                    await _context.SaveChangesAsync();
+                    var affectedRow = await _context.SaveChangesAsync();
+
+                    if (affectedRow > 0)
+                    {
+                        List<TransectionHistory> transList = new();
+                        foreach (var userId in userIdList)
+                        {
+                            transection.Text = $"{await ApplicationUserExtension.GetUserFullNameByName(_userManager, User.Identity?.Name)} removed from \"{groupName}\" group ";
+                            transection.NotifyUserId = userId;
+                            transection.NotifyUserName = await ApplicationUserExtension.GetUserFullNameById(_userManager, userId);
+                            transList.Add(transection);
+                        }
+                        await _context.AddRangeAsync(transList);
+                        await _context.SaveChangesAsync();
+                    }
                 }
                 return new JsonResult(new { IsValid = true, Msg = "Users assign in this group" });
             }
@@ -518,7 +553,7 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
                                 // Handle unsupported file formats
                                 throw new NotSupportedException("Unsupported image format.");
                             }
-    
+
                             // Save the optimized image to disk
                             using FileStream fileStream = new(path, FileMode.Create);
                             await image.SaveAsync(fileStream, encoder);
@@ -553,13 +588,13 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
             return (Math.Sign(byteCount) * num).ToString() + suf[place];
         }
 
-        private async Task<string> SaveGroupImageAsync(IFormFile file, string groupName, int maxWidth = 300, int maxHeight = 300, string? fileUrl = null)
+        private async Task<string?> SaveGroupImageAsync(IFormFile file, string groupName, int maxWidth = 300, int maxHeight = 300, string? fileUrl = null)
         {
             try
             {
                 if (file is null && String.IsNullOrEmpty(fileUrl))                   // during create when no file uploaded
                 {
-                    return string.Empty;
+                    return null;
                 }
                 else if (!string.IsNullOrEmpty(fileUrl) && file is null)             // during edit while file was created and no changes
                 {
@@ -592,8 +627,8 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
                         image.Mutate(x => x.Resize(new ResizeOptions
                         {
                             Size = new Size(maxWidth, maxHeight),
-                            Mode = ResizeMode.Max  // it maintain orignal aspect ratio
-                            //Mode = ResizeMode.Stretch // it changes  orignal aspect ratio to meet the size
+                            //Mode = ResizeMode.Max  // it maintain orignal aspect ratio
+                            Mode = ResizeMode.Stretch // it changes  orignal aspect ratio to meet the size
                         }));
 
                         // Save the resized image to a file in the wwwroot folder
@@ -604,7 +639,7 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
                     }
                     return $"/images/groups/{fileName}";
                 }
-                return string.Empty;
+                return null;
             }
             catch (Exception ex)
             {

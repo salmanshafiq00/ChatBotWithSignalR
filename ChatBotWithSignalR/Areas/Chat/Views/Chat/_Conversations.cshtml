@@ -16,6 +16,8 @@
         display: inline-block;
         float: right;
         vertical-align: top;
+        overflow-x: hidden;
+        word-wrap: break-word;
     }
 
         .ownMessage pre {
@@ -34,8 +36,8 @@
         color: wheat;
         margin-top: 5px;
         border-radius: 8px;
-        margin-left: 17%;
         min-width: 40%;
+        margin-left: 17%;
         max-width: 75%;
         display: block;
         float: right;
@@ -61,6 +63,7 @@
         min-width: 50%;
         max-width: 75%;
         float: left;
+        overflow: hidden;
     }
 
         .otherMessage pre {
@@ -92,7 +95,7 @@
         display: block;
         max-width: 200px;
         text-align: center;
-        margin-left: 10px
+        margin-left: 2px;
     }
 
     .coversationAudio {
@@ -158,15 +161,18 @@
             @*<span style="margin-right: 5px"><i class="fas fa-users" style="font-size: 20px"></i> </span>*@
             <img src="@(Model.GroupPhotoUrl ?? "/images/no-image.png")" alt="Group Photo" style="width: 35px; border-radius: 50%; margin-top: -11px" asp-append-version="true">
             <h3 id="conGroupTitle" style="display: inline">@Model.GroupName</h3>
-            <button style="padding: 0;border: none;background: none; margin-left: 20px" onclick="getCreateOrUpdateGroupModal(@Model.GroupId, `Edit Group Name`)">
+            <button style="padding: 0;border: none;background: none; margin-left: 20px" title="Edit Group" onclick="getCreateOrUpdateGroupModal(@Model.GroupId, `Edit Group Name`)">
                 <i class="fa fa-pencil" aria-hidden="true" style="font-size:12px;"></i>
             </button>
             if (Model.GroupAuthorId.Equals(Model.LoginUserId))
             {
-                <button style="padding: 0;border: none;background: none; margin-left: 10px" onclick="deleteGroup(@Model.GroupId)">
+                <button style="padding: 0;border: none;background: none; margin-left: 10px" title="Delete Group" onclick="deleteGroup(@Model.GroupId)">
                     <i class="fa fa-trash" aria-hidden="true" style="font-size:12px;"></i>
                 </button>
             }
+            <button type="button" class="btn btn-outline-primary" style="padding: 0px 5px; margin-left: 10px; margin-top: -5px;" title="Assign Or Remove Users" onclick="getCreateOrUpdateUserGroupModal(@Model.GroupId)">
+                <i class="fa fa-users" aria-hidden="true" style="font-size: 12px"></i>
+            </button>
             <span id="toGroupIdFromHeader" class="d-none">@Model.GroupId</span>
         }
     </div>
@@ -183,7 +189,8 @@
                     if (!String.IsNullOrEmpty(conversation.TextMessage))
                     {
                         <div class="ownMessage">
-                            <pre>@conversation.TextMessage.Replace("<br/>",Environment.NewLine)</pre>
+                            @*<pre class="@(conversation.TextMessage.Contains(@"\r\n") ? "" : "text-wrap")">@conversation.TextMessage.Replace(@"\r\n",Environment.NewLine)</pre>*@
+                            <pre class="@(conversation.TextMessage.Contains(" ") ? "text-wrap" : "")">@conversation.TextMessage.Replace("<br/>",Environment.NewLine)</pre>
                             <span class="time">@conversation.SendDate.ToShortTimeString()</span>
                         </div>
                     }

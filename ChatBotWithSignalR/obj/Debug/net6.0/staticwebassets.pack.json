@@ -25,6 +25,10 @@
       "PackagePath": "staticwebassets\\css\\form-button.css"
     },
     {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\css\\header.css",
+      "PackagePath": "staticwebassets\\css\\header.css"
+    },
+    {
       "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\css\\login.css",
       "PackagePath": "staticwebassets\\css\\login.css"
     },
@@ -181,16 +185,44 @@
       "PackagePath": "staticwebassets\\images\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230603_500.webm"
     },
     {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230611_408.mp4",
+      "PackagePath": "staticwebassets\\images\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230611_408.mp4"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230611_411.jpg",
+      "PackagePath": "staticwebassets\\images\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230611_411.jpg"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230611_571.jpg",
+      "PackagePath": "staticwebassets\\images\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230611_571.jpg"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230611_974.jpg",
+      "PackagePath": "staticwebassets\\images\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230611_974.jpg"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230612_443.mp4",
+      "PackagePath": "staticwebassets\\images\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230612_443.mp4"
+    },
+    {
       "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\groups\\Business Studies_20230509.jpg",
       "PackagePath": "staticwebassets\\images\\groups\\Business Studies_20230509.jpg"
     },
     {
-      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\no-image.png",
-      "PackagePath": "staticwebassets\\images\\no-image.png"
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\groups\\Business Studies_20230610.png",
+      "PackagePath": "staticwebassets\\images\\groups\\Business Studies_20230610.png"
     },
     {
-      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\propic.jpg",
-      "PackagePath": "staticwebassets\\images\\propic.jpg"
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\groups\\Java_20230610.png",
+      "PackagePath": "staticwebassets\\images\\groups\\Java_20230610.png"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\logo.png",
+      "PackagePath": "staticwebassets\\images\\logo.png"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\no-image.png",
+      "PackagePath": "staticwebassets\\images\\no-image.png"
     },
     {
       "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\undraw_file_sync_ot38.svg",
@@ -221,6 +253,10 @@
       "PackagePath": "staticwebassets\\images\\users\\superadmin_20230526.jpg"
     },
     {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\users\\test22_20230610.jpg",
+      "PackagePath": "staticwebassets\\images\\users\\test22_20230610.jpg"
+    },
+    {
       "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\whatsBgImage.png",
       "PackagePath": "staticwebassets\\images\\whatsBgImage.png"
     },
@@ -235,6 +271,10 @@
     {
       "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\js\\chatRequestHandler.js",
       "PackagePath": "staticwebassets\\js\\chatRequestHandler.js"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\js\\qr.js",
+      "PackagePath": "staticwebassets\\js\\qr.js"
     },
     {
       "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\js\\recording.js",
@@ -433,6 +473,178 @@
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
     },
     {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\css\\all.css",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\css\\all.css"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\css\\all.min.css",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\css\\all.min.css"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\css\\brands.css",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\css\\brands.css"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\css\\brands.min.css",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\css\\brands.min.css"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\css\\fontawesome.css",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\css\\fontawesome.css"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\css\\fontawesome.min.css",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\css\\fontawesome.min.css"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\css\\regular.css",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\css\\regular.css"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\css\\regular.min.css",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\css\\regular.min.css"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\css\\solid.css",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\css\\solid.css"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\css\\solid.min.css",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\css\\solid.min.css"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\css\\svg-with-js.css",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\css\\svg-with-js.css"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\css\\svg-with-js.min.css",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\css\\svg-with-js.min.css"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\css\\v4-font-face.css",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\css\\v4-font-face.css"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\css\\v4-font-face.min.css",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\css\\v4-font-face.min.css"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\css\\v4-shims.css",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\css\\v4-shims.css"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\css\\v4-shims.min.css",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\css\\v4-shims.min.css"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\css\\v5-font-face.css",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\css\\v5-font-face.css"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\css\\v5-font-face.min.css",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\css\\v5-font-face.min.css"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\js\\all.js",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\js\\all.js"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\js\\all.min.js",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\js\\all.min.js"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\js\\brands.js",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\js\\brands.js"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\js\\brands.min.js",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\js\\brands.min.js"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\js\\conflict-detection.js",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\js\\conflict-detection.js"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\js\\conflict-detection.min.js",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\js\\conflict-detection.min.js"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\js\\fontawesome.js",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\js\\fontawesome.js"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\js\\fontawesome.min.js",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\js\\fontawesome.min.js"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\js\\regular.js",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\js\\regular.js"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\js\\regular.min.js",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\js\\regular.min.js"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\js\\solid.js",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\js\\solid.js"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\js\\solid.min.js",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\js\\solid.min.js"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\js\\v4-shims.js",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\js\\v4-shims.js"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\js\\v4-shims.min.js",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\js\\v4-shims.min.js"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\sprites\\brands.svg",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\sprites\\brands.svg"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\sprites\\regular.svg",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\sprites\\regular.svg"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\sprites\\solid.svg",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\sprites\\solid.svg"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\webfonts\\fa-brands-400.ttf",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\webfonts\\fa-brands-400.ttf"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\webfonts\\fa-brands-400.woff2",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\webfonts\\fa-brands-400.woff2"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\webfonts\\fa-regular-400.ttf",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\webfonts\\fa-regular-400.ttf"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\webfonts\\fa-regular-400.woff2",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\webfonts\\fa-regular-400.woff2"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\webfonts\\fa-solid-900.ttf",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\webfonts\\fa-solid-900.ttf"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\webfonts\\fa-solid-900.woff2",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\webfonts\\fa-solid-900.woff2"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\webfonts\\fa-v4compatibility.ttf",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\webfonts\\fa-v4compatibility.ttf"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\font-awesome\\webfonts\\fa-v4compatibility.woff2",
+      "PackagePath": "staticwebassets\\lib\\font-awesome\\webfonts\\fa-v4compatibility.woff2"
+    },
+    {
       "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },
@@ -481,8 +693,60 @@
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\qrcode\\qrcode.js",
+      "PackagePath": "staticwebassets\\lib\\qrcode\\qrcode.js"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\qrcode\\qrcode.min.js",
+      "PackagePath": "staticwebassets\\lib\\qrcode\\qrcode.min.js"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\qrcode\\qrcode.tosjis.js",
+      "PackagePath": "staticwebassets\\lib\\qrcode\\qrcode.tosjis.js"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\qrcode\\qrcode.tosjis.min.js",
+      "PackagePath": "staticwebassets\\lib\\qrcode\\qrcode.tosjis.min.js"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\select2\\js\\select2.min.js",
+      "PackagePath": "staticwebassets\\lib\\select2\\js\\select2.min.js"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\toastr.js\\toastr.css",
+      "PackagePath": "staticwebassets\\lib\\toastr.js\\toastr.css"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\toastr.js\\toastr.js.map",
+      "PackagePath": "staticwebassets\\lib\\toastr.js\\toastr.js.map"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\toastr.js\\toastr.min.css",
+      "PackagePath": "staticwebassets\\lib\\toastr.js\\toastr.min.css"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\lib\\toastr.js\\toastr.min.js",
+      "PackagePath": "staticwebassets\\lib\\toastr.js\\toastr.min.js"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\reports\\getUserBySp.frx",
+      "PackagePath": "staticwebassets\\reports\\getUserBySp.frx"
+    },
+    {
       "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\reports\\personalData.frx",
       "PackagePath": "staticwebassets\\reports\\personalData.frx"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\reports\\usersByQueryWithParameter.frx",
+      "PackagePath": "staticwebassets\\reports\\usersByQueryWithParameter.frx"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\reports\\usersUsingQuery.frx",
+      "PackagePath": "staticwebassets\\reports\\usersUsingQuery.frx"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\reports\\usersUsingSp.frx",
+      "PackagePath": "staticwebassets\\reports\\usersUsingSp.frx"
     },
     {
       "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.ChatBotWithSignalR.Microsoft.AspNetCore.StaticWebAssets.props",

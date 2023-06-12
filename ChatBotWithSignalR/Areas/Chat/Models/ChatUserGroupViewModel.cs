@@ -6,6 +6,6 @@
         public string LoginUserFullName { get; set; } = string.Empty;
         public List<ChatUserViewModel> ChatUsers = new();
         public List<ChatGroup> ChatGroupsList = new();
-
+        public List<TransectionHistory> TransectionHistries { get; set; } = new();
     }
 }

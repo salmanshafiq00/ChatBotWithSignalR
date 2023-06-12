@@ -1,17 +1,19 @@
 ﻿@using ChatBotWithSignalR.Models;
 @model ChatGroup
-
+<link href="~/css/form-button.css" rel="stylesheet" />
 <form id="createform" asp-area="Chat" asp-controller="Chat" asp-action="CreateOrEditGroup" onsubmit="return saveGroup(this)">
-    <div class="mb-3">
+    <div class="mb-3 input-box">
         <input type="hidden" class="form-control" asp-for="Id"  />
         <input type="hidden" class="form-control" asp-for="CreatedDate"  />
         <input type="hidden" class="form-control" asp-for="AuthorId"  />
-        <label for="Name" class="col-form-label">Name:</label>
+        <span class="details">Name:</span>
         <input type="text" class="form-control" asp-for="Name" required />
+        <span asp-validation-for="Name" class="text-danger"></span>
     </div>
-    <div class="mb-3">
-        <label for="Description" class="col-form-label">Description:</label>
+    <div class="mb-3 input-box">
+        <span class="details">Description:</span>
         <textarea class="form-control" asp-for="Description"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
     </div>
     <div class="row">
         <div class="col-md-6">
@@ -36,8 +38,8 @@
             </div>
         </div>
     </div>
-    <div class="mb-3">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    <div class="mb-3 button">
+        @*<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>*@
         <button type="submit" class="btn btn-primary" id="saveBtn">Save Group</button>
     </div>
 </form>
@@ -59,24 +61,18 @@
                             $(innerAnchorTag).text(result.name);
                         }
                         else{
-                            $(`#groupContainer`).append(`<li class="clearfix grouplistclass" id="user_'${id}'">
-                                            <a href="javascript:void(0)" class="text-dark" onclick="loadConversionsByGroupId('${id}')">
-                                                <img src="${GroupPhotoUrl}" alt="Group Photo Url" class="groupPhoto">
+                            let photoUrl = !result.groupPhotoUrl ? "/images/no-image.png" : result.groupPhotoUrl;
+                            $(`#groupContainer`).append(`<li class="clearfix grouplistclass" id="user_'${result.id}'">
+                                            <a href="javascript:void(0)" class="text-dark" onclick="loadConversionsByGroupId('${result.id}')">
+                                                        <img src="${photoUrl}" alt="Group Photo Url" class="groupPhoto">
                                                 <div class="about">
-                                                    <div class="name">${name}</div>
+                                                    <div class="name">${result.name}</div>
                                                 </div>
                                             </a>
-                                            <button type="button" class="btn btn-outline-primary" style="padding: 0px 5px" onclick="getCreateOrUpdateUserGroupModal(${id})">
-                                                <i class="fa fa-users" aria-hidden="true" style="font-size: 12px"></i>
-                                            </button>
                                         </li>`
                             );
                         }
                         $('#formModal').modal('hide');
-                        toastr.success(`New Group Created`, 'success');
-                    }
-                    else {
-                        toastr.error(`Something went wrong`, 'error');
                     }
                 },
                 error: function (err) {

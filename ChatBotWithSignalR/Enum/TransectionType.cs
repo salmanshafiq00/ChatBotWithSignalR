@@ -1,9 +1,12 @@
-﻿namespace ChatBotWithSignalR.Enum
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ChatBotWithSignalR.Enum
 {
     public enum TransectionType
     {
-        Info = 1,
-        Warning = 2,
-        Error = 3
+        [Display(Name = "Chat Group")]
+        GroupMessage = 1,
+        [Display(Name = "Auth")]
+        Auth = 2
     }
 }

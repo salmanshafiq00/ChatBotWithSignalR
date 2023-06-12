@@ -44,6 +44,7 @@
                                     <input type="hidden" asp-for="@Model.UserGroups[i].GroupId" id="GroupId__@i" />
                                     <input type="hidden" asp-for="@Model.UserGroups[i].CreatedDate" id="CreatedDate__@i" />
                                     <input type="hidden" asp-for="@Model.UserGroups[i].CreatedBy" id="CreatedBy__@i" />
+                                    <input type="hidden" asp-for="@Model.GroupName" />
                                     <div class="input-group" id="inputGroup__@i">
                                         @if (Model.AuthorId == @Model.UserGroups[i].UserId)
                                         {

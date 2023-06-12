@@ -18,12 +18,14 @@ namespace ChatBotWithSignalR.Areas.Identity.Pages.Account
     public class LoginModel : PageModel
     {
         private readonly CustomSignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<LoginModel> _logger;
         private readonly IToastNotification _toast;
 
-        public LoginModel(CustomSignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger, IToastNotification toast)
+        public LoginModel(CustomSignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ILogger<LoginModel> logger, IToastNotification toast)
         {
             _signInManager = signInManager;
+            _userManager = userManager;
             _logger = logger;
             _toast = toast;
         }
@@ -103,15 +105,6 @@ namespace ChatBotWithSignalR.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/Chat/Chat/Index");
-            if (User.IsInRole(Roles.ChatUser.ToString()) && !User.IsInRole(Roles.SuperAdmin.ToString()))
-            {
-                returnUrl = Url.Content("~/Chat/Chat/Index");
-            }
-            else
-            {
-                returnUrl = Url.Content("~/Admin/Dashboard/Index");
-            }
-
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             if (ModelState.IsValid)
@@ -123,6 +116,12 @@ namespace ChatBotWithSignalR.Areas.Identity.Pages.Account
         
                 if (result.Succeeded)
                 {
+                    var user = await _userManager.FindByEmailAsync(Input.Email) ?? await _userManager.FindByNameAsync(Input.Email);
+                    var userRoles = await _userManager.GetRolesAsync(user);
+                    if (userRoles.Contains(Roles.SuperAdmin.ToString()) || userRoles.Contains(Roles.Admin.ToString()))
+                    {
+                        returnUrl = Url.Content("~/Admin/Dashboard/Index");
+                    }
                     _logger.LogInformation("User logged in.");
                     await _toast.ToastSuccess("Welcome to SignalR ChatBot!");
                     return LocalRedirect(returnUrl);

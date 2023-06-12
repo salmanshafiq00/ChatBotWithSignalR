@@ -60,6 +60,7 @@ let sendMessage = form => {
                     setConversationToCaller(result, msgContent, files);
                     $(`#msgContent`).val('').trigger('input');
                     $(`#msgContent`).focus();
+                    $('#Files').val("");
                     scrollToBottom();
                     //sendMessageToUser(conversation);          // this method is not called here because sendasync method has already called in controller
                 }
@@ -271,7 +272,7 @@ function setConversationToChatBox(conversation) {
 function setConversationToCaller(result, msgContent, files) {
     if (msgContent) {
         $(`#messageList`).append(`<div class="ownMessage">
-                                                    <pre class="text-white">${msgContent.replace(/\n\r?/g, '<br />')}</pre>
+                                                    <pre class="text-white text-wrap">${msgContent.replace(/\n\r?/g, '<br />')}</pre>
                                                     <span class="time">${result.time}</span>
                                                   </div>`);
 
@@ -320,9 +321,13 @@ function setConversationToCaller(result, msgContent, files) {
     }
 }
 
-//
+// Set Notification 
 
 function getNotifications(notification) {
-    $(`#notify-wrapper`).append(`<li><a class="dropdown-item" href="#">${notification.text}</a></li>
-`);
+    debugger;
+    $(`#notify-wrapper`).append(`<li>
+                                    <a class="dropdown-item" href="#">${notification.text}</a>
+                                </li>
+                                <div class="dropdown-divider"></div>
+    `);
 }

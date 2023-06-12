@@ -123,7 +123,6 @@ namespace ChatBotWithSignalR.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -232,6 +231,88 @@ namespace ChatBotWithSignalR.Migrations
                     b.HasIndex("ConversationId");
 
                     b.ToTable("ConversationFiles");
+                });
+
+            modelBuilder.Entity("ChatBotWithSignalR.Entity.TransectionHistory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasMaxLength(100)
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("FromGroupId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FromUserId")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("FromUserName")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool>("IsClosed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsSeen")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("NotifyUserId")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("NotifyUserName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime?>("SeenDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("TableName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Text")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int?>("ToGroupId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TransectionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TransectionStatus")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TransectionStatusName")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int>("TransectionType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TransectionTypeName")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TransectionHistories");
                 });
 
             modelBuilder.Entity("ChatBotWithSignalR.Entity.UserGroup", b =>

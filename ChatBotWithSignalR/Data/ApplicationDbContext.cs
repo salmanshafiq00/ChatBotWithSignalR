@@ -1,20 +1,26 @@
 ﻿using ChatBotWithSignalR.Entity;
+using ChatBotWithSignalR.Hubs;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 
 namespace ChatBotWithSignalR.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        private readonly IHubContext<ChatHub> _hubContext;
+
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IHubContext<ChatHub> hubContext)
             : base(options)
         {
+            _hubContext = hubContext;
         }
         public DbSet<Conversation> Conversations { get; set; }
         public DbSet<ChatGroup> ChatGroups { get; set; }
         public DbSet<UserGroup> UserGroups { get; set; }
         public DbSet<ConversationFile> ConversationFiles { get; set; }
+        public DbSet<TransectionHistory> TransectionHistories { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -39,6 +45,33 @@ namespace ChatBotWithSignalR.Data
             builder.Entity<IdentityRoleClaim<string>>(entity =>
                entity.ToTable("RoleClaims", "Identity")
             );
+        }
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            var changedEntities = ChangeTracker.Entries<TransectionHistory>()
+                .Where(x => x.State == EntityState.Added || x.State == EntityState.Modified || x.State == EntityState.Deleted)
+                .Select(x => x.Entity);
+            foreach (var entity in changedEntities)
+            {
+                // Call SignalR hub method to send notifications with the changedEntities
+                await _hubContext.Clients.User(entity.NotifyUserId).SendAsync("ReceiveNotifications", entity);
+
+            }
+            return await base.SaveChangesAsync(cancellationToken);
+        }
+
+        public override int SaveChanges()
+        {
+            var changedEntities = ChangeTracker.Entries<TransectionHistory>()
+                .Where(x => x.State == EntityState.Added || x.State == EntityState.Modified || x.State == EntityState.Deleted)
+                .Select(x => x.Entity);
+            foreach (var entity in changedEntities)
+            {
+                // Call SignalR hub method to send notifications with the changedEntities
+                _hubContext.Clients.User(entity.NotifyUserId).SendAsync("ReceiveNotifications", entity);
+
+            }
+            return base.SaveChanges();
         }
 
     }

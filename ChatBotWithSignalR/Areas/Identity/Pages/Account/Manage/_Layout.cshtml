@@ -1,5 +1,6 @@
-﻿@{
-    if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout !=  null)
+﻿
+@{
+    if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout != null)
     {
         Layout = parentLayout.ToString();
     }
@@ -10,7 +11,7 @@
 }
 <div class="row mt-3">
     <div class="col-md-8">
-        <h1 class="d-inline">Manage your account</h1>
+        <h1 class="d-inline" style="background-image: linear-gradient(135deg, #4A00E0, #2ebf91 ); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Manage your account</h1>
     </div>
     <div class="col-md-4 mt-2">
         <a asp-action="Index" asp-controller="Chat" asp-area="Chat" class="btn btn-sm btn-outline-info" style="float: right !important">Back to Chat</a>

@@ -5,10 +5,10 @@
     ViewData["ActivePage"] = ManageNavPages.PersonalData;
 }
 
-
+<link href="~/css/form-button.css" rel="stylesheet" />
 <div class="row">
     <div class="col-md-8 offset-md-2">
-        <h3>@ViewData["Title"]</h3>
+        <h3 class="title">@ViewData["Title"]</h3>
         <p>Your account contains personal data that you have given us. This page allows you to download or delete that data.</p>
         <p>
             <strong>Deleting this data will permanently remove your account, and this cannot be recovered.</strong>
@@ -21,9 +21,6 @@
         </p>
     </div>
 </div>
-
-<a class="btn btn-outline-info btnRptSessionListFast" asp-page="./DownloadPersonalData/OnGetUserPersonalData" id="btnRptSessionListFast">Print User Info</a>
-
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

@@ -252,6 +252,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Programming/Projects/ChatBotWithSignalR/ChatBotWithSignalR/Views/Shared/Components/Notification/Default.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcTm90aWZpY2F0aW9uXERlZmF1bHQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Programming/Projects/ChatBotWithSignalR/ChatBotWithSignalR/Views/Shared/Components/RoleList/Default.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcUm9sZUxpc3RcRGVmYXVsdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -264,8 +268,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Programming/Projects/ChatBotWithSignalR/ChatBotWithSignalR/Views/Shared/_ChatBoxHeader.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9DaGF0Qm94SGVhZGVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Programming/Projects/ChatBotWithSignalR/ChatBotWithSignalR/Views/Shared/_FileShowModal.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9GaWxlU2hvd01vZGFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Programming/Projects/ChatBotWithSignalR/ChatBotWithSignalR/Views/Shared/_formModal.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9mb3JtTW9kYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Programming/Projects/ChatBotWithSignalR/ChatBotWithSignalR/Views/Shared/_LoginPartial.cshtml]
