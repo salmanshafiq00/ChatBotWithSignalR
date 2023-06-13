@@ -83,6 +83,7 @@ let sendMessage = form => {
 // receive message from the client
 function addMessageToConversation(conversation) {
     // if loadConversions contains messageList div
+    debugger;
     if (document.getElementById('loadConversions').contains(document.getElementById('messageList'))) {
         let toUserIdFromHeader = $('#toUserIdFromHeader').text();
         let toGroupIdFromHeader = $('#toGroupIdFromHeader').text();
@@ -204,62 +205,72 @@ function deleteGroup(groupId) {
 
 // Set conversation to chatbox
 function setConversationToChatBox(conversation) {
+    debugger;
     if (conversation.textMessage) {
-        $(`#messageList`).append(`<div class="otherMessage">
-                                        <p id="toUserHeader">${conversation.fromUserName}</p>
-                                        <pre>${conversation.textMessage}</pre>
-                                        <span class="time">${conversation.toShortTime}</span>
-                                     </div>`);
+        //$(`#messageList`).append(`<div class="otherMessage">
+        //                                <p id="toUserHeader">${conversation.fromUserName}</p>
+        //                                <pre>${conversation.textMessage}</pre>
+        //                                <span class="time">${conversation.toShortTime}</span>
+        //                             </div>`);
+        $(`#messageList`).append(`<div class="message-box friend-message">
+                                <p>
+                                   ${conversation.textMessage.replace(/\n\r?/g, '<br />')}
+                                    <br>
+                                    <span>${conversation.toShortTime}</span>
+                                </p>
+                            </div>`);
     }
 
     if (conversation.conversationFiles.length > 0) {
         for (var i = 0; i < conversation.conversationFiles.length; i++) {
             let fileType = conversation.conversationFiles[i].fileType.split('/')[0];
             let fileName = conversation.conversationFiles[i].fileName;
-            let fileSrc =  conversation.conversationFiles[i].fileUrl;
+            let fileSrc = conversation.conversationFiles[i].fileUrl;
+            let fileSize = conversation.conversationFiles[i].fileSize;
 
-            //$(`#messageList`).append(` <div class="otherMessageImg">
-            //                    <p id="toUserHeader">${conversation.fromUserName}</p>
-            //                    <a onclick="showImageToModal('${conversation.conversationFiles[i].fileUrl}')">
-            //                        <img src="${conversation.conversationFiles[i].fileUrl}" alt="file" class="img-fluid img-thumbnail ml-0 mr-0 coversationImg">
-            //                    </a>
-            //                    <span class="time">${conversation.toShortTime}</span>
-            //                </div>`);
 
             if (fileType == 'image') {
-                $(`#messageList`).append(` <div class="otherMessageImg">
-                                <p id="toUserHeader">${conversation.fromUserName}</p>
-                                <a onclick="showImageToModal('${fileSrc}')">
-                                    <img src="${fileSrc}" alt="file" class="img-fluid img-thumbnail ml-0 mr-0 coversationImg">
-                                </a>
-                                <span class="time">${conversation.toShortTime}</span>
+                $(`#messageList`).append(`<div class="message-box friend-message">
+                                <p>
+                                   <img src="${fileSrc}" alt="file" onclick="showImageToModal('${fileSrc}')" class="img-fluid img-thumbnail ml-0 mr-0">
+                                    <br>
+                                    <span>${conversation.toShortTime}</span>
+                                </p>
                             </div>`);
             }
             else if (fileType == 'video') {
-                $(`#messageList`).append(` <div class="otherMessageImg">
-                                <p id="toUserHeader">${conversation.fromUserName}</p>
-                                <video controls class="coversationImg">
-                                        <source src="${fileSrc}">
-                                    </video>
-                                <span class="time">${conversation.toShortTime}</span>
+                $(`#messageList`).append(`<div class="message-box friend-message">
+                                <p>
+                                   <span>@${fileName}</span>
+                                        <video controls>
+                                            <source src="${fileSrc}">
+                                        </video>
+                                    <br>
+                                    <span>${conversation.toShortTime}</span>
+                                </p>
                             </div>`);
             }
             else if (fileType == 'audio') {
-                $(`#messageList`).append(` <div class="otherMessageImg">
-                              <p id="toUserHeader">${conversation.fromUserName}</p>
-                                <audio controls>
-                                    <source src="${fileSrc}">
-                                </audio>
-                               <span class="time">${conversation.toShortTime}</span>
+                $(`#messageList`).append(`<div class="message-box friend-message">
+                                <p>
+                                   <span>@${fileName}</span>
+                                        <audio controls>
+                                            <source src="${fileSrc}">
+                                        </audio>
+                                    <br>
+                                   <span>${conversation.toShortTime}</span>
+                                </p>
                             </div>`);
             }
             else {
-                $(`#messageList`).append(` <div class="otherMessageImg">
-                                <p id="toUserHeader"><i class="fa-solid fa-file-lines"></i> ${conversation.fromUserName}</p>
-                                <a onclick="showFileInModal('${fileSrc}')">
-                                    <p class="text-white">${fileName}</p>
-                                </a>
-                                <span class="time">${conversation.toShortTime}</span>
+                $(`#messageList`).append(`<div class="message-box friend-message">
+                                <p>
+                                   <a onclick="showFileInModal('${fileSrc}')">
+                                            <span class="text-white"><i class="fa-solid fa-file-lines"></i>  ${fileName}</span>
+                                        </a>
+                                    <br>
+                                    <span>${conversation.toShortTime}</span>
+                                </p>
                             </div>`);
             }
         }
@@ -270,11 +281,19 @@ function setConversationToChatBox(conversation) {
 
 // Set conversation to caler
 function setConversationToCaller(result, msgContent, files) {
+    debugger;
     if (msgContent) {
-        $(`#messageList`).append(`<div class="ownMessage">
-                                                    <pre class="text-white text-wrap">${msgContent.replace(/\n\r?/g, '<br />')}</pre>
-                                                    <span class="time">${result.time}</span>
-                                                  </div>`);
+        //$(`#messageList`).append(`<div class="ownMessage">
+        //                                            <pre class="text-white text-wrap">${msgContent.replace(/\n\r?/g, '<br />')}</pre>
+        //                                            <span class="time">${result.time}</span>
+        //                                          </div>`);
+        $(`#messageList`).append(`<div class="message-box my-message">
+                                <p>
+                                   ${msgContent.replace(/\n\r?/g, '<br />')}
+                                    <br>
+                                    <span>${result.time}</span>
+                                </p>
+                            </div>`);
 
     }
     if (files.files.length > 0) {
@@ -285,36 +304,47 @@ function setConversationToCaller(result, msgContent, files) {
             let fileName = files.files[i].name;
 
             if (fileType == 'image') {
-                $(`#messageList`).append(` <div class="ownMessageImg">
-                                <a onclick="showImageToModal('${fileSrc}')">
-                                    <img src="${fileSrc}" alt="file" class="img-fluid img-thumbnail ml-0 mr-0 coversationImg">
-                                </a>
-                                <span class="time">${result.time}</span>
+                $(`#messageList`).append(`<div class="message-box my-message">
+                                <p>
+                                   <img src="${fileSrc}" alt="file" onclick="showImageToModal('${fileSrc}')" class="img-fluid img-thumbnail ml-0 mr-0">
+                                    <br>
+                                    <span>${result.time}</span>
+                                </p>
                             </div>`);
             }
             else if (fileType == 'video') {
-                $(`#messageList`).append(` <div class="ownMessageImg">
-                                 <p class="text-white">${fileName}</p>
-                                <video controls class="coversationImg">
-                                    <source src="${fileSrc}">
-                                </video>
-                                <span class="time">${result.time}</span>
+                $(`#messageList`).append(`<div class="message-box my-message">
+                                <p>
+                                   <span>@${fileName}</span>
+                                        <video controls>
+                                            <source src="${fileSrc}">
+                                        </video>
+                                    <br>
+                                    <span>${result.time}</span>
+                                </p>
                             </div>`);
             }
             else if (fileType == 'audio') {
-                $(`#messageList`).append(` <div class="ownMessageImg">
-                                <audio controls>
-                                    <source src="${fileSrc}">
-                                </audio>
-                                <span class="time">${result.time}</span>
+                $(`#messageList`).append(`<div class="message-box my-message">
+                                <p>
+                                   <span>@${fileName}</span>
+                                        <audio controls>
+                                            <source src="${fileSrc}">
+                                        </audio>
+                                    <br>
+                                    <span>${result.time}</span>
+                                </p>
                             </div>`);
             }
             else {
-                $(`#messageList`).append(` <div class="ownMessageImg">
-                                <a onclick="showFileInModal('${fileSrc}')">
-                                    <p class="text-white"><i class="fa-solid fa-file-lines"></i> ${fileName}</p>
-                                </a>
-                                <span class="time">${result.time}</span>
+                $(`#messageList`).append(`<div class="message-box my-message">
+                                <p>
+                                   <a onclick="showFileInModal('${fileSrc}')">
+                                            <span class="text-white"><i class="fa-solid fa-file-lines"></i>  ${fileName}</span>
+                                        </a>
+                                    <br>
+                                    <span>${result.time}</span>
+                                </p>
                             </div>`);
             }
         }

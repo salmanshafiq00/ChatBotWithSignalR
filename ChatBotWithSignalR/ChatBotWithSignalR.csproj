@@ -33,4 +33,11 @@
     <Folder Include="wwwroot\images\users\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="wwwroot\js\chat - Copy.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

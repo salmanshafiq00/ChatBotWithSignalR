@@ -511,7 +511,7 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
                 if (file is not null && file.Length > 0)                        // during create/changes file
                 {
                     var fileSize = BytesToString(file.Length);
-                    string uploadFolder = Path.Combine(_webHost.WebRootPath, "images", "conversation");
+                    string uploadFolder = Path.Combine(_webHost.WebRootPath, "conversation");
                     string extension = Path.GetExtension(file.FileName);
                     string fileName = $"{fromUserId}_{DateTime.Now.ToString("yyyyMMdd")}_{DateTime.Now.Millisecond}{extension}";
                     string path = Path.Combine(uploadFolder, fileName);
