@@ -4,7 +4,7 @@
 @model ConversationViewModel
 @{
 }
-@*<style>
+<style>
     .ownMessage {
         background-color: #007bff;
         padding: 3px 0px;
@@ -145,118 +145,6 @@
         font-weight: 600;
         color: dodgerblue;
     }
-</style>*@
-
-<style>
-    #toUserContainer {
-        height: 50px;
-        padding: 10px 0;
-        margin-left: 0px;
-        margin-right: 0px;
-        border-bottom: 1px solid #e0e0e0;
-    }
-
-    #conversationContainer {
-        height: calc(100% - 50px);
-        overflow-y: auto;
-        overflow-x: hidden;
-        margin-right: 0px;
-    }
-
-        #conversationContainer::-webkit-scrollbar {
-            width: 11px;
-        }
-
-    #conversationContainer {
-        scrollbar-width: thin;
-        scrollbar-color: var(--thumbBG) var(--scrollbarBG);
-    }
-
-        #conversationContainer::-webkit-scrollbar-track {
-            background: var(--scrollbarBG);
-        }
-
-        #conversationContainer::-webkit-scrollbar-thumb {
-            background-color: var(--thumbBG);
-            border-radius: 6px;
-            border: 3px solid var(--scrollbarBG);
-        }
-
-    /* right-container */
-    .chat-container {
-        position: relative;
-        padding: 50px;
-        overflow-y: auto;
-    }
-
-    .message-box {
-        position: relative;
-        display: flex;
-        width: 100%;
-        margin: 5px 0;
-    }
-
-        .message-box p {
-            position: relative;
-            right: 0;
-            text-align: right;
-            max-width: 65%;
-            padding: 12px;
-            background: #dcf8c6;
-            border-radius: 10px;
-            font-size: 0.9em;
-        }
-
-        .message-box.my-message p::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: -12px;
-            width: 20px;
-            height: 20px;
-            background: linear-gradient(135deg, #dcf8c6 0%, #dcf8c6 50%, transparent 50%, transparent);
-        }
-
-        .message-box p span {
-            display: block;
-            margin-top: 5px;
-            font-size: 0.8em;
-            opacity: 0.5;
-        }
-
-    .my-message {
-        justify-content: flex-end;
-    }
-
-    .friend-message p {
-        background: #fff;
-    }
-
-    .friend-message {
-        justify-content: flex-start;
-        margin-left: 10px;
-    }
-
-    .chat-container .my-message i {
-        color: yellow;
-    }
-
-    .message-box.friend-message::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -12px;
-        width: 20px;
-        height: 20px;
-        background: linear-gradient(225deg, #fff 0%, #fff 50%, transparent 50%, transparent);
-    }
-
-    .message-box audio {
-        max-height: 100%;
-        max-width: 100%;
-        margin: auto;
-        object-fit: contain;
-    }
 </style>
 
 <div id="toUserContainer" class="row col-md-12 bg-white border-bottom-2">
@@ -302,15 +190,8 @@
                     {
                         <div class="ownMessage">
                             @*<pre class="@(conversation.TextMessage.Contains(@"\r\n") ? "" : "text-wrap")">@conversation.TextMessage.Replace(@"\r\n",Environment.NewLine)</pre>*@
-                            @*<pre class="@(conversation.TextMessage.Contains(" ") ? "text-wrap" : "")">@conversation.TextMessage.Replace("<br/>",Environment.NewLine)</pre>*@
-                            <div class="message-box my-message">
-                                <p>
-                                    @conversation.TextMessage.Replace("<br/>",Environment.NewLine)
-                                    <br>
-                                    <span>@conversation.SendDate.ToShortTimeString()</span>
-                                </p>
-                            </div>
-                            @*<span class="time">@conversation.SendDate.ToShortTimeString()</span>*@
+                            <pre class="@(conversation.TextMessage.Contains(" ") ? "text-wrap" : "")">@conversation.TextMessage.Replace("<br/>",Environment.NewLine)</pre>
+                            <span class="time">@conversation.SendDate.ToShortTimeString()</span>
                         </div>
                     }
                     if (conversation.ConversationFiles.Count > 0)
@@ -322,106 +203,56 @@
 
                             if (fileType == "image")
                             {
-                                <div class="message-box my-message">
-                                    <p>
-                                        <img src="@file.FileUrl" alt="file" onclick="showImageToModal('@file.FileUrl')" class="img-fluid img-thumbnail ml-0 mr-0">
-                                        <br>
-                                        <span>@conversation.SendDate.ToShortTimeString()</span>
-                                    </p>
+                                <div class="ownMessageImg">
+                                    <a onclick="showImageToModal('@file.FileUrl')">
+                                        <img src="@file.FileUrl" alt="file" class="img-fluid img-thumbnail ml-0 mr-0 coversationImg">
+                                    </a>
+                                    <span class="time">@conversation.SendDate.ToShortTimeString()</span>
                                 </div>
-                                @*                                <div class="ownMessageImg">
-        <a onclick="showImageToModal('@file.FileUrl')">
-        <img src="@file.FileUrl" alt="file" class="img-fluid img-thumbnail ml-0 mr-0 coversationImg">
-        </a>
-        <span class="time">@conversation.SendDate.ToShortTimeString()</span>
-        </div>*@
                             }
                             else if (fileType == "audio")
                             {
                                 if (hasWebmExtension)
                                 {
-                                    @* <div class="ownMessageImg">
-        <audio controls>
-        <source src="@file.FileUrl">
-        </audio>
+                                    <div class="ownMessageImg">
+                                        <audio controls>
+                                            <source src="@file.FileUrl">
+                                        </audio>
 
-        <span class="time">@conversation.SendDate.ToShortTimeString()</span>
-        </div>*@
-
-                                    <div class="message-box my-message">
-                                        <p>
-                                            <audio controls>
-                                                <source src="@file.FileUrl">
-                                            </audio>
-                                            <br>
-                                            <span>@conversation.SendDate.ToShortTimeString()</span>
-                                        </p>
+                                        <span class="time">@conversation.SendDate.ToShortTimeString()</span>
                                     </div>
                                 }
                                 else
                                 {
-                                  @*  <div class="ownMessageImg">
+                                    <div class="ownMessageImg">
                                         <span>@file.FileName</span>
                                         <audio controls>
                                             <source src="@file.FileUrl">
                                         </audio>
 
                                         <span class="time">@conversation.SendDate.ToShortTimeString()</span>
-                                    </div>*@
-
-                                    <div class="message-box my-message">
-                                        <p>
-                                            <span>@file.FileName</span>
-                                            <audio controls>
-                                                <source src="@file.FileUrl">
-                                            </audio>
-                                            <br>
-                                            <span>@conversation.SendDate.ToShortTimeString()</span>
-                                        </p>
                                     </div>
                                 }
 
                             }
                             else if (fileType == "video")
                             {
-                               @* <div class="ownMessageImg">
+                                <div class="ownMessageImg">
                                     <p>@file.FileName</p>
                                     <video controls style="width: 50%;">
                                         <source src="@file.FileUrl">
                                     </video>
                                     <span class="time">@conversation.SendDate.ToShortTimeString()</span>
-                                </div>*@
-
-                                <div class="message-box my-message">
-                                    <p>
-                                        <span>@file.FileName</span>
-                                        <video controls>
-                                            <source src="@file.FileUrl">
-                                        </video>
-                                        <br>
-                                        <span>@conversation.SendDate.ToShortTimeString()</span>
-                                    </p>
                                 </div>
                             }
                             else
                             {
-                              @*  <div class="ownMessageImg">
+                                <div class="ownMessageImg">
                                     <a onclick="showFileInModal('@file.FileUrl')">
                                         <p class="text-white"><i class="fa-solid fa-file-lines"></i> @file.FileName</p>
                                         <p class="text-white">@file.FileSize</p>
                                     </a>
                                     <span class="time">@conversation.SendDate.ToShortTimeString()</span>
-                                </div>*@
-
-                                <div class="message-box my-message">
-                                    <p>
-                                        <a onclick="showFileInModal('@file.FileUrl')">
-                                            <span class="text-white"><i class="fa-solid fa-file-lines"></i> @file.FileName</span>
-                                            <span class="text-white">@file.FileSize</span>
-                                        </a>
-                                        <br>
-                                        <span>@conversation.SendDate.ToShortTimeString()</span>
-                                    </p>
                                 </div>
                             }
                         }
@@ -431,17 +262,10 @@
                 {
                     if (!String.IsNullOrEmpty(conversation.TextMessage))
                     {
-                        @*  <div class="otherMessage">
-        <p id="toUserHeader">@conversation.FromUserName</p>
-        <pre>@conversation.TextMessage.Replace("<br/>",Environment.NewLine)</pre>
-        <span class="time">@conversation.SendDate.ToShortTimeString()</span>
-        </div>*@
-                        <div class="message-box friend-message">
-                            <p>
-                                @conversation.TextMessage.Replace("<br/>",Environment.NewLine)
-                                <br>
-                                <span>@conversation.SendDate.ToShortTimeString()</span>
-                            </p>
+                        <div class="otherMessage">
+                            <p id="toUserHeader">@conversation.FromUserName</p>
+                            <pre>@conversation.TextMessage.Replace("<br/>",Environment.NewLine)</pre>
+                            <span class="time">@conversation.SendDate.ToShortTimeString()</span>
                         </div>
                     }
                     if (conversation.ConversationFiles.Count > 0)
@@ -458,102 +282,56 @@
                             var hasWebmExtension = file.FileType.Contains("webm");
                             if (fileType == "image")
                             {
-                                @* <div class="otherMessageImg">
-        <a onclick="showImageToModal('@file.FileUrl')">
-        <img src="@file.FileUrl" alt="file" class="img-fluid img-thumbnail ml-0 mr-0 coversationImg">
-        </a>
-        <span class="time">@conversation.SendDate.ToShortTimeString()</span>
-        </div>*@
-                                <div class="message-box friend-message">
-                                    <p>
-                                        <img src="@file.FileUrl" alt="file" onclick="showImageToModal('@file.FileUrl')" class="img-fluid img-thumbnail ml-0 mr-0">
-                                        <br>
-                                        <span>@conversation.SendDate.ToShortTimeString()</span>
-                                    </p>
+                                <div class="otherMessageImg">
+                                    <a onclick="showImageToModal('@file.FileUrl')">
+                                        <img src="@file.FileUrl" alt="file" class="img-fluid img-thumbnail ml-0 mr-0 coversationImg">
+                                    </a>
+                                    <span class="time">@conversation.SendDate.ToShortTimeString()</span>
                                 </div>
                             }
                             else if (fileType == "audio")
                             {
                                 if (hasWebmExtension)
                                 {
-                                    @*<div class="otherMessageImg">
-        <audio controls class="coversationAudio">
-        <source src="@file.FileUrl">
-        </audio>
+                                    <div class="otherMessageImg">
+                                        <audio controls class="coversationAudio">
+                                            <source src="@file.FileUrl">
+                                        </audio>
 
-        <span class="time">@conversation.SendDate.ToShortTimeString()</span>
-        </div>*@
-                                    <div class="message-box friend-message">
-                                        <p>
-                                            <audio controls>
-                                                <source src="@file.FileUrl">
-                                            </audio>
-                                            <br>
-                                            <span>@conversation.SendDate.ToShortTimeString()</span>
-                                        </p>
+                                        <span class="time">@conversation.SendDate.ToShortTimeString()</span>
                                     </div>
                                 }
                                 else
                                 {
-                                    @* <div class="otherMessageImg">
-        <span>@file.FileName</span>
-        <audio controls class="coversationAudio">
-        <source src="@file.FileUrl">
-        </audio>
+                                    <div class="otherMessageImg">
+                                        <span>@file.FileName</span>
+                                        <audio controls class="coversationAudio">
+                                            <source src="@file.FileUrl">
+                                        </audio>
 
-        <span class="time">@conversation.SendDate.ToShortTimeString()</span>
-        </div>*@
-                                    <div class="message-box friend-message">
-                                        <p>
-                                            <span>@file.FileName</span>
-                                            <audio controls>
-                                                <source src="@file.FileUrl">
-                                            </audio>
-                                            <br>
-                                            <span>@conversation.SendDate.ToShortTimeString()</span>
-                                        </p>
+                                        <span class="time">@conversation.SendDate.ToShortTimeString()</span>
                                     </div>
                                 }
 
                             }
                             else if (fileType == "video")
                             {
-                                @*<div class="otherMessageImg">
+                                <div class="otherMessageImg">
                                     <p>@file.FileName</p>
                                     <video controls class="coversationImg">
                                         <source src="@file.FileUrl">
                                     </video>
                                     <span class="time">@conversation.SendDate.ToShortTimeString()</span>
-                                </div>*@
-                                <div class="message-box friend-message">
-                                    <p>
-                                        <span>@file.FileName</span>
-                                        <video controls >
-                                            <source src="@file.FileUrl">
-                                        </video>
-                                        <br>
-                                        <span>@conversation.SendDate.ToShortTimeString()</span>
-                                    </p>
                                 </div>
                             }
                             else
                             {
-                              @*  <div class="otherMessageImg">
+                                <div class="otherMessageImg">
                                     <a onclick="showFileInModal('@file.FileUrl')">
                                         <p><i class="fa-solid fa-file-lines"></i> @file.FileName</p>
                                         <p>@file.FileSize</p>
                                     </a>
                                     <span class="time">@conversation.SendDate.ToShortTimeString()</span>
-                                </div>*@
-
-                                <div class="message-box friend-message">
-                                    <p>
-                                        <a onclick="showFileInModal('@file.FileUrl')">
-                                            <span><i class="fa-solid fa-file-lines"></i> @file.FileName</span>
-                                            <span>@file.FileSize</span>
-                                        </a>
-                                        <span>@conversation.SendDate.ToShortTimeString()</span>
-                                    </p>
                                 </div>
                             }
                         }

@@ -133,7 +133,7 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
                         {
                             var fileSize = string.Empty;
                             var fileUrl = string.Empty;
-                            (fileUrl, fileSize) = await SaveImageAsync(item, conversation.FromUserId);
+                            (fileUrl, fileSize) = await SaveFileAsync(item, conversation.FromUserId);
                             conversation.ConversationFiles.Add(new ConversationFile
                             {
                                 FileName = item.FileName,
@@ -504,7 +504,7 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
         [HttpGet]
         public async Task<List<ApplicationUser>> GetIdentityUsers() => await _userManager.Users.ToListAsync();
 
-        private async Task<(string, string)> SaveImageAsync(IFormFile file, string fromUserId, int maxWidth = 300, int maxHeight = 300)
+        private async Task<(string, string)> SaveFileAsync(IFormFile file, string fromUserId, int maxWidth = 300, int maxHeight = 300)
         {
             try
             {
@@ -567,7 +567,7 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
                             await file.CopyToAsync(fileStream);
                         }
                     }
-                    return ($"/images/conversation/{fileName}", fileSize);
+                    return ($"/conversation/{fileName}", fileSize);
                 }
                 return (string.Empty, string.Empty);
             }

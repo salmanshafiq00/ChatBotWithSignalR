@@ -1,8 +1,10 @@
 ﻿@using ChatBotWithSignalR.Areas.Chat.Models;
+@using ChatBotWithSignalR.Views.Shared.Components.Notification;
 @model ChatUserGroupViewModel
 @{
     var me = Model.ChatUsers.FirstOrDefault(p => p.Id == Model.LoginUserId);
 }
+<link href="~/css/recording.css" rel="stylesheet" />
 <style>
     #msgMainContainer {
         background-image: url('/images/whatsbgimage.png');
@@ -16,7 +18,7 @@
         padding-top: 0px;
         padding-right: 0px;
         padding-left: 0px;
-        min-height: 400px;
+        min-height: 450px;
         max-height: 450px;
     }
 
@@ -89,13 +91,13 @@
         padding: 5px;
     }
 
-    #notificationCount {
+/*    #notificationCount {
         border-radius: 100%;
         padding: 4.20px;
         position: absolute;
         left: 16px;
         top: -6px;
-    }
+    }*/
 
     .people-list {
         -moz-transition: .5s;
@@ -179,49 +181,27 @@
         padding-left: 10px;
         padding-right: 10px;
     }
-</style>
-<div class="card ml-auto mt-5" style="min-width: 768px">
-    <div class="card-header">
-        @*<h3 class="card-title">Chat Bot</h3>*@
-        <!-- Navbar -->
-        @* <nav class="main-header navbar navbar-expand navbar-light navbar-white">
-        <div class="container">
-        <a href="index3.html" class="navbar-brand">
-        <span class="brand-text font-weight-light">
-        Triangle chat bot
-        </span>
-        </a>
 
-        <div class="dropdown">
-        <button class="btn btn-outline-secondary" type="button" id="notiIcon" data-bs-toggle="dropdown" aria-expanded="false">
-        <i class="fa-solid fa-bell text-warning" id="notify-bell"></i>
-        <span class="badge bg-primary text-black text-xs" id="notificationCount">10</span>
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="notiIcon" id="notify-wrapper">
-        </ul>
-        </div>
-        </div>
-        </nav>*@
-        <nav class="main-header  navbar  navbar-expand navbar-light navbar-white">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="Chat" asp-controller="Chat" asp-action="Index">Triangle chat bot</a>
-                <div class=" d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav">
-                        @if (SignInManager.IsSignedIn(User))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><img src="@(me?.ProfilePhotoUrl ?? "/images/no-image.png")" class="profileAvatar" alt="avatar" asp-append-version="true"> @me?.FullName!</a>
-                            </li>
-                            <li class="nav-item">
-                                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Chat", new { area = "Chat" })">
-                                    <button type="submit" class="nav-link btn btn-link text-dark"><i class="fa-solid fa-right-from-bracket"></i> </button>
-                                </form>
-                            </li>
-                        }
-                    </ul>
-                </div>
-            </div>
-        </nav>
+    .navbar-brand{
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    .navbar-brand img{
+        width: 32px;
+        height: 32px;
+        margin-right: 5px;
+    }
+
+    .card-header-custom{
+        padding: 0px;
+    }
+</style>
+<div class="card ml-auto mt-5">
+    <div class="card-header card-header-custom">
+        <!-- Navbar -->
+
+        <partial name="_ChatBoxHeader" model="@me" />
     </div>
     <div class="card-body">
         <div class="row" style="height: 100%; margin: 0px">
@@ -276,7 +256,7 @@
 
                 <div id="GroupListWrapper">
                     <h4>
-                        Group List  <button type="button" style="padding: 2px 5px" class="btn btn-outline-secondary" id="createGroupBtn" onclick="getCreateOrUpdateGroupModal(0)">
+                        Group List  <button type="button" style="padding: 2px 5px" class="btn btn-outline-secondary" id="createGroupBtn" onclick="getCreateOrUpdateGroupModal(0, 'Create Group')">
                             <i class="fa fa-plus" aria-hidden="true" style="font-size: 20px"></i>
                         </button>
                     </h4>
@@ -293,7 +273,8 @@
 
                                 <li class="clearfix grouplistclass" id="user_@group.Id">
                                     <a href="javascript:void(0)" class="text-dark" onclick="loadConversionsByGroupId('@group.Id')">
-                                        <img src="@(group.GroupPhotoUrl ?? "/images/no-images.png")" alt="Group Photo Url" class="groupPhoto" asp-append-version="true">
+                                        <img src="@(group.GroupPhotoUrl ?? "/images/no-image.png")" alt="Photo" class="groupPhoto" asp-append-version="true">
+
                                         <div class="about">
                                             <div class="name">@group.Name</div>
                                             @* <div class="status">
@@ -301,9 +282,6 @@
                                         </div>*@
                                         </div>
                                     </a>
-                                    <button type="button" class="btn btn-outline-primary" style="padding: 0px 5px" onclick="getCreateOrUpdateUserGroupModal(@group.Id)">
-                                        <i class="fa fa-users" aria-hidden="true" style="font-size: 12px"></i>
-                                    </button>
                                 </li>
                             }
                         </ul>
@@ -336,20 +314,19 @@
                                 <input type="file" id="Files" name="Files" style="display: none" multiple="" data-original-title="upload photos">
                             </label>
                         </div>
-                        <div class="input-group-prepend textGradient" title="Upload Recording" id="startRecordingContainer">
-                            <label for="recordingStart" style="padding-right: 8px; margin-top: 5px">
-                                <i class="fa-solid fa-microphone" style="cursor: pointer"></i>
-                            </label>
-                            <button type="button" id="recordingStart" style="display: none" onclick="startRecording()"></button>
-                        </div>
-                        <div class="input-group-prepend d-none" title="Upload Recording" id="stopRecordingContainer">
-                            <label for="recordingStop" style="padding-right: 8px; margin-top: 5px">
-                                <i class="fa-solid fa-microphone" style="cursor: pointer; color: palevioletred"></i>
-                            </label>
-                            <button type="button" id="recordingStop" style="display: none" onclick="stopRecording()"></button>
 
-                            <canvas id="visualizer" width="400" height="30"></canvas>
+
+                        @*Recording*@
+                        <i class="start-recording-button fa fa-microphone" aria-hidden="true"></i>
+                        <div class="recording-contorl-buttons-container hide" style="width: 80%">
+                            <i class="cancel-recording-button fa-regular fa-circle-xmark" aria-hidden="true"></i>
+                            <div class="recording-elapsed-time">
+                                <i class="red-recording-dot fa fa-circle" aria-hidden="true"></i>
+                                <p class="elapsed-time"></p>
+                            </div>
+                            <i class="stop-recording-button fa-regular fa-circle-stop" aria-hidden="true"></i>
                         </div>
+
                         <textarea class="form-control" id="msgContent" name="TextMessage" style="max-height: 100px; resize: none;" rows="1" data-min-rows='3' placeholder="Type a message" autofocus></textarea>
                         <div class="input-group-append">
                             <button type="submit" class="btn btn-outline-secondary" id="sendBtn">
@@ -357,27 +334,10 @@
                             </button>
                         </div>
                     </div>
-
                 </form>
             </div>
         </div>
     </div>
-
-
-    @*Modal for create a user group*@
-    <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="modalHeaderTitle" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalHeaderTitle"></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" id="modalBody">
-                </div>
-            </div>
-        </div>
-    </div>
-    @*Modal for create a user group*@
 
     <audio id="notification-sound" class="d-none" src="~/audio/mixkit-retro-confirmation-tone-2860.wav"></audio>
 
@@ -400,5 +360,4 @@
 <script src="~/js/signalr.js"></script>
 <script src="~/js/chat.js" asp-append-version="true"></script>
 <script src="~/js/chatrequesthandler.js" asp-append-version="true"></script>
-@*<script src="~/js/recording.js" asp-append-version="true"></script>*@
-<script src="~/js/recordingCopy.js" asp-append-version="true"></script>
+<script src="~/js/audio-recording.js" asp-append-version="true"></script>
