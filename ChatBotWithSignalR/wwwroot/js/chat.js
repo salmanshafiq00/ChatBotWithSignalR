@@ -84,6 +84,8 @@ let sendMessage = form => {
 function addMessageToConversation(conversation) {
     // if loadConversions contains messageList div
     debugger;
+
+    // if message list box open then show message on message box otherwise increment notification count
     if (document.getElementById('loadConversions').contains(document.getElementById('messageList'))) {
         let toUserIdFromHeader = $('#toUserIdFromHeader').text();
         let toGroupIdFromHeader = $('#toGroupIdFromHeader').text();
@@ -184,7 +186,7 @@ function getCreateOrUpdateUserGroupModal(groupId, title = '') {
     });
 }
 
-// 
+// Delete group
 function deleteGroup(groupId) {
     var isConfirmed = confirm("Do you want to delete this group?");
     if (isConfirmed) {

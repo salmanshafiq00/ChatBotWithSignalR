@@ -232,6 +232,7 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
 
         #region Chat Group
 
+        // Get Create Or Edit form for Group
         [HttpGet]
         public async Task<IActionResult> OnGetGroupCreateOrEdit(int id = 0)
         {
@@ -249,6 +250,7 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
             }
         }
 
+        //Create or Edit Group
         [HttpPost]
         public async Task<IActionResult> CreateOrEditGroup(ChatGroup chatGroup)
         {
@@ -266,8 +268,8 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
                     {
                         await _context.UserGroups.AddAsync(new UserGroup { Id = 0, GroupId = result.Entity.Id, UserId = chatGroup.AuthorId });
                         await _context.SaveChangesAsync();
-                        await _toast.ToastSuccess("New Group Created Successfully");
-                        return new JsonResult(new { IsValid = true, Id = result.Entity.Id, Name = result.Entity.Name, GroupPhotoUrl = chatGroup.GroupPhotoUrl, Msg = "New Group Created Successfully" });
+                        //await _toast.ToastSuccess("New Group Created Successfully");
+                        return new JsonResult(new { IsValid = true, Id = result.Entity.Id, Name = result.Entity.Name, GroupPhotoUrl = chatGroup.GroupPhotoUrl ?? "/images/no-image.png", Msg = "New Group Created Successfully" });
                     }
                 }
                 else
@@ -285,8 +287,8 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
                         result.GroupPhotoUrl = await SaveGroupImageAsync(chatGroup.GroupPhoto, chatGroup.Name, 200, 200, chatGroup.GroupPhotoUrl);
                         _context.ChatGroups.Update(result);
                         await _context.SaveChangesAsync();
-                        await _toast.ToastSuccess("Group Updated Successfully");
-                        return new JsonResult(new { IsValid = true, Id = chatGroup.Id, Name = chatGroup.Name, GroupPhotoUrl = chatGroup.GroupPhotoUrl, Msg = "Group Updated Successfully" });
+                        //await _toast.ToastSuccess("Group Updated Successfully");
+                        return new JsonResult(new { IsValid = true, Id = chatGroup.Id, Name = chatGroup.Name, GroupPhotoUrl = chatGroup.GroupPhotoUrl ?? "/images/no-image.png", Msg = "Group Updated Successfully" });
                     }
                 }
                 await _toast.ToastError("Something went wrong");

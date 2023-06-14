@@ -39,7 +39,6 @@
         </div>
     </div>
     <div class="mb-3 button">
-        @*<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>*@
         <button type="submit" class="btn btn-primary" id="saveBtn">Save Group</button>
     </div>
 </form>
@@ -58,7 +57,20 @@
                     if (result.isValid) {
                         let innerAnchorTag = $(`#user_${result.id}`).find('a');
                         if (innerAnchorTag.length > 0) {
-                            $(innerAnchorTag).text(result.name);
+                            //$(innerAnchorTag).text(result.name);
+                            $(innerAnchorTag).find('img').attr('src', result.groupPhotoUrl);
+                            $(innerAnchorTag).find("div[class*='name']").text(result.name);
+
+                            // after edit group modify group header image and name
+                            if (document.getElementById('loadConversions').contains(document.getElementById('messageList'))) {
+                                let toUserIdFromHeader = $('#toUserIdFromHeader').text();
+                                let toGroupIdFromHeader = $('#toGroupIdFromHeader').text();
+
+                                if (result.id > 0 && result.id == toGroupIdFromHeader) {
+                                    document.querySelector('#chatbox-header-image').src = result.groupPhotoUrl;
+                                    document.querySelector('#conGroupTitle').textContent = result.name;
+                                }
+                            }
                         }
                         else{
                             let photoUrl = !result.groupPhotoUrl ? "/images/no-image.png" : result.groupPhotoUrl;
@@ -73,10 +85,12 @@
                             );
                         }
                         $('#formModal').modal('hide');
+                        toastr.success(`${result.msg}`, 'success');
                     }
                 },
                 error: function (err) {
                     console.log(err)
+                    toastr.error(`${err}`, 'error');
                 }
             })
             return false;

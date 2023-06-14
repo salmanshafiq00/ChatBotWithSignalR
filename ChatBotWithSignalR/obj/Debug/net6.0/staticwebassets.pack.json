@@ -17,6 +17,30 @@
       "PackagePath": "staticwebassets\\audio\\mixkit-retro-confirmation-tone-2860.wav"
     },
     {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230613_357.png",
+      "PackagePath": "staticwebassets\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230613_357.png"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230613_648.png",
+      "PackagePath": "staticwebassets\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230613_648.png"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230613_784.pdf",
+      "PackagePath": "staticwebassets\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230613_784.pdf"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230613_849.webm",
+      "PackagePath": "staticwebassets\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230613_849.webm"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230613_948.mp4",
+      "PackagePath": "staticwebassets\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230613_948.mp4"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230614_731.jpg",
+      "PackagePath": "staticwebassets\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230614_731.jpg"
+    },
+    {
       "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\conversation\\logo.png",
       "PackagePath": "staticwebassets\\conversation\\logo.png"
     },
