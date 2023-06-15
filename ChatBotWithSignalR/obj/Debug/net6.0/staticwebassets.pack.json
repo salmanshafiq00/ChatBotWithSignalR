@@ -17,6 +17,10 @@
       "PackagePath": "staticwebassets\\audio\\mixkit-retro-confirmation-tone-2860.wav"
     },
     {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\conversation\\ecaf3269-be1d-4563-a235-e6447194c481_20230614_490.txt",
+      "PackagePath": "staticwebassets\\conversation\\ecaf3269-be1d-4563-a235-e6447194c481_20230614_490.txt"
+    },
+    {
       "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230613_357.png",
       "PackagePath": "staticwebassets\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230613_357.png"
     },
@@ -35,6 +39,14 @@
     {
       "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230613_948.mp4",
       "PackagePath": "staticwebassets\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230613_948.mp4"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230614_106.pdf",
+      "PackagePath": "staticwebassets\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230614_106.pdf"
+    },
+    {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230614_496.pdf",
+      "PackagePath": "staticwebassets\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230614_496.pdf"
     },
     {
       "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230614_731.jpg",
@@ -77,8 +89,8 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
-      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\groups\\Business Studies_20230613.png",
-      "PackagePath": "staticwebassets\\images\\groups\\Business Studies_20230613.png"
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\groups\\Business Studies 100_20230614_51.jpg",
+      "PackagePath": "staticwebassets\\images\\groups\\Business Studies 100_20230614_51.jpg"
     },
     {
       "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\groups\\logo.png",

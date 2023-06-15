@@ -12,6 +12,8 @@ function scrollToBottom() {
 // function for loading the conversations
 let loadConversions = (el, userId) => {
     toUserId = userId;
+    selectedGroupId = 0;
+    $('#GroupId').val(0);
     $(el).closest('li').siblings('li').removeClass('active');
     $(el).closest('li').addClass('active');
     $(`#loadConversions`).load(`/Chat/Chat/LoadConversationByUserId?toUserId=${userId}`, (response, status) => {
@@ -31,6 +33,8 @@ let loadConversions = (el, userId) => {
 // function for loading the conversations
 let loadConversionsByGroupId = (groupId) => {
     selectedGroupId = groupId;
+    toUserId = '';
+    $('#ToUserId').val('');
     $(`#loadConversions`).load(`/Chat/Chat/LoadConversionsByGroupId?groupId=${groupId}`, (response, status) => {
         $('.footer').removeClass('d-none');
         $('#GroupId').val(groupId);
@@ -80,10 +84,8 @@ let sendMessage = form => {
 
 
 
-// receive message from the client
+// receive message from user the client
 function addMessageToConversation(conversation) {
-    // if loadConversions contains messageList div
-    debugger;
 
     // if message list box open then show message on message box otherwise increment notification count
     if (document.getElementById('loadConversions').contains(document.getElementById('messageList'))) {
@@ -99,7 +101,7 @@ function addMessageToConversation(conversation) {
             });
         }
         else if (conversation.groupId > 0 && conversation.groupId == toGroupIdFromHeader) {
-            setConversationToChatBox(conversation)
+            setConversationWithUserToChatBox(conversation);
             scrollToBottom();
         }
         else {
@@ -127,14 +129,15 @@ function addMessageToConversation(conversation) {
     audio.play();
 }
 
-// receive message from the Group client
+// receive message from the Group client (Not working now)
 function addMessageToGroupConversation(conversation) {
     if (document.getElementById('loadConversions').contains(document.getElementById('messageList'))) {
         //$(`#messageList`).append(`<li>${conversation.textMessage}</li>`);
-        $(`#messageList`).append(`<div class="otherMessage">
-                                    <pre>${conversation.textMessage}</pre>
-                                    <span class="time">${conversation.toShortTime}</span>
-                                 </div>`);
+        //$(`#messageList`).append(`<div class="otherMessage">
+        //                            <pre>${conversation.textMessage}</pre>
+        //                            <span class="time">${conversation.toShortTime}</span>
+        //                         </div>`);
+        setConversationWithUserToChatBox(conversation);
         scrollToBottom();
     } else {
         let notifyBadge = $(`#notify_${conversation.fromUserId}`);
@@ -177,9 +180,9 @@ function getCreateOrUpdateGroupModal(id, title = 'Title') {
 }
 
 
-// Get modal for create or update User Group
+// Get modal for assign or remove members from User Group
 function getCreateOrUpdateUserGroupModal(groupId, title = '') {
-    $.get(`/Chat/Chat/OnGetCreateOrEdit?groupId=${groupId}`, (result) => {
+    $.get(`/Chat/Chat/OnGetCreateOrEditUsersInGroup?groupId=${groupId}`, (result) => {
         $('#formModal #modalHeaderTitle').html(title);
         $('#formModal .modal-body').html(result);
         $('#formModal').modal('show');
@@ -192,7 +195,7 @@ function deleteGroup(groupId) {
     if (isConfirmed) {
         $.post(`/Chat/Chat/DeleteGroup`, { groupId: groupId }, (result) => {
             if (result.isSuccess) {
-                alert(`Group(${result.groupName}) is deleted successfully`);
+                //alert(`Group(${result.groupName}) is deleted successfully`);
                 location.reload();
             }
             else {
@@ -207,7 +210,6 @@ function deleteGroup(groupId) {
 
 // Set conversation to chatbox
 function setConversationToChatBox(conversation) {
-    debugger;
     if (conversation.textMessage) {
         //$(`#messageList`).append(`<div class="otherMessage">
         //                                <p id="toUserHeader">${conversation.fromUserName}</p>
@@ -224,6 +226,7 @@ function setConversationToChatBox(conversation) {
     }
 
     if (conversation.conversationFiles.length > 0) {
+        debugger;
         for (var i = 0; i < conversation.conversationFiles.length; i++) {
             let fileType = conversation.conversationFiles[i].fileType.split('/')[0];
             let fileName = conversation.conversationFiles[i].fileName;
@@ -243,7 +246,7 @@ function setConversationToChatBox(conversation) {
             else if (fileType == 'video') {
                 $(`#messageList`).append(`<div class="message-box friend-message">
                                 <p>
-                                   <span>@${fileName}</span>
+                                   <span>${fileName}</span>
                                         <video controls>
                                             <source src="${fileSrc}">
                                         </video>
@@ -255,7 +258,7 @@ function setConversationToChatBox(conversation) {
             else if (fileType == 'audio') {
                 $(`#messageList`).append(`<div class="message-box friend-message">
                                 <p>
-                                   <span>@${fileName}</span>
+                                   <span>${fileName}</span>
                                         <audio controls>
                                             <source src="${fileSrc}">
                                         </audio>
@@ -267,9 +270,8 @@ function setConversationToChatBox(conversation) {
             else {
                 $(`#messageList`).append(`<div class="message-box friend-message">
                                 <p>
-                                   <a onclick="showFileInModal('${fileSrc}')">
-                                            <span class="text-white"><i class="fa-solid fa-file-lines"></i>  ${fileName}</span>
-                                        </a>
+                                        <span onclick="showFileInModal('${fileSrc}')" class="fileName"><i class="fa-solid fa-file-lines"></i>${fileName}</span>
+                                        <span class="fileSize">${fileSize}</span>
                                     <br>
                                     <span>${conversation.toShortTime}</span>
                                 </p>
@@ -277,11 +279,88 @@ function setConversationToChatBox(conversation) {
             }
         }
     }
-
-    let fileExtension = '';
 }
 
-// Set conversation to caler
+// Set conversation to chatbox (<span class='fromUser'>${conversation.fromUserName}</span>)
+function setConversationWithUserToChatBox(conversation) {
+    debugger;
+    if (conversation.textMessage) {
+        //$(`#messageList`).append(`<div class="otherMessage">
+        //                                <p id="toUserHeader">${conversation.fromUserName}</p>
+        //                                <pre>${conversation.textMessage}</pre>
+        //                                <span class="time">${conversation.toShortTime}</span>
+        //                             </div>`);
+        $(`#messageList`).append(`<div class="message-box friend-message">
+                                <p>
+                                <span class='fromUser'>${conversation.fromUserName}</span>
+                                   ${conversation.textMessage.replace(/\n\r?/g, '<br />')}
+                                    <br>
+                                    <span>${conversation.toShortTime}</span>
+                                </p>
+                            </div>`);
+    }
+
+    if (conversation.conversationFiles.length > 0) {
+        debugger;
+        for (var i = 0; i < conversation.conversationFiles.length; i++) {
+            let fileType = conversation.conversationFiles[i].fileType.split('/')[0];
+            let fileName = conversation.conversationFiles[i].fileName;
+            let fileSrc = conversation.conversationFiles[i].fileUrl;
+            let fileSize = conversation.conversationFiles[i].fileSize;
+
+
+            if (fileType == 'image') {
+                $(`#messageList`).append(`<div class="message-box friend-message">
+                                <p>
+                                <span class='fromUser'>${conversation.fromUserName}</span>
+                                   <img src="${fileSrc}" alt="file" onclick="showImageToModal('${fileSrc}')" class="img-fluid img-thumbnail ml-0 mr-0">
+                                    <br>
+                                    <span>${conversation.toShortTime}</span>
+                                </p>
+                            </div>`);
+            }
+            else if (fileType == 'video') {
+                $(`#messageList`).append(`<div class="message-box friend-message">
+                                <p>
+                                <span class='fromUser'>${conversation.fromUserName}</span>
+                                   <span>${fileName}</span>
+                                        <video controls>
+                                            <source src="${fileSrc}">
+                                        </video>
+                                    <br>
+                                    <span>${conversation.toShortTime}</span>
+                                </p>
+                            </div>`);
+            }
+            else if (fileType == 'audio') {
+                $(`#messageList`).append(`<div class="message-box friend-message">
+                                <p>
+                                <span class='fromUser'>${conversation.fromUserName}</span>
+                                   <span>${fileName}</span>
+                                        <audio controls>
+                                            <source src="${fileSrc}">
+                                        </audio>
+                                    <br>
+                                   <span>${conversation.toShortTime}</span>
+                                </p>
+                            </div>`);
+            }
+            else {
+                $(`#messageList`).append(`<div class="message-box friend-message">
+                                <p>
+                                <span class='fromUser'>${conversation.fromUserName}</span>
+                                        <span onclick="showFileInModal('${fileSrc}')" class="fileName"><i class="fa-solid fa-file-lines"></i>${fileName}</span>
+                                        <span class="fileSize">${fileSize}</span>
+                                    <br>
+                                    <span>${conversation.toShortTime}</span>
+                                </p>
+                            </div>`);
+            }
+        }
+    }
+}
+
+// Set conversation to caller
 function setConversationToCaller(result, msgContent, files) {
     debugger;
     if (msgContent) {
@@ -301,9 +380,11 @@ function setConversationToCaller(result, msgContent, files) {
     if (files.files.length > 0) {
         debugger;
         for (var i = 0; i < files.files.length; i++) {
+            debugger;
             let fileSrc = URL.createObjectURL(files.files[i])
             let fileType = files.files[i].type.split('/')[0];
             let fileName = files.files[i].name;
+            let fileSize = files.files[i].size;
 
             if (fileType == 'image') {
                 $(`#messageList`).append(`<div class="message-box my-message">
@@ -341,9 +422,8 @@ function setConversationToCaller(result, msgContent, files) {
             else {
                 $(`#messageList`).append(`<div class="message-box my-message">
                                 <p>
-                                   <a onclick="showFileInModal('${fileSrc}')">
-                                            <span class="text-white"><i class="fa-solid fa-file-lines"></i>  ${fileName}</span>
-                                        </a>
+                                        <span onclick="showFileInModal('${fileSrc}')" class="fileName"><i class="fa-solid fa-file-lines"></i>${fileName}</span>
+                                        <span class="fileSize">${fileSize}</span>
                                     <br>
                                     <span>${result.time}</span>
                                 </p>
@@ -354,12 +434,24 @@ function setConversationToCaller(result, msgContent, files) {
 }
 
 // Set Notification 
-
 function getNotifications(notification) {
     debugger;
+    //$(`#notify-wrapper`).append(`<li>
+    //                                <a class="dropdown-item" href="#">${notification.text}</a>
+    //                            </li>
+    //                            <div class="dropdown-divider"></div>
+    //`);
     $(`#notify-wrapper`).append(`<li>
-                                    <a class="dropdown-item" href="#">${notification.text}</a>
-                                </li>
-                                <div class="dropdown-divider"></div>
+                <hr class="dropdown-divider">
+        </li>
+
+        <li class="notification-item" href="javascript:void(0)" onclick="loadConversionsByGroupId('${notification.fromGroupId}')">
+            <i class="bi bi-exclamation-circle text-warning"></i>
+            <div>
+                <h4>${notification.title}</h4>
+                <p>${notification.text}</p>
+                <p>30 min. ago</p>
+            </div>
+        </li>
     `);
 }

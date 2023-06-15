@@ -288,7 +288,7 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
                         _context.ChatGroups.Update(result);
                         await _context.SaveChangesAsync();
                         //await _toast.ToastSuccess("Group Updated Successfully");
-                        return new JsonResult(new { IsValid = true, Id = chatGroup.Id, Name = chatGroup.Name, GroupPhotoUrl = chatGroup.GroupPhotoUrl ?? "/images/no-image.png", Msg = "Group Updated Successfully" });
+                        return new JsonResult(new { IsValid = true, Id = chatGroup.Id, Name = chatGroup.Name, GroupPhotoUrl = $"{result.GroupPhotoUrl}" ?? "/images/no-image.png", Msg = "Group Updated Successfully" });
                     }
                 }
                 await _toast.ToastError("Something went wrong");
@@ -302,9 +302,43 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
         }
 
 
+        // Delete Group
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteGroup(int groupId)
+        {
+            try
+            {
+                var group = await _context.ChatGroups.FindAsync(groupId);
+                if (group == null)
+                    return new JsonResult(new { IsSuccess = false, Msg = "Group Not found" });
+                group.IsDeleted = true;
+                group.UpdatedDate = DateTime.Now;
+                _context.ChatGroups.Update(group);
+                var affectionRow = await _context.SaveChangesAsync();
+                if (affectionRow > 0)
+                {
+                    if (!string.IsNullOrEmpty(group.GroupPhotoUrl))
+                    {
+                        string existPath = _webHost.WebRootPath + group.GroupPhotoUrl.Replace('/', '\\');
+                        if (System.IO.File.Exists(existPath))
+                        {
+                            System.IO.File.Delete(Path.Combine(existPath));
+                        }
+                    }
+                }
+                await _toast.ToastSuccess($"{group.Name} is deleted successfully");
+                return new JsonResult(new { IsSuccess = true, GroupName = group.Name });
+            }
+            catch (Exception)
+            {
+                return new JsonResult(new { IsSuccess = false, Msg = "Something went wrong" });
+            }
+        }
+
         // Get All users in a particular group
         [HttpGet]
-        public async Task<IActionResult> OnGetCreateOrEdit(int groupId)
+        public async Task<IActionResult> OnGetCreateOrEditUsersInGroup(int groupId)
         {
             var chatGroup = await _context.ChatGroups.FindAsync(groupId);
             if (chatGroup == null)
@@ -318,6 +352,7 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
             model.GroupName = chatGroup.Name;
             model.LoginUserId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             model.UserGroups = result;
+            model.GroupPhotoUrl = chatGroup.GroupPhotoUrl;
             if (!result.Any())
             {
                 model.UserGroups.Add(new UserGroup
@@ -326,17 +361,13 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
                     GroupId = groupId,
                     UserId = string.Empty
                 });
-                return PartialView("_CreateOrEditGroupUsers", model);
             }
-            else
-            {
-                return PartialView("_CreateOrEditGroupUsers", model);
-            }
+            return PartialView("_CreateOrEditGroupUsers", model);
         }
 
         // Assign or remove user/users from a particular group
         [HttpPost]
-        public async Task<IActionResult> OnPostCreateOrEdit(List<UserGroup> userGroups, string groupName)
+        public async Task<IActionResult> OnPostCreateOrEditUsersInGroup(List<UserGroup> userGroups, string groupName)
         {
             try
             {
@@ -439,7 +470,7 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> OnPostDeleteUserFromGroup(int id)
+        public async Task<IActionResult> OnPostDeleteUserFromGroup(int id, string groupName)
         {
             try
             {
@@ -457,6 +488,24 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
                     //notification.Text = $"Chat Notification From {User.Identity.Name}";
                     //notification.NotifyUserId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
                     //await _chatHubContext.Clients.User(result.UserId).SendAsync("ReceiveNotifications", notification);
+                    TransectionHistory transection = new()
+                    {
+                        FromGroupId = result.GroupId,
+                        FromUserId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier),
+                        FromUserName = await ApplicationUserExtension.GetUserFullNameByName(_userManager, User.Identity?.Name),
+                        Title = "Group Notification",
+                        Url = $"",
+                        TransectionType = TransectionType.GroupMessage,
+                        TransectionTypeName = TransectionType.GroupMessage.GetDisplayName(),
+                        TransectionStatus = TransectionStatus.MemberRemoveFromGroup,
+                        TransectionStatusName = TransectionStatus.MemberRemoveFromGroup.GetDisplayName(),
+                        Text = $"{await ApplicationUserExtension.GetUserFullNameByName(_userManager, User.Identity?.Name)} removed from \"{groupName}\" group ",
+                        NotifyUserId = result.UserId,
+                        NotifyUserName = await ApplicationUserExtension.GetUserFullNameById(_userManager, result.UserId),
+                        CreatedDate = DateTime.Now
+                    };
+                    await _context.TransectionHistories.AddAsync(transection);
+                    await _context.SaveChangesAsync();
                 }
 
                 return new JsonResult(new { IsValid = true, Msg = "User is deleted from this group" });
@@ -465,39 +514,6 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
             {
 
                 throw;
-            }
-        }
-
-
-
-        [HttpPost]
-        public async Task<IActionResult> DeleteGroup(int groupId)
-        {
-            try
-            {
-                var group = await _context.ChatGroups.FindAsync(groupId);
-                if (group == null)
-                    return new JsonResult(new { IsSuccess = false, Msg = "Group Not found" });
-                group.IsDeleted = true;
-                group.UpdatedDate = DateTime.Now;
-                _context.ChatGroups.Update(group);
-                var affectionRow = await _context.SaveChangesAsync();
-                if (affectionRow > 0)
-                {
-                    if (!string.IsNullOrEmpty(group.GroupPhotoUrl))
-                    {
-                        string existPath = _webHost.WebRootPath + group.GroupPhotoUrl.Replace('/', '\\');
-                        if (System.IO.File.Exists(existPath))
-                        {
-                            System.IO.File.Delete(Path.Combine(existPath));
-                        }
-                    }
-                }
-                return new JsonResult(new { IsSuccess = true, GroupName = group.Name });
-            }
-            catch (Exception)
-            {
-                return new JsonResult(new { IsSuccess = false, Msg = "Something went wrong" });
             }
         }
 
@@ -615,7 +631,7 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
                     }
                     string uploadFolder = Path.Combine(_webHost.WebRootPath, "images", "groups");
                     string extension = Path.GetExtension(file.FileName);
-                    string fileName = $"{groupName}_{DateTime.Now.ToString("yyyyMMdd")}{extension}";
+                    string fileName = $"{groupName}_{DateTime.Now.ToString("yyyyMMdd")}_{DateTime.Now.Millisecond}{extension}";
                     string path = Path.Combine(uploadFolder, fileName);
 
                     using (var stream = new MemoryStream())

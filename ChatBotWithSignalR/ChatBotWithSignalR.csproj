@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Chat\Data\**" />
+    <Content Remove="Areas\Chat\Data\**" />
+    <EmbeddedResource Remove="Areas\Chat\Data\**" />
+    <None Remove="Areas\Chat\Data\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\css\form-button.css" />
   </ItemGroup>
 
@@ -29,7 +36,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Chat\Data\" />
     <Folder Include="wwwroot\images\users\" />
   </ItemGroup>
 

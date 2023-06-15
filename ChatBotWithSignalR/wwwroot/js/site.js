@@ -27,3 +27,26 @@ window.addEventListener('offline', () => {
 window.addEventListener('online', () => {
     toastr.info('Internet Connected', 'info');
 });
+
+
+function checkDupplicateValue(el) {
+    debugger;
+    let newSelectedValue = $(el).val();
+    console.log(newSelectedValue);
+    let newSelectedText = $(el).find('option:selected').text();
+    let newSelectedIdAttr = $(el).attr('id');
+
+    const dropdownArray = document.getElementsByClassName('itemClass');
+
+    let length = dropdownArray.length;
+    for (let i = 0; i < length; i++) {
+        let oldSelectedValue = dropdownArray[i].value;
+        let oldSelectedIdAttr = dropdownArray[i].getAttribute('id');
+        if (oldSelectedIdAttr != newSelectedIdAttr && oldSelectedValue == newSelectedValue) {
+            //el.selectedIndex = 0;
+            $(el).val(1).trigger('change.select2');
+            toastr.info(`${newSelectedText} already selected`, 'info');
+            return;
+        }
+    }
+}

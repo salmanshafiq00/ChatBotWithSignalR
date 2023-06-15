@@ -53,7 +53,6 @@
                 contentType: false,
                 processData: false,
                 success: function (result) {
-                    debugger;
                     if (result.isValid) {
                         let innerAnchorTag = $(`#user_${result.id}`).find('a');
                         if (innerAnchorTag.length > 0) {

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "a50+s0d58ZdbKhQKEHreztqgf9yEM5BEI4mmweglNOk=",
+  "Hash": "iL5Y4yZt4bs8IB4vEwroL355RxvQwoD7o2BAeWnG/rQ=",
   "Source": "ChatBotWithSignalR",
   "BasePath": "_content/ChatBotWithSignalR",
   "Mode": "Default",
@@ -1122,6 +1122,23 @@
       "OriginalItemSpec": "wwwroot\\audio\\mixkit-retro-confirmation-tone-2860.wav"
     },
     {
+      "Identity": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\conversation\\ecaf3269-be1d-4563-a235-e6447194c481_20230614_490.txt",
+      "SourceId": "ChatBotWithSignalR",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\",
+      "BasePath": "_content/ChatBotWithSignalR",
+      "RelativePath": "conversation/ecaf3269-be1d-4563-a235-e6447194c481_20230614_490.txt",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\conversation\\ecaf3269-be1d-4563-a235-e6447194c481_20230614_490.txt"
+    },
+    {
       "Identity": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230613_357.png",
       "SourceId": "ChatBotWithSignalR",
       "SourceType": "Discovered",
@@ -1205,6 +1222,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230613_948.mp4"
+    },
+    {
+      "Identity": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230614_106.pdf",
+      "SourceId": "ChatBotWithSignalR",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\",
+      "BasePath": "_content/ChatBotWithSignalR",
+      "RelativePath": "conversation/fa73abec-1e32-4fef-8a8b-adf0abfce589_20230614_106.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230614_106.pdf"
+    },
+    {
+      "Identity": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230614_496.pdf",
+      "SourceId": "ChatBotWithSignalR",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\",
+      "BasePath": "_content/ChatBotWithSignalR",
+      "RelativePath": "conversation/fa73abec-1e32-4fef-8a8b-adf0abfce589_20230614_496.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230614_496.pdf"
     },
     {
       "Identity": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\conversation\\fa73abec-1e32-4fef-8a8b-adf0abfce589_20230614_731.jpg",
@@ -1377,12 +1428,12 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\groups\\Business Studies_20230613.png",
+      "Identity": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\groups\\Business Studies 100_20230614_51.jpg",
       "SourceId": "ChatBotWithSignalR",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\",
       "BasePath": "_content/ChatBotWithSignalR",
-      "RelativePath": "images/groups/Business Studies_20230613.png",
+      "RelativePath": "images/groups/Business Studies 100_20230614_51.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1391,7 +1442,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\groups\\Business Studies_20230613.png"
+      "OriginalItemSpec": "wwwroot\\images\\groups\\Business Studies 100_20230614_51.jpg"
     },
     {
       "Identity": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\groups\\logo.png",

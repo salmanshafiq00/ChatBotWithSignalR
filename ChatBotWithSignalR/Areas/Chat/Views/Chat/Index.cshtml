@@ -205,6 +205,22 @@
     #loadConversions{
         height: 66vh;
     }
+
+    .fa-paperclip{
+        font-size: 20px;
+        color: #435f7a;
+        cursor: pointer;
+        opacity: .5;
+        margin-top: 3px;
+    }
+
+    .fa-paperclip:hover{
+        opacity: 1;
+    }
+
+    #msgContent:focus{
+        box-shadow: none;
+    }
 </style>
 <div class="card ml-auto mt-4">
     <div class="card-header card-header-custom">
@@ -316,8 +332,8 @@
                             </button>
                             </li>*@
 
-                                <li class="clearfix grouplistclass" id="user_@group.Id">
-                                    <a href="javascript:void(0)" class="text-dark" onclick="loadConversionsByGroupId('@group.Id')">
+                                <li class="clearfix grouplistclass" id="user_@group.Id" onclick="loadConversionsByGroupId('@group.Id')">
+                                    <a href="javascript:void(0)" class="text-dark">
                                         <img src="@(group.GroupPhotoUrl ?? "/images/no-image.png")" alt="Photo" class="groupPhoto" asp-append-version="true">
 
                                         <div class="about">
