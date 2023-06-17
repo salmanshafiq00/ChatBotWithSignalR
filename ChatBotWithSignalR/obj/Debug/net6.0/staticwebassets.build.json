@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "fRZJZknGYEH9nkwXKz7DKoTreYQ8Wv3rGuB8RUAu7Bk=",
+  "Hash": "UkoMMLaCNzzzT6gZkxVToRvGXvy/tO9SRyz/wxwh3TQ=",
   "Source": "ChatBotWithSignalR",
   "BasePath": "_content/ChatBotWithSignalR",
   "Mode": "Default",
@@ -1292,23 +1292,6 @@
       "OriginalItemSpec": "wwwroot\\conversation\\logo.png"
     },
     {
-      "Identity": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\css\\chat.css",
-      "SourceId": "ChatBotWithSignalR",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\",
-      "BasePath": "_content/ChatBotWithSignalR",
-      "RelativePath": "css/chat.css",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\chat.css"
-    },
-    {
       "Identity": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\css\\ChatBox.css",
       "SourceId": "ChatBotWithSignalR",
       "SourceType": "Discovered",
@@ -1324,6 +1307,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\ChatBox.css"
+    },
+    {
+      "Identity": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\css\\conversationBox.css",
+      "SourceId": "ChatBotWithSignalR",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\",
+      "BasePath": "_content/ChatBotWithSignalR",
+      "RelativePath": "css/conversationBox.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\conversationBox.css"
     },
     {
       "Identity": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\css\\form-button.css",
@@ -1598,23 +1598,6 @@
       "OriginalItemSpec": "wwwroot\\js\\audio-recording.js"
     },
     {
-      "Identity": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\js\\chat - Copy.js",
-      "SourceId": "ChatBotWithSignalR",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\",
-      "BasePath": "_content/ChatBotWithSignalR",
-      "RelativePath": "js/chat - Copy.js",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\js\\chat - Copy.js"
-    },
-    {
       "Identity": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\js\\chat.js",
       "SourceId": "ChatBotWithSignalR",
       "SourceType": "Discovered",
@@ -1664,40 +1647,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\qr.js"
-    },
-    {
-      "Identity": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\js\\recording.js",
-      "SourceId": "ChatBotWithSignalR",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\",
-      "BasePath": "_content/ChatBotWithSignalR",
-      "RelativePath": "js/recording.js",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\js\\recording.js"
-    },
-    {
-      "Identity": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\js\\recordingCopy.js",
-      "SourceId": "ChatBotWithSignalR",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\",
-      "BasePath": "_content/ChatBotWithSignalR",
-      "RelativePath": "js/recordingCopy.js",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\js\\recordingCopy.js"
     },
     {
       "Identity": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\js\\signalr.js",

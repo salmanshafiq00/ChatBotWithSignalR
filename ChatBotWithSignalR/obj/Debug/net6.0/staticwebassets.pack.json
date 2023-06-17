@@ -61,8 +61,8 @@
       "PackagePath": "staticwebassets\\css\\ChatBox.css"
     },
     {
-      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\css\\chat.css",
-      "PackagePath": "staticwebassets\\css\\chat.css"
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\css\\conversationBox.css",
+      "PackagePath": "staticwebassets\\css\\conversationBox.css"
     },
     {
       "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\css\\form-button.css",
@@ -129,10 +129,6 @@
       "PackagePath": "staticwebassets\\js\\audio-recording.js"
     },
     {
-      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\js\\chat - Copy.js",
-      "PackagePath": "staticwebassets\\js\\chat - Copy.js"
-    },
-    {
       "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\js\\chat.js",
       "PackagePath": "staticwebassets\\js\\chat.js"
     },
@@ -143,14 +139,6 @@
     {
       "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\js\\qr.js",
       "PackagePath": "staticwebassets\\js\\qr.js"
-    },
-    {
-      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\js\\recording.js",
-      "PackagePath": "staticwebassets\\js\\recording.js"
-    },
-    {
-      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\js\\recordingCopy.js",
-      "PackagePath": "staticwebassets\\js\\recordingCopy.js"
     },
     {
       "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\js\\signalr.js",
