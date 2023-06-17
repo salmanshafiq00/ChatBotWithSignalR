@@ -35,5 +35,8 @@ namespace ChatBotWithSignalR.Entity
         public bool IsSeen { get; set; }
         public bool IsClosed { get; set; }
         public DateTime? SeenDate { get; set; }
+
+        [NotMapped]
+        public string WhenAgo { get; set; } = string.Empty;
     }
 }

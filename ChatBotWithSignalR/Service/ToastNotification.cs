@@ -1,6 +1,8 @@
 ﻿using ChatBotWithSignalR.Interface;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.SignalR;
+using ChatBotWithSignalR.DTOs;
 
 namespace ChatBotWithSignalR.Service
 {
@@ -14,34 +16,44 @@ namespace ChatBotWithSignalR.Service
             _httpContextAccessor = httpContextAccessor;
             _tempDataDictionaryFactory = tempDataDictionaryFactory;
         }
-        public async Task ToastSuccess(string message)
+        public async Task Success(string message, int? duration = null)
         {
             var httpContext = _httpContextAccessor.HttpContext;
             var tempData = _tempDataDictionaryFactory.GetTempData(httpContext);
 
             await Task.Delay(0);
-            tempData["Message"] = JsonConvert.SerializeObject(new { Status = "Success", Message = $"{message}" });
+            tempData["Message"] = JsonConvert.SerializeObject(new { ToastStatus = "Success", Message = $"{message}" });
+            //httpContext.Session.SetString("ToastNotify", JsonConvert.SerializeObject(new ToastAppNotification(message, "Success")));
         }
-        public async Task ToastError(string message)
+        public async Task Error(string message, int? duration = null)
         {
             var httpContext = _httpContextAccessor.HttpContext;
             var tempData = _tempDataDictionaryFactory.GetTempData(httpContext);
             await Task.Delay(0);
-            tempData["Message"] = JsonConvert.SerializeObject(new { Status = "Error", Message = $"{message}" });
+            tempData["Message"] = JsonConvert.SerializeObject(new { ToastStatus = "Error", Message = $"{message}" });
+            //httpContext.Session.SetString("ToastNotify", JsonConvert.SerializeObject(new ToastAppNotification(message, "Error")));
         }
-        public async Task ToastWarning(string message)
+        public async Task Warning(string message, int? duration = null)
         {
             var httpContext = _httpContextAccessor.HttpContext;
             var tempData = _tempDataDictionaryFactory.GetTempData(httpContext);
             await Task.Delay(0);
-            tempData["Message"] = JsonConvert.SerializeObject(new { Status = "Warning", Message = $"{message}" });
+            tempData["Message"] = JsonConvert.SerializeObject(new { ToastStatus = "Warning", Message = $"{message}" });
+            //httpContext.Session.SetString("ToastNotify", JsonConvert.SerializeObject(new ToastAppNotification(message, "Warning")));
         }
-        public async Task ToastInfo(string message)
+        public async Task Info(string message, int? duration = null)
         {
             var httpContext = _httpContextAccessor.HttpContext;
             var tempData = _tempDataDictionaryFactory.GetTempData(httpContext);
             await Task.Delay(0);
-            tempData["Message"] = JsonConvert.SerializeObject(new { Status = "Info", Message = $"{message}" });
+            tempData["Message"] = JsonConvert.SerializeObject(new { ToastStatus = "Info", Message = $"{message}" });
+            //httpContext.Session.SetString("ToastNotify", JsonConvert.SerializeObject(new ToastAppNotification(message, "Info")));
         }
+
+        public void Custom(string message, int? durationInSeconds = null, string backgroundColor = "black", string iconClassName = "home")
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

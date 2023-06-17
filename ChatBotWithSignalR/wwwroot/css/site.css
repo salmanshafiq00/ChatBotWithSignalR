@@ -22,6 +22,12 @@ html {
   }
 }
 
+@media only screen and (max-width: 768px) {
+    .people-list .about {
+        display: none;
+    }
+}
+
 html {
   position: relative;
   min-height: 100%;

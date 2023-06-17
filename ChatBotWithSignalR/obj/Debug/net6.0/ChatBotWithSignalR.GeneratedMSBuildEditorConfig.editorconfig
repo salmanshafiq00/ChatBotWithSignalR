@@ -56,16 +56,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ2hhdFxWaWV3c1xDaGF0XEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Programming/Projects/ChatBotWithSignalR/ChatBotWithSignalR/Areas/Chat/Views/Chat/Index2.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ2hhdFxWaWV3c1xDaGF0XEluZGV4Mi5jc2h0bWw=
+[D:/Programming/Projects/ChatBotWithSignalR/ChatBotWithSignalR/Areas/Chat/Views/Chat/_ChatBoxHeader.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ2hhdFxWaWV3c1xDaGF0XF9DaGF0Qm94SGVhZGVyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Programming/Projects/ChatBotWithSignalR/ChatBotWithSignalR/Areas/Chat/Views/Chat/_Conversations.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ2hhdFxWaWV3c1xDaGF0XF9Db252ZXJzYXRpb25zLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Programming/Projects/ChatBotWithSignalR/ChatBotWithSignalR/Areas/Chat/Views/Chat/_Conversations2.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQ2hhdFxWaWV3c1xDaGF0XF9Db252ZXJzYXRpb25zMi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Programming/Projects/ChatBotWithSignalR/ChatBotWithSignalR/Areas/Chat/Views/Chat/_CreateOrEditGroup.cshtml]
@@ -270,10 +266,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Programming/Projects/ChatBotWithSignalR/ChatBotWithSignalR/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Programming/Projects/ChatBotWithSignalR/ChatBotWithSignalR/Views/Shared/_ChatBoxHeader.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9DaGF0Qm94SGVhZGVyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Programming/Projects/ChatBotWithSignalR/ChatBotWithSignalR/Views/Shared/_FileShowModal.cshtml]

@@ -435,13 +435,12 @@ function setConversationToCaller(result, msgContent, files) {
 
 // Set Notification 
 function getNotifications(notification) {
-    debugger;
-    //$(`#notify-wrapper`).append(`<li>
-    //                                <a class="dropdown-item" href="#">${notification.text}</a>
-    //                            </li>
-    //                            <div class="dropdown-divider"></div>
-    //`);
-    $(`#notify-wrapper`).append(`<li>
+    let currentCount = document.querySelector('#notificationCount').textContent;
+    let newCount = parseInt(currentCount) + 1;
+    document.querySelector('#notificationCount').textContent = newCount;
+    document.querySelector('#notifyCountInAllSection').textContent = newCount;
+
+    $(`#allNotifySection`).after(`<li>
                 <hr class="dropdown-divider">
         </li>
 
@@ -450,7 +449,7 @@ function getNotifications(notification) {
             <div>
                 <h4>${notification.title}</h4>
                 <p>${notification.text}</p>
-                <p>30 min. ago</p>
+                <p>A moment ago</p>
             </div>
         </li>
     `);

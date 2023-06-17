@@ -123,7 +123,7 @@ namespace ChatBotWithSignalR.Areas.Identity.Pages.Account
                         returnUrl = Url.Content("~/Admin/Dashboard/Index");
                     }
                     _logger.LogInformation("User logged in.");
-                    await _toast.ToastSuccess("Welcome to SignalR ChatBot!");
+                    await _toast.Success("Welcome to SignalR ChatBot!");
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)

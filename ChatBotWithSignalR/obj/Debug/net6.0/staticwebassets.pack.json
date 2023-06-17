@@ -57,6 +57,10 @@
       "PackagePath": "staticwebassets\\conversation\\logo.png"
     },
     {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\css\\ChatBox.css",
+      "PackagePath": "staticwebassets\\css\\ChatBox.css"
+    },
+    {
       "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\css\\chat.css",
       "PackagePath": "staticwebassets\\css\\chat.css"
     },

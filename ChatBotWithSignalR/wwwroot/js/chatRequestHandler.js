@@ -5,20 +5,20 @@
 let chatConnection = new signalR.HubConnectionBuilder().withUrl("/Chat").build();
 
 
-// Connect to methods that hub invokes aka receive notifications from hub
+// Connect to methods that hub invokes receive notifications from hub
 chatConnection.on("ReceiveMessages", addMessageToConversation);
 
 // Connect to methods that hub invokes group send method from hub
 //chatConnection.on("ReceiveGroupMessages", addMessageToGroupConversation);
 chatConnection.on("ReceiveGroupMessages", addMessageToConversation);
 
-// Connect to methods that hub invokes aka receive notifications from hub
+// Connect to methods that hub invokes receive chat notifications from hub
 chatConnection.on("ReceiveConNotify", userConnectivity);
 
-// Connect to methods that hub invokes aka receive notifications from hub
+// Connect to methods that hub invokes receive notifications from hub
 chatConnection.on("ReceiveNotifications", getNotifications);
 
-// Invoke the hub methods aka send notification to hub
+// Invoke the hub methods send notification to hub
 function sendMessageToUser(conversation) {
     chatConnection.invoke("SendToUserAsync", conversation)
         .catch((err) => {

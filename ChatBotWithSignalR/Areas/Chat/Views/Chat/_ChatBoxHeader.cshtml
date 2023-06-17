@@ -20,12 +20,12 @@
 
                 <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                     <i class="bi bi-bell"></i>
-                    <span class="badge bg-primary badge-number" id="notificationCount">4</span>
+                    <span class="badge bg-primary badge-number" id="notificationCount">0</span>
                 </a><!-- End Notification Icon -->
 
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications" id="notify-wrapper" style="transform: translate(-40px, 51px) !important;">
-                    <li class="dropdown-header">
-                        You have 4 new notifications
+                    <li class="dropdown-header" id="allNotifySection">
+                        You have <span id="notifyCountInAllSection">0</span> new notifications
                         <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
                     </li>
                     @(await Component.InvokeAsync<NotificationViewComponent>(new { loginUserId = Model.Id }))

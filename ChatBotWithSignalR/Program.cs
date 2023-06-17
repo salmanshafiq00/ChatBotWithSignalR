@@ -9,6 +9,7 @@ using FastReport.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -70,6 +71,10 @@ services.Configure<MailSettings>(builder.Configuration.GetSection(nameof(MailSet
 services.AddTransient<IToastNotification, ToastNotification>();
 services.AddTransient<IMailService, MailService>();
 services.AddSignalR();
+//services.AddSession(options => {
+//    options.IdleTimeout = TimeSpan.FromMinutes(30);
+//});
+//services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 var app = builder.Build();
 
@@ -106,7 +111,7 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
-
+//app.UseSession();
 
 app.UseEndpoints(endpoints =>
 {
@@ -117,5 +122,4 @@ app.UseEndpoints(endpoints =>
 });
 
 app.MapHub<ChatHub>("/Chat");
-
 app.Run();

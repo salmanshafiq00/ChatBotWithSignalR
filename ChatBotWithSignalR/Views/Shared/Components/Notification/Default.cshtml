@@ -15,7 +15,7 @@
             <div>
                 <h4>@notify.Title</h4>
                 <p>@notify.Text</p>
-                <p>30 min. ago</p>
+                <p>@notify.WhenAgo</p>
             </div>
         </li>
     }
@@ -24,5 +24,6 @@
 <script>
     window.addEventListener("load", () => {
         document.querySelector('#notificationCount').textContent = '@UnreadMessageCount';
+        document.querySelector('#notifyCountInAllSection').textContent = '@UnreadMessageCount';
     })
 </script>

@@ -102,7 +102,7 @@ namespace ChatBotWithSignalR.Areas.Admin.Controllers
                     var user = await _userManager.FindByIdAsync(userId);
                     if (user == null)
                     {
-                        await _toast.ToastError("User Not Found");
+                        await _toast.Error("User Not Found");
                         return RedirectToAction(nameof(Index));
                     }
                     ApplicationUserViewModel userViewModel = new ApplicationUserViewModel
@@ -146,10 +146,10 @@ namespace ChatBotWithSignalR.Areas.Admin.Controllers
                         var result = await _userManager.CreateAsync(user, model.Password);
                         if (result.Succeeded)
                         {
-                            await _toast.ToastSuccess("User Create Successfully");
+                            await _toast.Success("User Create Successfully");
                             return RedirectToAction(nameof(Index));
                         }
-                        await _toast.ToastError($"{result.Errors}");
+                        await _toast.Error($"{result.Errors}");
                         return RedirectToAction(nameof(Index));
                     }
                     else
@@ -157,7 +157,7 @@ namespace ChatBotWithSignalR.Areas.Admin.Controllers
                         var user = await _userManager.FindByIdAsync(model.Id);
                         if (user == null)
                         {
-                            await _toast.ToastError("User Not Found");
+                            await _toast.Error("User Not Found");
                             return RedirectToAction(nameof(Index));
                         }
                         user.FirstName = model.FirstName.Trim();
@@ -168,10 +168,10 @@ namespace ChatBotWithSignalR.Areas.Admin.Controllers
                         var result = await _userManager.UpdateAsync(user);
                         if (result.Succeeded)
                         {
-                            await _toast.ToastSuccess($"{user.UserName} Update Successfully");
+                            await _toast.Success($"{user.UserName} Update Successfully");
                             return RedirectToAction(nameof(Index));
                         }
-                        await _toast.ToastError($"{result.Errors}");
+                        await _toast.Error($"{result.Errors}");
                         return RedirectToAction(nameof(Index));
                     }
 
@@ -198,16 +198,16 @@ namespace ChatBotWithSignalR.Areas.Admin.Controllers
                 var user = await _userManager.FindByIdAsync(userId);
                 if (user == null)
                 {
-                    await _toast.ToastError("User Not Found");
+                    await _toast.Error("User Not Found");
                     return RedirectToAction(nameof(Index));
                 }
                 var result = await _userManager.DeleteAsync(user);
                 if (result.Succeeded)
                 {
-                    await _toast.ToastSuccess($"{user.UserName} Deleted Successfully");
+                    await _toast.Success($"{user.UserName} Deleted Successfully");
                     return RedirectToAction(nameof(Index));
                 }
-                await _toast.ToastError($"{result.Errors}");
+                await _toast.Error($"{result.Errors}");
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
@@ -227,7 +227,7 @@ namespace ChatBotWithSignalR.Areas.Admin.Controllers
                 var user = await _userManager.FindByIdAsync(userId);
                 if (user == null)
                 {
-                    await _toast.ToastError("User Not Found");
+                    await _toast.Error("User Not Found");
                     return RedirectToAction(nameof(Index));
                 }
                 ApplicationUserViewModel userModel = new()
@@ -262,14 +262,14 @@ namespace ChatBotWithSignalR.Areas.Admin.Controllers
                 var user = await _userManager.FindByIdAsync(userId);
                 if (user == null)
                 {
-                    await _toast.ToastError("User Not Found");
+                    await _toast.Error("User Not Found");
                     return RedirectToAction(nameof(Index));
                 }
                 var userRoles = await _userManager.GetRolesAsync(user);
                 var result = await _userManager.RemoveFromRolesAsync(user, userRoles);
                 if (!result.Succeeded)
                 {
-                    await _toast.ToastError($"{result.Errors}");
+                    await _toast.Error($"{result.Errors}");
                     return RedirectToAction(nameof(Index));
                 }
                 result = await _userManager
@@ -278,12 +278,12 @@ namespace ChatBotWithSignalR.Areas.Admin.Controllers
                         .ToList());
                 if (result.Succeeded)
                 {
-                    await _toast.ToastSuccess("User Roles Update Successfully");
+                    await _toast.Success("User Roles Update Successfully");
                     return RedirectToAction(nameof(Index));
                 }
                 else
                 {
-                    await _toast.ToastError($"{result.Errors}");
+                    await _toast.Error($"{result.Errors}");
                     return RedirectToAction(nameof(Index));
                 }
             }

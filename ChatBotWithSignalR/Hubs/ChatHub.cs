@@ -1,7 +1,6 @@
 ﻿using ChatBotWithSignalR.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
-using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace ChatBotWithSignalR.Hubs

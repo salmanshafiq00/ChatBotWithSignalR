@@ -1,7 +1,5 @@
 ﻿using ChatBotWithSignalR.Areas.Chat.Models;
-using ChatBotWithSignalR.Constant;
 using ChatBotWithSignalR.Data;
-using ChatBotWithSignalR.Entity;
 using ChatBotWithSignalR.Enum;
 using ChatBotWithSignalR.Extensions;
 using ChatBotWithSignalR.Hubs;
@@ -11,14 +9,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
-using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats;
 using SixLabors.ImageSharp.Formats.Jpeg;
 using SixLabors.ImageSharp.Formats.Png;
 using System.Net.WebSockets;
-using System.Reflection.Metadata;
 using System.Security.Claims;
-using static System.Net.Mime.MediaTypeNames;
 using Image = SixLabors.ImageSharp.Image;
 using Size = SixLabors.ImageSharp.Size;
 
@@ -34,7 +29,12 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
         private readonly IToastNotification _toast;
         private readonly IWebHostEnvironment _webHost;
 
-        public ChatController(UserManager<ApplicationUser> userManager, ApplicationDbContext context, IHubContext<ChatHub> chatHubContext, IToastNotification toast, IWebHostEnvironment webHost)
+        public ChatController(
+            UserManager<ApplicationUser> userManager, 
+            ApplicationDbContext context, 
+            IHubContext<ChatHub> chatHubContext, 
+            IToastNotification toast, 
+            IWebHostEnvironment webHost)
         {
             _userManager = userManager;
             _context = context;
@@ -80,7 +80,9 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
                 }
             }
 
-            model.TransectionHistries = await _context.TransectionHistories.Where(x => x.NotifyUserId == loginUser.Id).ToListAsync();
+            model.TransectionHistries = await _context.TransectionHistories
+                .Where(x => x.NotifyUserId == loginUser.Id)
+                .ToListAsync();
             //model.ChatUsers.RemoveAt(model.ChatUsers.FindIndex(p => p.Id == model.LoginUserId));
             return View(model);
         }
@@ -95,18 +97,25 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
                 var loginUser = await _userManager.GetUserAsync(User);
                 if (loginUser is null)
                 {
-                    await _toast.ToastError("User not found");
+                    await _toast.Error("User not found");
+                    return new JsonResult(false);
+                }
+                if (toUser is null)
+                {
+                    await _toast.Error("User not found");
                     return new JsonResult(false);
                 }
                 conversationViewModel.ToUserId = toUserId;
-                conversationViewModel.ToUserName = string.IsNullOrEmpty(string.Concat(toUser.FirstName, " ", toUser.LastName)) ? toUser.UserName : string.Concat(toUser.FirstName, " ", toUser.LastName);
+                conversationViewModel.ToUserName = string
+                    .IsNullOrEmpty(string.Concat(toUser.FirstName, " ", toUser.LastName)) ? toUser.UserName : string.Concat(toUser.FirstName, " ", toUser.LastName);
                 conversationViewModel.ToUserProfilePhotoUrl = toUser.ProfilePhotoUrl;
                 conversationViewModel.LoginUserId = loginUser.Id;
 
-                var conversations = await _context.Conversations.Where(c => (c.FromUserId == loginUser.Id || c.FromUserId == toUserId) && (c.ToUserId == loginUser.Id || c.ToUserId == toUserId) && c.GroupId == 0).Include(conv => conv.ConversationFiles).ToListAsync();
+                var conversations = await _context.Conversations
+                    .Where(c => (c.FromUserId == loginUser.Id || c.FromUserId == toUserId) && (c.ToUserId == loginUser.Id || c.ToUserId == toUserId) && c.GroupId == 0)
+                    .Include(conv => conv.ConversationFiles)
+                    .ToListAsync();
                 conversationViewModel.Conversations = conversations;
-
-
 
                 return PartialView("_Conversations", conversationViewModel);
             }
@@ -168,7 +177,7 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
                 {
                     foreach (var error in ModelState.Values.SelectMany(e => e.Errors))
                     {
-                        await _toast.ToastError(error.ErrorMessage);
+                        await _toast.Error(error.ErrorMessage);
                         break;
                     }
                     return new JsonResult(new { IsSuccess = false });
@@ -291,12 +300,12 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
                         return new JsonResult(new { IsValid = true, Id = chatGroup.Id, Name = chatGroup.Name, GroupPhotoUrl = $"{result.GroupPhotoUrl}" ?? "/images/no-image.png", Msg = "Group Updated Successfully" });
                     }
                 }
-                await _toast.ToastError("Something went wrong");
+                await _toast.Error("Something went wrong");
                 return new JsonResult(new { IsValid = false });
             }
             catch
             {
-                await _toast.ToastError("Something went wrong");
+                await _toast.Error("Something went wrong");
                 return new JsonResult(new { IsValid = false });
             }
         }
@@ -327,7 +336,7 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
                         }
                     }
                 }
-                await _toast.ToastSuccess($"{group.Name} is deleted successfully");
+                await _toast.Success($"{group.Name} is deleted successfully");
                 return new JsonResult(new { IsSuccess = true, GroupName = group.Name });
             }
             catch (Exception)
@@ -685,5 +694,21 @@ namespace ChatBotWithSignalR.Areas.Chat.Controllers
         }
 
         private bool IsLoginUserToUser(string loginUserId, string toUserId) => loginUserId == toUserId;
+
+        public string GetWhenAgo(DateTime createdDate)
+        {
+            DateTime today = DateTime.Now;
+            var dateDiff = today - createdDate;
+            string ago;
+            if (dateDiff.TotalSeconds > 0 && dateDiff.TotalSeconds < 60)
+                ago = $"{(int)dateDiff.TotalSeconds} seconds ago";
+            else if (dateDiff.TotalMinutes > 0 && dateDiff.TotalMinutes < 60)
+                ago = string.Format("{0} {1} ago", (int)dateDiff.TotalMinutes, dateDiff.TotalMinutes > 0 ? "minutes" : "minute");
+            else if (dateDiff.TotalHours > 0 && dateDiff.TotalHours < 24)
+                ago = string.Format("{0} {1} ago", (int)dateDiff.TotalHours, dateDiff.TotalHours > 0 ? "hours" : "hour");
+            else
+                ago = string.Format("{0} {1} ago", (int)dateDiff.TotalDays, dateDiff.TotalDays > 0 ? "days" : "day");
+            return ago;
+        }
     }
 }

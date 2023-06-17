@@ -5,223 +5,8 @@
     var me = Model.ChatUsers.FirstOrDefault(p => p.Id == Model.LoginUserId);
 }
 <link href="~/css/recording.css" rel="stylesheet" />
-<style>
-    .card-body {
-        padding-top: 0px;
-        padding-right: 0px;
-        padding-left: 0px;
-        /*min-height: 450px;*/
-        height: 66vh;
-    }
 
-    #user-group-wrapper {
-        border-right: 2px solid #e0e0e0;
-        height: 66vh;
-    }
-
-    #UserListContainer {
-        /*height: 33vh;*/
-        height: calc(34vh - 23px);
-        overflow-y: auto;
-        overflow-x: hidden;
-    }
-
-        #UserListContainer::-webkit-scrollbar {
-            width: 3px;
-        }
-
-        #UserListContainer::-webkit-scrollbar-track {
-            background: none;
-        }
-
-        #UserListContainer::-webkit-scrollbar-thumb {
-            background-color: var(--thumbBG);
-            border-radius: 6px;
-        }
-
-    #GroupListContainer {
-        height: calc(28vh - 23px);
-        overflow-y: auto;
-        overflow-x: hidden;
-    }
-
-        #GroupListContainer::-webkit-scrollbar {
-            width: 3px;
-        }
-
-        #GroupListContainer::-webkit-scrollbar-track {
-            background: none;
-        }
-
-        #GroupListContainer::-webkit-scrollbar-thumb {
-            background-color: var(--thumbBG);
-            border-radius: 6px;
-        }
-
-    .user-group-title {
-        color: #012970;
-        font-size: 16px;
-        font-weight: 600;
-    }
-    #notiIcon {
-        background: none;
-        padding: 0;
-        margin: 0;
-        appearance: none;
-        border: none !important;
-        outline: none !important;
-        margin-right: 200px;
-        position: relative;
-    }
-
-        #notiIcon:hover {
-            background-color: silver;
-            border-radius: 100%;
-        }
-
-    .btn-check:focus + .btn-outline-secondary, .btn-outline-secondary:focus {
-        box-shadow: none !important;
-    }
-
-    #notify-bell {
-        font-size: 25px;
-        padding: 5px;
-    }
-
-    /*    #notificationCount {
-            border-radius: 100%;
-            padding: 4.20px;
-            position: absolute;
-            left: 16px;
-            top: -6px;
-        }*/
-
-    .people-list {
-        -moz-transition: .5s;
-        -o-transition: .5s;
-        -webkit-transition: .5s;
-        transition: .5s
-    }
-
-        .people-list .chat-list li {
-            padding: 10px 0px;
-            padding-left: 15px;
-            list-style: none;
-            border-radius: 3px
-        }
-
-            .people-list .chat-list li:hover {
-                background: #efefef;
-                cursor: pointer
-            }
-
-    .active {
-        background: #efefef !important
-    }
-
-    .people-list .chat-list li .name {
-        font-size: 15px
-    }
-
-    .people-list .chat-list img {
-        width: 45px;
-        border-radius: 50%
-    }
-
-    .people-list img {
-        float: left;
-        border-radius: 50%
-    }
-
-    .people-list .about {
-        float: left;
-        padding-left: 8px
-    }
-
-    .people-list .status {
-        color: #999;
-        font-size: 13px
-    }
-
-    .groupPhoto {
-        width: 45px;
-        border-radius: 50%
-    }
-
-    .online {
-        color: #86c541
-    }
-
-    .offline {
-        color: #e47297
-    }
-
-    .me {
-        color: #1d8ecd
-    }
-
-    .card-header {
-        padding-top: 0px !important;
-        padding-bottom: 0px !important;
-    }
-
-    .profileAvatar {
-        width: 35px;
-        border-radius: 50%;
-    }
-
-    .textGradient {
-        /*background: -webkit-linear-gradient(#eee, #333);*/
-        background: -webkit-linear-gradient(135deg, #71b7e6, #9b59b6);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        padding-left: 10px;
-        padding-right: 10px;
-    }
-
-    .navbar-brand {
-        font-size: 1.5rem;
-        font-weight: 600;
-    }
-
-        .navbar-brand img {
-            width: 32px;
-            height: 32px;
-            margin-right: 5px;
-        }
-
-    .card-header-custom {
-        padding: 0px;
-    }
-
-    #msgMainContainer {
-        background-image: url('/images/whatsbgimage.png');
-        padding-left: 0px;
-        padding-right: 0px;
-        background-size: cover;
-        height: 66vh;
-    }
-
-    #loadConversions{
-        height: 66vh;
-    }
-
-    .fa-paperclip{
-        font-size: 20px;
-        color: #435f7a;
-        cursor: pointer;
-        opacity: .5;
-        margin-top: 3px;
-    }
-
-    .fa-paperclip:hover{
-        opacity: 1;
-    }
-
-    #msgContent:focus{
-        box-shadow: none;
-    }
-</style>
+<link href="~/css/chatbox.css" rel="stylesheet" asp-append-version="true" />
 <div class="card ml-auto mt-4">
     <div class="card-header card-header-custom">
         <!-- Navbar -->
@@ -244,7 +29,7 @@
                                         <div class="status">
                                             <i class="fa fa-circle me"></i>
                                             left 7 mins ago
-                                            <span class="badge bg-danger ml-2" id="notify_@me.Id">@(me.UnreadMessageNo == 0 ? "" : me.UnreadMessageNo.ToString())</span>
+                                            <span class="badge bg-danger notifiyIconBadge" id="notify_@me.Id">@(me.UnreadMessageNo == 0 ? "" : me.UnreadMessageNo.ToString())</span>
                                         </div>
                                     </div>
                                 </a>
@@ -259,58 +44,12 @@
                                             <div class="status">
                                                 <i class="fa fa-circle offline"></i>
                                                 left 7 mins ago
-                                                <span class="badge bg-danger ml-3" id="notify_@user.Id">@(user.UnreadMessageNo == 0 ? "" : user.UnreadMessageNo.ToString())</span>
+                                                <span class="badge bg-danger notifiyIconBadge" id="notify_@user.Id">@(user.UnreadMessageNo == 0 ? "" : user.UnreadMessageNo.ToString())</span>
                                             </div>
                                         </div>
                                     </a>
                                 </li>
                             }
-                            <li class="clearfix">
-                                <a href="javascript:void(0)" onclick="loadConversions('')">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
-                                    <div class="about">
-                                        <div class="name">Vincent Porter</div>
-                                        <div class="status"> <i class="fa fa-circle offline"></i> left 7 mins ago </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="clearfix">
-                                <a href="javascript:void(0)" onclick="loadConversions('')">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
-                                    <div class="about">
-                                        <div class="name">Vincent Porter</div>
-                                        <div class="status"> <i class="fa fa-circle offline"></i> left 7 mins ago </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="clearfix">
-                                <a href="javascript:void(0)" onclick="loadConversions('')">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
-                                    <div class="about">
-                                        <div class="name">Vincent Porter</div>
-                                        <div class="status"> <i class="fa fa-circle offline"></i> left 7 mins ago </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="clearfix">
-                                <a href="javascript:void(0)" onclick="loadConversions('')">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
-                                    <div class="about">
-                                        <div class="name">Vincent Porter</div>
-                                        <div class="status"> <i class="fa fa-circle offline"></i> left 7 mins ago </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="clearfix">
-                                <a href="javascript:void(0)" onclick="loadConversions('')">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
-                                    <div class="about">
-                                        <div class="name">Vincent Porter</div>
-                                        <div class="status"> <i class="fa fa-circle offline"></i> left 7 mins ago </div>
-                                    </div>
-                                </a>
-                            </li>
-
                         </ul>
                     </div>
                 </div>
@@ -345,42 +84,6 @@
                                     </a>
                                 </li>
                             }
-                            <li class="clearfix">
-                                <a href="javascript:void(0)" onclick="loadConversions('')">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
-                                    <div class="about">
-                                        <div class="name">Vincent Porter</div>
-                                        <div class="status"> <i class="fa fa-circle offline"></i> left 7 mins ago </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="clearfix">
-                                <a href="javascript:void(0)" onclick="loadConversions('')">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
-                                    <div class="about">
-                                        <div class="name">Vincent Porter</div>
-                                        <div class="status"> <i class="fa fa-circle offline"></i> left 7 mins ago </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="clearfix">
-                                <a href="javascript:void(0)" onclick="loadConversions('')">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
-                                    <div class="about">
-                                        <div class="name">Vincent Porter</div>
-                                        <div class="status"> <i class="fa fa-circle offline"></i> left 7 mins ago </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="clearfix">
-                                <a href="javascript:void(0)" onclick="loadConversions('')">
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
-                                    <div class="about">
-                                        <div class="name">Vincent Porter</div>
-                                        <div class="status"> <i class="fa fa-circle offline"></i> left 7 mins ago </div>
-                                    </div>
-                                </a>
-                            </li>
                         </ul>
                     </div>
                 </div>
@@ -436,7 +139,7 @@
         </div>
     </div>
 
-    <audio id="notification-sound" class="d-none" src="~/audio/mixkit-retro-confirmation-tone-2860.wav"></audio>
+    <audio id="notification-sound" class="d-none" src="~/audio/mixkit-retro-confirmation-tone-2860.wav" muted="muted"></audio>
 
 
 </div>

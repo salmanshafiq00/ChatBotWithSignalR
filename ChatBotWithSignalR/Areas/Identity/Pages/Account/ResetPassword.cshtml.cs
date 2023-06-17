@@ -102,14 +102,14 @@ namespace ChatBotWithSignalR.Areas.Identity.Pages.Account
             if (user == null)
             {
                 // Don't reveal that the user does not exist
-                await _toast.ToastSuccess("Your password has been reset");
+                await _toast.Success("Your password has been reset");
                 return RedirectToPage("./Login");
             }
 
             var result = await _userManager.ResetPasswordAsync(user, Input.Code, Input.Password);
             if (result.Succeeded)
             {
-                await _toast.ToastSuccess("Your password has been reset");
+                await _toast.Success("Your password has been reset");
                 return RedirectToPage("./Login");
             }
 

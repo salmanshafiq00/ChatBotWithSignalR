@@ -89,16 +89,16 @@ namespace ChatBotWithSignalR.Areas.Admin.Controllers
                             //    await _toast.ToastSuccess("User Registered Successfully");
                             //    return new JsonResult(new { IsSuccess = true, Username = user.UserName, Password = model.Password });
                             //}
-                            await _toast.ToastSuccess("User Registered Successfully");
+                            await _toast.Success("User Registered Successfully");
                             return new JsonResult(new { IsSuccess = true, Username = user.UserName, Password = model.Password });
                         }
                     }
-                    await _toast.ToastError($"{result.Errors}");
+                    await _toast.Error($"{result.Errors}");
                     return new JsonResult(new { IsSuccess = false });
                 }
                 else
                 {
-                    await _toast.ToastError(ModelState.GetModelStateError());
+                    await _toast.Error(ModelState.GetModelStateError());
                     return new JsonResult(new { IsSuccess = false });
                 }
             }
