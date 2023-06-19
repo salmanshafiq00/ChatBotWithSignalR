@@ -121,6 +121,10 @@
       "PackagePath": "staticwebassets\\images\\users\\superadmin_20230526.jpg"
     },
     {
+      "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\users\\test22_20230619.png",
+      "PackagePath": "staticwebassets\\images\\users\\test22_20230619.png"
+    },
+    {
       "Id": "D:\\Programming\\Projects\\ChatBotWithSignalR\\ChatBotWithSignalR\\wwwroot\\images\\whatsBgImage.png",
       "PackagePath": "staticwebassets\\images\\whatsBgImage.png"
     },

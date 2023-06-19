@@ -33,9 +33,7 @@ namespace ChatBotWithSignalR.Areas.Admin.Models
 
         public string? ProfilePhotoUrl { get; set; } = string.Empty;
 
-
-        [Required]
-        public IFormFile ProfilePhoto { get; set; } = default!;
+        public IFormFile? ProfilePhoto { get; set; }
 
         //public bool IsChatUser { get; set; }
 

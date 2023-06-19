@@ -74,7 +74,7 @@ services.AddSignalR();
 //services.AddSession(options => {
 //    options.IdleTimeout = TimeSpan.FromMinutes(30);
 //});
-//services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
 
 var app = builder.Build();
 
