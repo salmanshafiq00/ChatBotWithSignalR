@@ -83,17 +83,23 @@ if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
 
-
     // Here seeding data of Superadmin user, role 
     using (var scope = app.Services.CreateScope())
     {
+        
         var seedingSevice = scope.ServiceProvider;
+
+        // Ensured Create database when run application
+        var dbcontext = seedingSevice.GetRequiredService<ApplicationDbContext>();
+        dbcontext.Database.EnsureCreated();
+
         // Here using UserManager<ApplicaitonUser> as service
         var userManager = seedingSevice.GetRequiredService<UserManager<ApplicationUser>>();
         var roleManager = seedingSevice.GetRequiredService<RoleManager<IdentityRole>>();
         await ChatBotWithSignalR.Seeds.DefaultRoles.SeedAsync(userManager, roleManager);
         await ChatBotWithSignalR.Seeds.DefaultUsers.SeedSuperAdminAsync(userManager, roleManager);
     }
+
 }
 else
 {

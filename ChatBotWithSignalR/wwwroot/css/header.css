@@ -216,7 +216,7 @@
 
 .header-nav .badge-number {
     position: absolute;
-    inset: 5px 8px auto auto;
+    inset: 1px -4px auto auto;
     font-weight: normal;
     font-size: 12px;
     padding: 3px 6px;

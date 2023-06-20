@@ -132,11 +132,6 @@ function addMessageToConversation(conversation) {
 // receive message from the Group client (Not working now)
 function addMessageToGroupConversation(conversation) {
     if (document.getElementById('loadConversions').contains(document.getElementById('messageList'))) {
-        //$(`#messageList`).append(`<li>${conversation.textMessage}</li>`);
-        //$(`#messageList`).append(`<div class="otherMessage">
-        //                            <pre>${conversation.textMessage}</pre>
-        //                            <span class="time">${conversation.toShortTime}</span>
-        //                         </div>`);
         setConversationWithUserToChatBox(conversation);
         scrollToBottom();
     } else {
@@ -195,7 +190,6 @@ function deleteGroup(groupId) {
     if (isConfirmed) {
         $.post(`/Chat/Chat/DeleteGroup`, { groupId: groupId }, (result) => {
             if (result.isSuccess) {
-                //alert(`Group(${result.groupName}) is deleted successfully`);
                 location.reload();
             }
             else {
@@ -211,11 +205,6 @@ function deleteGroup(groupId) {
 // Set conversation to chatbox
 function setConversationToChatBox(conversation) {
     if (conversation.textMessage) {
-        //$(`#messageList`).append(`<div class="otherMessage">
-        //                                <p id="toUserHeader">${conversation.fromUserName}</p>
-        //                                <pre>${conversation.textMessage}</pre>
-        //                                <span class="time">${conversation.toShortTime}</span>
-        //                             </div>`);
         $(`#messageList`).append(`<div class="message-box friend-message">
                                 <p>
                                    ${conversation.textMessage.replace(/\n\r?/g, '<br />')}
@@ -226,7 +215,6 @@ function setConversationToChatBox(conversation) {
     }
 
     if (conversation.conversationFiles.length > 0) {
-        debugger;
         for (var i = 0; i < conversation.conversationFiles.length; i++) {
             let fileType = conversation.conversationFiles[i].fileType.split('/')[0];
             let fileName = conversation.conversationFiles[i].fileName;
@@ -285,11 +273,6 @@ function setConversationToChatBox(conversation) {
 function setConversationWithUserToChatBox(conversation) {
     debugger;
     if (conversation.textMessage) {
-        //$(`#messageList`).append(`<div class="otherMessage">
-        //                                <p id="toUserHeader">${conversation.fromUserName}</p>
-        //                                <pre>${conversation.textMessage}</pre>
-        //                                <span class="time">${conversation.toShortTime}</span>
-        //                             </div>`);
         $(`#messageList`).append(`<div class="message-box friend-message">
                                 <p>
                                 <span class='fromUser'>${conversation.fromUserName}</span>
@@ -301,7 +284,6 @@ function setConversationWithUserToChatBox(conversation) {
     }
 
     if (conversation.conversationFiles.length > 0) {
-        debugger;
         for (var i = 0; i < conversation.conversationFiles.length; i++) {
             let fileType = conversation.conversationFiles[i].fileType.split('/')[0];
             let fileName = conversation.conversationFiles[i].fileName;
@@ -362,12 +344,7 @@ function setConversationWithUserToChatBox(conversation) {
 
 // Set conversation to caller
 function setConversationToCaller(result, msgContent, files) {
-    debugger;
     if (msgContent) {
-        //$(`#messageList`).append(`<div class="ownMessage">
-        //                                            <pre class="text-white text-wrap">${msgContent.replace(/\n\r?/g, '<br />')}</pre>
-        //                                            <span class="time">${result.time}</span>
-        //                                          </div>`);
         $(`#messageList`).append(`<div class="message-box my-message">
                                 <p>
                                    ${msgContent.replace(/\n\r?/g, '<br />')}
@@ -378,9 +355,7 @@ function setConversationToCaller(result, msgContent, files) {
 
     }
     if (files.files.length > 0) {
-        debugger;
         for (var i = 0; i < files.files.length; i++) {
-            debugger;
             let fileSrc = URL.createObjectURL(files.files[i])
             let fileType = files.files[i].type.split('/')[0];
             let fileName = files.files[i].name;

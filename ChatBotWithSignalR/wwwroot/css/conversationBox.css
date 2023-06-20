@@ -145,7 +145,7 @@
 
 .fromUser {
     margin-top: -12px !important;
-    text-align: left;
+    text-align: left !important;
 }
 
 .fileName, .fileSize {
