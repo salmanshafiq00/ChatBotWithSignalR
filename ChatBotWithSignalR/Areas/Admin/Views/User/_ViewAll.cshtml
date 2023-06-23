@@ -2,11 +2,16 @@
 @using ChatBotWithSignalR.Views.Shared.Components.RoleList;
 @model IEnumerable<ApplicationUserViewModel>
 
+<style>
+    .tblResponse{
+        overflow-x: auto !important;
+    }
+</style>
 <div class="card mt-3" id="userList">
     <div class="card-header alert-primary">
         <a asp-action="OnCreateOrEdit" asp-asp-controller="User" class="btn btn-primary"> Create</a>
     </div>
-    <div class="card-body">
+    <div class="card-body tblResponse">
         @if (Model.Any())
         {
             <table class="table table-bordered table-hover table-striped table-responsive">

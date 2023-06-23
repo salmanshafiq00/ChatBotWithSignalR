@@ -3,7 +3,13 @@
 @{
     ViewData["Title"] = "Create Or Edit User";
 }
-
+<style>
+    .button{
+        height: 73px;
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+</style>
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">User</h3>
@@ -121,13 +127,12 @@
                     </div>
                 </div>
             }
-            <div class="row p-3">
-                <button type="submit" class="btn alert-primary">Save</button>
+            <div class="row button p-3">
+                <button type="submit" class="btn btn-primary">Save</button>
             </div>
         </form>
     </div>
 </div>
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
 @section Scripts{
     <script>
         $(document).ready(() => {

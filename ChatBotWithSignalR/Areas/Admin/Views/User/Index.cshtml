@@ -8,15 +8,15 @@
     <div class="card-body">
         <div class="row">
             <div class="col-md-2">
-                <label class="form-label">Role</label>
+                <label class="form-label"><b>Role :</b></label>
             </div>
             <div class="col-md-7">
                 <div class="form-group">
                     @(await Component.InvokeAsync<RoleListViewComponent>(new { name = "RoleId", id = "RoleId", roleId = "", labelName = "", isRequired = "true" }))
                 </div>
             </div>
-            <div class="col-md-3">
-                <button class="btn alert-primary" id="loadBtn" onclick="loadUser()">Load User</button>
+            <div class="col-md-3 button">
+                <button class="btn btn-primary" id="loadBtn" onclick="loadUser()">Load User</button>
             </div>
         </div>
     </div>
