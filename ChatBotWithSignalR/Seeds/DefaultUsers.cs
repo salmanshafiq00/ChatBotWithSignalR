@@ -15,7 +15,7 @@ namespace ChatBotWithSignalR.Seeds
                 EmailConfirmed = true,
                 FirstName = "Super Admin",
                 LastName = "",
-                PhoneNumber = "1234567890"
+                PhoneNumber = "01555555555"
             };
             if ( userManager.Users.All(u => u.Id != defaultUser.Id))
             {
@@ -24,6 +24,7 @@ namespace ChatBotWithSignalR.Seeds
                 {
                     await userManager.CreateAsync(defaultUser, "123Pa$$word!");
                     await userManager.AddToRoleAsync(defaultUser, Roles.SuperAdmin.ToString());
+                    await userManager.AddToRoleAsync(defaultUser, Roles.ChatUser.ToString());
                 }
                 await roleManager.SeedClaimsForSuperAdmin();
             }

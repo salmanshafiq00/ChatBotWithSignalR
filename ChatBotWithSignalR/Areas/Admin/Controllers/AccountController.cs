@@ -9,6 +9,7 @@ using System.Text;
 using ChatBotWithSignalR.Interface;
 using ChatBotWithSignalR.DTOs;
 using ChatBotWithSignalR.Extensions;
+using ChatBotWithSignalR.Constant;
 
 namespace ChatBotWithSignalR.Areas.Admin.Controllers
 {
@@ -54,12 +55,12 @@ namespace ChatBotWithSignalR.Areas.Admin.Controllers
                     user.LastName = model.LastName.Trim();
                     user.UserName = model.UserName.Trim();
                     user.Email = model.Email.Trim();
-                    user.PhoneNumber = model.PhoneNumber.Trim();
+                    user.PhoneNumber = model.PhoneNumber?.Trim();
                     await _userManager.AddPasswordAsync(user, model.Password);
                     var result = await _userManager.CreateAsync(user, model.Password);
                     if (result.Succeeded)
                     {
-                        result = await _userManager.AddToRoleAsync(user, "ChatUser");
+                        result = await _userManager.AddToRoleAsync(user, Roles.ChatUser.ToString());
                         _logger.LogInformation("User created a new account with password.");
                         if (result.Succeeded)
                         {

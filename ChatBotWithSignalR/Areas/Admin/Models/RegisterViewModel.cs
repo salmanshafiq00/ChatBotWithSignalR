@@ -20,7 +20,7 @@ namespace ChatBotWithSignalR.Areas.Admin.Models
         public string UserName { get; set; } = string.Empty;
 
         [RegularExpression(@"^(?:\+88|88)?(01[0-9]\d{8})$", ErrorMessage = "Please input valid phone number")]
-        public string? PhoneNumber { get; set; } = string.Empty;
+        public string? PhoneNumber { get; set; }
 
         [Required]
         public string Gender { get; set; } = string.Empty;

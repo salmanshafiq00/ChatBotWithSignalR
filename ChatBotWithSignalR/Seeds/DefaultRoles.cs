@@ -8,6 +8,7 @@ namespace ChatBotWithSignalR.Seeds
         public static async Task SeedAsync (UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             await roleManager.CreateAsync(new IdentityRole(Roles.SuperAdmin.ToString()));
+            await roleManager.CreateAsync(new IdentityRole(Roles.ChatUser.ToString()));
         }
     }
 }
