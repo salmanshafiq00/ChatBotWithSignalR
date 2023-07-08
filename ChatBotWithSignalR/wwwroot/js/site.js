@@ -50,3 +50,18 @@ function checkDupplicateValue(el) {
         }
     }
 }
+
+function togglePassword(faIconEl) {
+    console.dir(faIconEl);
+    console.dir(faIconEl.previousSibling);
+    $(faIconEl).toggleClass("fa-eye fa-eye-slash");
+    let inputTag = faIconEl.previousElementSibling;
+    console.log(inputTag.type);
+
+    if (inputTag.type == "password") {
+        inputTag.type = "text";
+    } else {
+        inputTag.type = "password";
+    }
+}
+

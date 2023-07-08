@@ -93,3 +93,29 @@ html {
 .card-header {
     background-color: #fff !important;
 }
+
+.passwordToggle {
+    position: absolute !important;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #999;
+    inset: 44px 5px auto auto;
+}
+
+    /*.passwordToggle {
+    position: absolute !important;
+    top: 70% !important;
+    right: 5px !important;
+    transform: translateY(-58%) !important;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #999;
+}*/
+
+    .passwordToggle:hover {
+        color: #333;
+    }

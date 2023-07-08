@@ -138,6 +138,20 @@
         }
     }
 
+
+/*
+    .passwordToggle2 {
+        position: absolute !important;
+        top: 70% !important;
+        right: 19px !important;
+        transform: translateY(-58%) !important;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        color: #999;
+    }*/
+
 </style>
 
 
@@ -187,14 +201,16 @@
                 <span asp-validation-for="Gender" class="text-danger small"></span>
             </div>
 
-            <div class="input-box">
+            <div class="input-box" style="position: relative">
                 <span class="details">Password</span>
-                <input type="text" asp-for="Password" placeholder="Enter your password" required>
+                <input type="password" asp-for="Password" placeholder="Enter your password" required>
+                <i class="fas fa-eye passwordToggle" id="passwordToggle" onclick="togglePassword(this)"></i>
                 <span asp-validation-for="Password" class="text-danger small"></span>
             </div>
-            <div class="input-box">
+            <div class="input-box" style="position: relative">
                 <span class="details">Confirm Password</span>
-                <input type="text" asp-for="ConfirmPassword" placeholder="Confirm your password" required>
+                <input type="password" asp-for="ConfirmPassword" placeholder="Confirm your password" required>
+                <i class="fas fa-eye passwordToggle" id="passwordToggle" onclick="togglePassword(this)"></i>
                 <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
             </div>
         </div>
