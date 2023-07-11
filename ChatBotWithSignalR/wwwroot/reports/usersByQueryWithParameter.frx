@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="06/09/2023 15:24:26" ReportInfo.Modified="06/09/2023 16:56:34" ReportInfo.CreatorVersion="2023.2.17.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="06/09/2023 15:24:26" ReportInfo.Modified="07/11/2023 07:21:49" ReportInfo.CreatorVersion="2023.2.17.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -27,8 +27,8 @@ namespace FastReport
 }
 </ScriptText>
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqV5n69Z/jZBbOIkct1sJuR2o6KXqqllxbk6zuJm5J5u8akSIWcqvCVDvLMaOe2TOFLS4ELWe6FLX3LAR84fP2z/LPEL5vbcyiioYtMH44HtNdS5m1y0OkFksjoNBvAfp6GW+THIDShDNI5B+ybLpraX5Zycyr4OCUa2fv6D5iQciFbwV0QwncxN+2DUBSNxLXUrzTpIRYH4sT7yYj0i5yqg==">
-      <TableDataSource Name="Table" Alias="users" DataType="System.Int32" Enabled="true" SelectCommand="SELECT *&#13;&#10;FROM [IDENTITY].Users&#13;&#10;WHERE Id = IsNull(@id, Id)">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlq2l4mknHQFXd5L6Eru27LRSxHUI0Qc2Uj4rIwtPP8d7AqWCEiX9bnhwJ7O/DUMYUryvZc4M5PacBWee3LyKT4Tb8vf7QC3J5VDurRgEBNB3BCee3PkrGb5K7QnKR+wyH7mdyrO/jxF09fg6ikpwvLQHt+C/xXp18Yf7/pyD05rIXDXuwBFv8v6J6k0NNVeBoJ">
+      <TableDataSource Name="Table" Alias="users" DataType="System.Int32" Enabled="true" SelectCommand="SELECT *&#13;&#10;FROM [IDENTITY].Users&#13;&#10;WHERE Id = @id">
         <Column Name="Id" DataType="System.String"/>
         <Column Name="FirstName" DataType="System.String"/>
         <Column Name="LastName" DataType="System.String"/>
@@ -37,6 +37,17 @@ namespace FastReport
         <Column Name="UserName" DataType="System.String"/>
         <Column Name="Email" DataType="System.String"/>
         <Column Name="PhoneNumber" DataType="System.String"/>
+        <Column Name="NormalizedUserName" Enabled="false" DataType="System.String"/>
+        <Column Name="NormalizedEmail" Enabled="false" DataType="System.String"/>
+        <Column Name="EmailConfirmed" Enabled="false" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="PasswordHash" Enabled="false" DataType="System.String"/>
+        <Column Name="SecurityStamp" Enabled="false" DataType="System.String"/>
+        <Column Name="ConcurrencyStamp" Enabled="false" DataType="System.String"/>
+        <Column Name="PhoneNumberConfirmed" Enabled="false" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="TwoFactorEnabled" Enabled="false" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="LockoutEnd" Enabled="false" DataType="System.DateTimeOffset"/>
+        <Column Name="LockoutEnabled" Enabled="false" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="AccessFailedCount" Enabled="false" DataType="System.Int32"/>
         <CommandParameter Name="id" DataType="12" Expression="[id]"/>
       </TableDataSource>
     </MsSqlDataConnection>

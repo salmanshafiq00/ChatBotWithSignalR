@@ -119,11 +119,13 @@ namespace ChatBotWithSignalR.Areas.Identity.Pages.Account.Manage
                 FastReport.Utils.Config.WebMode = true;
                 Report report = new();
                 //var mssqlConnection = new MsSqlDataConnection();
-               // mssqlConnection.ConnectionString = _config.GetConnectionString("DefaultConnection");
+                // mssqlConnection.ConnectionString = _config.GetConnectionString("DefaultConnection");
                 //report.Dictionary.Connections.Add(mssqlConnection);
                 //string path = $@"{_env.WebRootPath}\reports\usersUsingSp.frx";
                 //string path = $@"{_env.WebRootPath}\reports\usersUsingQuery.frx";
-                string path = $@"{_env.WebRootPath}\reports\usersByQueryWithParameter.frx";
+                string a = _env.WebRootPath;
+                //string path = Path.Combine(_env.WebRootPath, "reports", "UsersByQueryWithParameter.frx");
+                string path = Path.Combine(_env.WebRootPath, "reports", "PersonalInfo.frx");
                 report.Report.Load(path);
                 string userName = HttpContext.User.Identity.Name;
                 string loginUserId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
