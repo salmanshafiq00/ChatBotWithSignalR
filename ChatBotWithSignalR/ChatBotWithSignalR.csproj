@@ -36,6 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\conversation\" />
     <Folder Include="wwwroot\images\users\" />
   </ItemGroup>
 

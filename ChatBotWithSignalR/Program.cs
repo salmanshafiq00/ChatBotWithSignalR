@@ -14,7 +14,6 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 var services = builder.Services;
-string defaultConnection = configuration.GetConnectionString("DefaultConnection");
 
 // Add services to the container.
 var connectionString = configuration.GetConnectionString("DefaultConnection");
