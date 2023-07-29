@@ -16,10 +16,22 @@ var configuration = builder.Configuration;
 var services = builder.Services;
 
 // Add services to the container.
+
+// sql server connection
 var connectionString = configuration.GetConnectionString("DefaultConnection");
-services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+//services.AddDbContext<ApplicationDbContext>(options =>
+//    options.UseSqlServer(connectionString));
+
+//services.AddDbContext<ApplicationDbContext>(options => 
+//    options.UseNpgsql(connectionString));
+
+services.AddEntityFrameworkNpgsql()
+    .AddDbContext<ApplicationDbContext>(options =>
+    options.UseNpgsql(connectionString));
+
 services.AddDatabaseDeveloperPageExceptionFilter();
+
+
 
 
 services.AddAuthentication()
